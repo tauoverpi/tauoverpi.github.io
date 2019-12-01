@@ -1,0 +1,12 @@
+<html><head><link rel=stylesheet type=text/css href=./css/skeleton.css/><link rel=stylesheet type=text/css href=./css/site.css/></head><body><h1 id="drawing-chaikin-curves">Drawing chaikin curves</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1">lerp s e r <span class="ot">=</span> s <span class="op">+</span> r <span class="op">*</span> (e <span class="op">-</span> s)</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3">lp (sx, sy) (ex, ey) r <span class="ot">=</span> (lerp sx ex r, lerp sy ey r)</a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5">cut r p p&#39; <span class="ot">=</span> <span class="kw">let</span> r&#39; <span class="ot">=</span> <span class="kw">if</span> r <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="kw">then</span> <span class="dv">1</span> <span class="op">-</span> r <span class="kw">else</span> r</a>
+<a class="sourceLine" id="cb1-6" title="6">             <span class="kw">in</span> [lp p p&#39; r&#39;, lp p&#39; p r&#39;]</a>
+<a class="sourceLine" id="cb1-7" title="7"></a>
+<a class="sourceLine" id="cb1-8" title="8">chaikin r xs <span class="ot">=</span></a>
+<a class="sourceLine" id="cb1-9" title="9">  <span class="fu">concat</span> <span class="op">$</span> <span class="fu">zipWith</span> <span class="fu">const</span></a>
+<a class="sourceLine" id="cb1-10" title="10">          (<span class="fu">zipWith</span> (cut r) (<span class="fu">cycle</span> xs) (<span class="fu">tail</span> <span class="op">$</span> <span class="fu">cycle</span> xs)) xs</a></code></pre></div>
+</body></html>
