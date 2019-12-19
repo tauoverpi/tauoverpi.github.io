@@ -46,13 +46,19 @@ input[type="checkbox"]:checked {
 
 .fu { color: #111111; }
 .kw { color: #000000; font-weight: bold; }
-.dt { color: #222222; }
+.dt { color: #222222; font-weight: bold; }
+.bu { color: #000000; font-weight: bold; }
+.op { color: #000000; font-weight: bold; }
+.cf { color: #000000; font-weight: bold; }
 
 .sourceLine { color: #000000; }
 .sourceLine:hover { color: #ff4630; }
 .sourceLine:hover > .kw { color: #ff4630; }
 .sourceLine:hover > .dt { color: #ff4630; }
 .sourceLine:hover > .fu { color: #ff4630; }
+.sourceLine:hover > .bu { color: #ff4630; }
+.sourceLine:hover > .op { color: #ff4630; }
+.sourceLine:hover > .cf { color: #ff4630; }
 
 code {
 	font-family: 'IBM Plex Mono';
@@ -112,9 +118,9 @@ img {
 }
 
 ::-webkit-scrollbar-track {
-	background: transparent;
+	background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #000000;
+	background: #ffffff;
 }

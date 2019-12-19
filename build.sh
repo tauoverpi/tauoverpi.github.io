@@ -1,5 +1,9 @@
 #!/bin/sh
 
+target="md"
+
+######
+
 skeleton="<link rel=\"stylesheet\" href=\"css/skeleton.css\"/>"
 site="<link rel=\"stylesheet\" href=\"css/site.css\"/>"
 meta="<meta charset=\"UTF-8\">"
@@ -16,13 +20,13 @@ footer="<div>Copyright (c) 2019${futuredate} Simon A. Nielsen Knights</div><div>
 background="<div class=\"stripe\"></div>"
 
 echo -n "<html><head>${header}</head><body>${background}<h1>Levy's blog</h1><div class=\"container\"><ul>" > index.html
-for m in `ls md`
+for m in `ls ${target}`
 do
 	name=`echo $m | sed 's,\.[a-z]*$,,'`
 
 	# html
 	echo "generating ${name}.html" && \
-		pandoc md/$m -o tmp/${name}.html -F diagrams-pandoc && \
+		pandoc ${target}/$m -o tmp/${name}.html -F diagrams-pandoc && \
 		echo -n "<html><head>${header}</head><body>" \
 		| sed 's:\(css/[a-z.]*\):../\1:g' \
 		> html/${name}.html && \
@@ -33,7 +37,7 @@ do
 		rm tmp/*.html
 
 	# pdf
-	echo "generating ${name}.pdf" && pandoc md/$m -o pdf/${name}.pdf -F diagrams-pandoc
+	echo "generating ${name}.pdf" && pandoc ${target}/$m -o pdf/${name}.pdf -F diagrams-pandoc
 
 	# index
 	title=`echo $name | sed -e 's,\([0-9][0-9]*\)-\([0-9][0-9]*\)-\([0-9][0-9]*\),\1/\2/\3 |,' -e 's,-, ,g'`
