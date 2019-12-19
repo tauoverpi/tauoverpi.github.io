@@ -1,0 +1,64 @@
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../css/skeleton.css"/><link rel="stylesheet" href="../css/site.css"/><link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet"></head><body><h1 id="interactive-documents">Interactive documents</h1>
+<div class="container">
+<h2 id="data-types">Data types</h2>
+<h3 id="pair">Pair</h3>
+<div class="sourceCode" id="pair"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="pair-1" title="1"><span class="kw">const</span> Pair <span class="op">=</span> x <span class="kw">=&gt;</span> y <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="pair-2" title="2">    (<span class="op">{</span></a>
+<a class="sourceLine" id="pair-3" title="3">        <span class="dt">fst</span><span class="op">:</span> x<span class="op">,</span></a>
+<a class="sourceLine" id="pair-4" title="4">        <span class="dt">snd</span><span class="op">:</span> y<span class="op">,</span></a>
+<a class="sourceLine" id="pair-5" title="5">        <span class="dt">bimap</span><span class="op">:</span> f <span class="kw">=&gt;</span> g <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="at">f</span>(x)) (<span class="at">g</span>(y))<span class="op">,</span></a>
+<a class="sourceLine" id="pair-6" title="6">        <span class="dt">lmap</span><span class="op">:</span> f <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="at">f</span>(x)) (y)<span class="op">,</span></a>
+<a class="sourceLine" id="pair-7" title="7">        <span class="dt">rmap</span><span class="op">:</span> g <span class="kw">=&gt;</span> <span class="at">Pair</span> (x) (<span class="at">g</span>(y))</a>
+<a class="sourceLine" id="pair-8" title="8">    <span class="op">}</span>)</a></code></pre></div>
+<h3 id="events">Events</h3>
+<div class="sourceCode" id="maybe"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="maybe-1" title="1"><span class="kw">const</span> Now <span class="op">=</span> x <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="maybe-2" title="2">    (<span class="op">{</span></a>
+<a class="sourceLine" id="maybe-3" title="3">        <span class="dt">match</span><span class="op">:</span> <span class="im">default</span> <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> <span class="at">f</span>(x)<span class="op">,</span></a>
+<a class="sourceLine" id="maybe-4" title="4">        <span class="dt">map</span><span class="op">:</span> f <span class="kw">=&gt;</span> <span class="at">Now</span>(<span class="at">f</span>(x))</a>
+<a class="sourceLine" id="maybe-5" title="5">    <span class="op">}</span>)</a></code></pre></div>
+<div class="sourceCode" id="maybe"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="maybe-1" title="1"><span class="kw">const</span> NotNow <span class="op">=</span> () <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="maybe-2" title="2">    (<span class="op">{</span></a>
+<a class="sourceLine" id="maybe-3" title="3">        <span class="dt">maybe</span><span class="op">:</span> <span class="im">default</span> <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> <span class="im">default</span><span class="op">,</span></a>
+<a class="sourceLine" id="maybe-4" title="4">        <span class="dt">map</span><span class="op">:</span> f <span class="kw">=&gt;</span> <span class="at">NotNow</span> ()</a>
+<a class="sourceLine" id="maybe-5" title="5">    <span class="op">}</span>)</a></code></pre></div>
+<h2 id="reactive">Reactive</h2>
+<p>Interactive documents rely heavily on user interaction which favours a reactive style of programming.</p>
+<h3 id="pure-wires">Pure wires</h3>
+<div class="sourceCode" id="identity"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="identity-1" title="1"><span class="kw">const</span> id <span class="op">=</span> () <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="at">Pair</span> (x) (<span class="at">id</span> ())</a></code></pre></div>
+<div class="sourceCode" id="composition"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="composition-1" title="1"><span class="kw">const</span> o <span class="op">=</span> f <span class="kw">=&gt;</span> g <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="composition-2" title="2">    <span class="kw">const</span> gx <span class="op">=</span> <span class="at">g</span> (x)</a>
+<a class="sourceLine" id="composition-3" title="3">    <span class="kw">const</span> fy <span class="op">=</span> <span class="at">f</span> (<span class="va">gx</span>.<span class="at">fst</span>)</a>
+<a class="sourceLine" id="composition-4" title="4">    <span class="cf">return</span> <span class="at">Pair</span> (<span class="va">fy</span>.<span class="at">fst</span>) (<span class="at">o</span> (<span class="va">fy</span>.<span class="at">snd</span>) (<span class="va">gx</span>.<span class="at">snd</span>))</a>
+<a class="sourceLine" id="composition-5" title="5"><span class="op">}</span></a></code></pre></div>
+<h3 id="stateful-wires">Stateful wires</h3>
+<div class="sourceCode" id="delay"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="delay-1" title="1"><span class="kw">const</span> delayed <span class="op">=</span> init <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="at">Pair</span> (init) (<span class="at">delay</span> (init))</a></code></pre></div>
+<div class="sourceCode" id="accum"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="accum-1" title="1"><span class="kw">const</span> accumed <span class="op">=</span> f <span class="kw">=&gt;</span> init <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="accum-2" title="2">    <span class="kw">const</span> r <span class="op">=</span> <span class="at">f</span> (init) (x)</a>
+<a class="sourceLine" id="accum-3" title="3">    <span class="cf">return</span> <span class="at">Pair</span> (r) (<span class="at">accum</span>(f<span class="op">,</span> r))</a>
+<a class="sourceLine" id="accum-4" title="4"><span class="op">}</span></a></code></pre></div>
+<div class="sourceCode" id="loop"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="loop-1" title="1"><span class="kw">const</span> looped <span class="op">=</span> w <span class="kw">=&gt;</span> init <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="loop-2" title="2"><span class="op">}</span></a></code></pre></div>
+<h3 id="event-wires">Event wires</h3>
+<div class="sourceCode" id="hold"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="hold-1" title="1"><span class="kw">const</span> holdon <span class="op">=</span> init <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="hold-2" title="2">    init <span class="op">===</span> x</a>
+<a class="sourceLine" id="hold-3" title="3">    <span class="op">?</span> <span class="at">Pair</span> (<span class="at">NotNow</span> ()) (<span class="at">hold</span> (init))</a>
+<a class="sourceLine" id="hold-4" title="4">    : <span class="at">Pair</span> (<span class="at">Now</span> (x)) (<span class="at">hold</span> (x))</a></code></pre></div>
+<div class="sourceCode" id="altdef"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="altdef-1" title="1"><span class="kw">const</span> altdef <span class="op">=</span> f <span class="kw">=&gt;</span> g <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="altdef-2" title="2">    <span class="kw">const</span> fx <span class="op">=</span> <span class="at">f</span>(x)</a>
+<a class="sourceLine" id="altdef-3" title="3">    <span class="cf">return</span> <span class="va">fx</span>.<span class="va">fst</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="altdef-4" title="4">        (gx <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="va">gx</span>.<span class="at">fst</span>) (<span class="at">altdef</span> (f) (<span class="va">gx</span>.<span class="at">snd</span>)) (<span class="at">g</span>(x))<span class="op">,</span></a>
+<a class="sourceLine" id="altdef-5" title="5">        r <span class="kw">=&gt;</span> <span class="at">Pair</span> (r) (<span class="at">altdef</span> (<span class="va">fx</span>.<span class="at">snd</span>) (g))</a>
+<a class="sourceLine" id="altdef-6" title="6">    )</a>
+<a class="sourceLine" id="altdef-7" title="7"><span class="op">}</span></a></code></pre></div>
+<div class="sourceCode" id="alt"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="alt-1" title="1"><span class="kw">const</span> alt <span class="op">=</span> f <span class="kw">=&gt;</span> g <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="alt-2" title="2">    <span class="kw">const</span> fx <span class="op">=</span> <span class="at">f</span>(x)</a>
+<a class="sourceLine" id="alt-3" title="3">    <span class="cf">return</span> <span class="va">fx</span>.<span class="va">fst</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="alt-4" title="4">        (gx <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="va">gx</span>.<span class="at">fst</span>) (<span class="at">alt</span> (f) (<span class="va">gx</span>.<span class="at">snd</span>)) (<span class="at">g</span>(x))<span class="op">,</span></a>
+<a class="sourceLine" id="alt-5" title="5">        _ <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="va">fx</span>.<span class="at">fst</span>) (<span class="at">alt</span> (<span class="va">fx</span>.<span class="at">snd</span>) (g))</a>
+<a class="sourceLine" id="alt-6" title="6">    )</a>
+<a class="sourceLine" id="alt-7" title="7"><span class="op">}</span></a></code></pre></div>
+<h3 id="applicatives">Applicatives</h3>
+<div class="sourceCode" id="delay"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="delay-1" title="1"><span class="kw">const</span> delay <span class="op">=</span> init <span class="kw">=&gt;</span> w <span class="kw">=&gt;</span> <span class="at">o</span> (<span class="at">delayed</span> (init)) (w)</a></code></pre></div>
+<h2 id="interactive">Interactive</h2>
+</div>
+<footer><div>Copyright (c) 2019 Simon A. Nielsen Knights</div><div></div></footer></body></html>

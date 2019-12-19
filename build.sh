@@ -37,7 +37,7 @@ do
 		rm tmp/*.html
 
 	# pdf
-	echo "generating ${name}.pdf" && pandoc ${target}/$m -o pdf/${name}.pdf -F diagrams-pandoc
+	# echo "generating ${name}.pdf" && pandoc ${target}/$m -o pdf/${name}.pdf -F diagrams-pandoc
 
 	# index
 	title=`echo $name | sed -e 's,\([0-9][0-9]*\)-\([0-9][0-9]*\)-\([0-9][0-9]*\),\1/\2/\3 |,' -e 's,-, ,g'`
