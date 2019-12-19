@@ -4,6 +4,7 @@ skeleton="<link rel=\"stylesheet\" href=\"css/skeleton.css\"/>"
 site="<link rel=\"stylesheet\" href=\"css/site.css\"/>"
 meta="<meta charset=\"UTF-8\">"
 fonts="<link href=\"https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap\" rel=\"stylesheet\">"
+fonts="${fonts}<link href=\"https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap\" rel=\"stylesheet\">"
 
 header="${meta}${skeleton}${site}${fonts}"
 
@@ -14,7 +15,7 @@ footer="<div>Copyright (c) 2019${futuredate} Simon A. Nielsen Knights</div><div>
 
 background="<div class=\"stripe\"></div>"
 
-echo -n "<html><head>${header}</head><body>${background}<div class=\"container\"><h1>Levy's blog</h1><ul>" > index.html
+echo -n "<html><head>${header}</head><body>${background}<h1>Levy's blog</h1><div class=\"container\"><ul>" > index.html
 for m in `ls md`
 do
 	name=`echo $m | sed 's,\.[a-z]*$,,'`

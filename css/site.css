@@ -1,5 +1,5 @@
 html { background: #ffffff; }
-body { color: #000000; }
+body { color: #000000; margin: 0px; }
 
 h1, h2 { text-align: center; }
 
@@ -70,37 +70,23 @@ pre > code {
 }
 
 h1 {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
 	font-size: 5em;
 	padding-top: 150px;
-	padding-bottom: 150px;
+	padding-bottom: 50px;
 	margin-bottom: 100px;
 	width: 100%;
-	background:
-		repeating-linear-gradient(
-			-45deg,
-			#000000,
-			#000000 0.2px,
-			transparent 0.4px,
-			transparent 120px
-		),
-		repeating-linear-gradient(
-			45deg,
-			#000000,
-			#000000 0.2px,
-			transparent 0.2px,
-			transparent 100px
-		);
-
+	height: 200px;
+	color: #ffffff;
+	background: #000000;
 }
 
 h2 {
 	padding-top: 50px;
-	padding-bottom: 50px;
+	padding-bottom: 0px;
 	margin-top: 150px;
 	margin-bottom: 50px;
-	border-style: solid;
-	border-color: #000000;
-	border-width: 0px 1px 0px 1px;
 }
 
 h3 {
