@@ -3,7 +3,9 @@
 skeleton="<link rel=\"stylesheet\" href=\"css/skeleton.css\"/>"
 site="<link rel=\"stylesheet\" href=\"css/site.css\"/>"
 meta="<meta charset=\"UTF-8\">"
-header="${meta}${skeleton}${site}"
+fonts="<link href=\"https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap\" rel=\"stylesheet\">"
+
+header="${meta}${skeleton}${site}${fonts}"
 
 generated="Generated on `date +'%F %H:%M'`"
 currentyear=`date +'%Y'`
