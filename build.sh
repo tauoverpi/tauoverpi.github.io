@@ -19,15 +19,18 @@ do
 
 	# html
 	echo "generating ${name}.html" && \
-		pandoc md/$m -o tmp/${name}.html && \
-		echo -n "<html><head>${header}</head><body><div class=\"container\">" \
-		| sed 's:\(css/[a-z.]*\):../\1:g'> html/${name}.html && \
-		cat tmp/${name}.html >> html/${name}.html && \
-		echo -n "</div><footer>${footer}</footer></body></html>" >> html/${name}.html && \
+		pandoc md/$m -o tmp/${name}.html -F diagrams-pandoc && \
+		echo -n "<html><head>${header}</head><body>" \
+		| sed 's:\(css/[a-z.]*\):../\1:g' \
+		> html/${name}.html && \
+		cat tmp/${name}.html \
+		| sed 's:\(images/[a-z0-9.]*\):../\1:g' \
+		>> html/${name}.html && \
+		echo -n "<footer>${footer}</footer></body></html>" >> html/${name}.html && \
 		rm tmp/*.html
 
 	# pdf
-	echo "generating ${name}.pdf" && pandoc md/$m -o pdf/${name}.pdf
+	echo "generating ${name}.pdf" && pandoc md/$m -o pdf/${name}.pdf -F diagrams-pandoc
 
 	# index
 	title=`echo $name | sed -e 's,\([0-9][0-9]*\)-\([0-9][0-9]*\)-\([0-9][0-9]*\),\1/\2/\3 |,' -e 's,-, ,g'`

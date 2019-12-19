@@ -1,6 +1,7 @@
 Explaining amb
 ==============
 
+<div class="container">
 While walking through the code of one of the assignment examples -- the student stumbled over the definition and use of `amb` within the code. Their difficulty was understanding why and how it worked even when they understood the procedures involved. Thus I thought I should write about it's definition and use in detail to clear up the cloud of mystery.
 
 Note, it's probably better to skip the definition and try the examples first to gain a feel for how `amb` is used.
@@ -120,3 +121,4 @@ for n in range(20):
 ```
 
 Given a bad implementation of `random.randint` our application could hang forever if we're checking against the last to roll again. So not checking would results in a lesser error than checking and recomputing as it's terminating.
+</div>

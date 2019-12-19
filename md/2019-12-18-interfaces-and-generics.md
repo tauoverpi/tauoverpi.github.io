@@ -1,8 +1,7 @@
 Interfaces, Generics, and Object-Algebras
 =========================================
 
-Once again, taken from a session of teaching.
-
+<div class="container">
 A Simple Algebra
 ----------------
 
@@ -201,3 +200,4 @@ public interface IScript<E,S>
     S If(S cond, S cons, S alt);
 }
 ```
+</div>

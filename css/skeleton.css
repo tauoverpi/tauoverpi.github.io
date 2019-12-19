@@ -158,7 +158,7 @@ p {
 /* Links
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 a {
-  color: #3046ff; }
+  color: #1EAEDB; }
 a:hover {
   color: #0FA0CE; }
 
@@ -311,9 +311,9 @@ code {
   margin: 0 .2rem;
   font-size: 90%;
   white-space: nowrap;
-  background: #110c0f;
-  border: 1px solid #000000;
-  border-radius: 0px; }
+  background: #F1F1F1;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px; }
 pre > code {
   display: block;
   padding: 1rem 1.5rem;
