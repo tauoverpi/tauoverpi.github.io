@@ -19,6 +19,31 @@ a:not(.sourceLine) {
 	text-decoration: none;
 }
 
+ul {
+	list-style: square inside;
+}
+
+input[type="checkbox"] {
+	-webkit-appearance: none;
+	display: inline-block;
+	padding: 12px;
+	border-style: solid;
+	bottom: -24px;
+	border-width: 1px;
+	border-color: #000000;
+	background: #ffffff;
+	position: relative;
+}
+
+input[type="checkbox"]:checked {
+	-webkit-appearance: none;
+	padding: 12px;
+	border-color: #ffffff;
+	background: #000000;
+
+
+}
+
 .fu { color: #111111; }
 .kw { color: #000000; font-weight: bold; }
 .dt { color: #222222; }
@@ -41,10 +66,11 @@ code {
 pre > code {
 	background: #ffffff;
 	color: #000000;
-	border-width: 1px 0px 1px 0px;
+	border-width: 0px 0px 0px 0px;
 }
 
 h1 {
+	font-size: 5em;
 	padding-top: 150px;
 	padding-bottom: 150px;
 	margin-bottom: 100px;
@@ -77,6 +103,18 @@ h2 {
 	border-width: 0px 1px 0px 1px;
 }
 
+h3 {
+	background: #000000;
+	color: #ffffff;
+	padding: 2px 8px;
+	font-size: 2.4rem;
+}
+
+h4 { font-size: 1.8rem; line-height: 1.35; letter-spacing: -.08rem; }
+h5 { font-size: 1.5rem; line-height: 1.5;  letter-spacing: -.05rem; }
+h6 { font-size: 1.2rem; line-height: 1.6;  letter-spacing: 0; }
+
+
 img {
 	display: block;
 	margin-left: auto;
@@ -88,7 +126,7 @@ img {
 }
 
 ::-webkit-scrollbar-track {
-	background: #ffffff;
+	background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
