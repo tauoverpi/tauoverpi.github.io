@@ -1,0 +1,9 @@
+html { background: #110c0f; }
+body { color: #eeeeee; }
+
+/* .stripe { width: 50px; height: 100%; display: float; position: absolute;  background: #aaaaaa; z-index: -1; } */
+
+.sourceLine { color: #eeeeee; }
+.fu { color: #30ff48; }
+.kw { color: #ff3048; }
+.dt { color: #3048ff; }

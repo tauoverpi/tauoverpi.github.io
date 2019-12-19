@@ -1,16 +1,18 @@
 #!/bin/sh
 
-skeleton="<link rel="stylesheet" href="css/skeleton.css"/>"
-normalize="<link rel="stylesheet" href="css/skeleton.css"/>"
-site="<link rel="stylesheet" href="css/site.css"/>"
-header="${header}${normalize}${site}"
+skeleton="<link rel=\"stylesheet\" href=\"css/skeleton.css\"/>"
+site="<link rel=\"stylesheet\" href=\"css/site.css\"/>"
+meta="<meta charset=\"UTF-8\">"
+header="${meta}${skeleton}${site}"
 
 generated="Generated on `date +'%F %H:%M'`"
 currentyear=`date +'%Y'`
 futuredate=`[ $currentyear -gt 2019 ] && echo " - ${currentyear}"`
 footer="<div>Copyright (c) 2019${futuredate} Simon A. Nielsen Knights</div><div>${Generated}</div>"
 
-echo -n "<html><head>${header}</head><h1>Levy's blog</h1><body><div class=\"container\"><ul>" > index.html
+background="<div class=\"stripe\"></div>"
+
+echo -n "<html><head>${header}</head><body>${background}<div class=\"container\"><h1>Levy's blog</h1><ul>" > index.html
 for m in `ls md`
 do
 	name=`echo $m | sed 's,\.[a-z]*$,,'`
@@ -18,9 +20,10 @@ do
 	# html
 	echo "generating ${name}.html" && \
 		pandoc md/$m -o tmp/${name}.html && \
-		echo -n "<html><head>${header}</head><body>" > html/${name}.html && \
+		echo -n "<html><head>${header}</head><body><div class=\"container\">" \
+		| sed 's:\(css/[a-z.]*\):../\1:g'> html/${name}.html && \
 		cat tmp/${name}.html >> html/${name}.html && \
-		echo -n "</body></html>" >> html/${name}.html && \
+		echo -n "</div><footer>${footer}</footer></body></html>" >> html/${name}.html && \
 		rm tmp/*.html
 
 	# pdf

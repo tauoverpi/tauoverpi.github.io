@@ -5,8 +5,7 @@ While walking through the code of one of the assignment examples -- the student 
 
 Note, it's probably better to skip the definition and try the examples first to gain a feel for how `amb` is used.
 
-Definition
-----------
+### Definition
 
 `amb` encompasses the concept of non-deterministic choice within it's tiny definition. The procedure, given a variable number of arguments, pick one to return from the given set. It does this by calling to `random.randint` from the `random` module as a source of non-determinism and thus has side effects which prevent us from knowing which value it returns before running it. `amb` requires at least two arguments to make sense as with only one it expresses the same behaviour as the identity function which is not our goal at all. The definition follows:
 
@@ -27,12 +26,11 @@ Next is line 5 which makes use of `random.randint` to get an arbitrary index int
 
 Finally on line 6 we return the chosen item by picking the value in `set` at the given `index` we computed.
 
-Examples of use
----------------
+### Examples of use
 
 Now that we have a detailed description of `amb` we're ready to put it to use!
 
-### Picking what to do
+#### Picking what to do
 
 All `amb` does is pick an item at random making it the perfect tool for deciding the next activity.
 
@@ -44,7 +42,7 @@ print(amb("listen to music",
           "bother an angle"))
 ```
 
-### Parting & greeting messages
+#### Parting & greeting messages
 
 `amb` in functions allows for defining non-deterministic functions with a fixed set of answers.
 
@@ -60,7 +58,7 @@ print("uh...")
 print(parting())
 ```
 
-### Coin flipping game
+#### Coin flipping game
 
 `amb` is also useful in games. The procedure is particularly useful when we need to repeatedly pick something without knowing beforehand which we'll get such as in this coin game. We start by defining the procedure `flipcoin` which returns `"heads"` and `"tails"` for representing the two sides of the coin.
 
@@ -87,7 +85,7 @@ print("you scored", score, "out of 9")
 
 The game invokes `flipcoin` to get a new coin state to compare with the player input. If equal; increment the score and print a message to congratulate the player on guessing right; otherwise the game mocks the player. This continues for nine rounds which conclude with the display of the final score. The game itself is relatively simple on it's own but with `amb` it removes even more of the complexity in picking the side of a coin.
 
-### Shuffle
+#### Shuffle
 
 Yet another use of `amb` is producing a new random order from a given list of an unknown order. The procedure `shuffle` produces a random order for any collection type by randomly swapping the elements around. We start by getting the `length` of the list of `items` and the `indices` of each before we iterate over the list of `indices`. `oldindex` is bound to the index and `newindex` to the list of items passed to `amb` as arguments. Note, when you see the `*indices` syntax in this position it means to expand the collection into arguments which fill all the slots of our procedure. An example of this `amb(*[1, 2])` is the same as `amb(1, 2)` yet in the former case we've expanded a list to fill the arguments of `amb`. Doing so for `newindex` frees us from having to think about how to pick at a random index and instead allows us to reuse `amb` which we're already familiar with.
 
@@ -107,8 +105,7 @@ def shuffle(items):
 
 This procedure is a bit more involved and introduced possibly new syntax yet it's concept and implementation are both made simple thanks to `amb`.
 
-amb is not perfect
-------------------
+### amb is not perfect
 
 There's one issue with `amb` that's inherent to any procedure dealing with random numbers. The sequence $[1_0, 1_1, 1_2, ..., 1_n-1]$ is perfectly valid as far as random numbers go and `amb` doesn't escape from true randomness. Had we wanted to make sure `amb` never returned the same result directly after the last we'd need to save the last result somewhere and compare. However, since we're dealing with non-determinism we have a few problems:
 
