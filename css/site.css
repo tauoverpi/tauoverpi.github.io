@@ -19,6 +19,15 @@ a:not(.sourceLine) {
 	text-decoration: none;
 }
 
+.fu { color: #111111; }
+.kw { color: #000000; font-weight: bold; }
+.dt { color: #222222; }
+
+.sourceLine { color: #000000; }
+.sourceLine:hover { color: #ff4630; }
+.sourceLine:hover > .kw { color: #ff4630; }
+.sourceLine:hover > .dt { color: #ff4630; }
+.sourceLine:hover > .fu { color: #ff4630; }
 
 code {
 	font-family: 'IBM Plex Mono';
@@ -34,11 +43,6 @@ pre > code {
 	color: #000000;
 	border-width: 1px 0px 1px 0px;
 }
-
-.sourceLine { color: #000000; }
-.fu { color: #111111; }
-.kw { color: #ff4630; }
-.dt { color: #222222; }
 
 h1 {
 	padding-top: 150px;
