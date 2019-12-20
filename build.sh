@@ -51,6 +51,8 @@ do
 done
 
 echo -n "<h3>Projects</h3>" >> index.html
+echo -n "<li><a href=\"projects/BackEndLexicon2019/index.html\">Lexicon 2019
+ASP.NET Assignment</a></li>" >> index.html
 
 rm tmp/*.html
 echo "" >> README.md
