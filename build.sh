@@ -10,19 +10,24 @@ meta="<meta charset=\"UTF-8\">"
 fonts="<link href=\"https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap\" rel=\"stylesheet\">"
 fonts="${fonts}<link href=\"https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap\" rel=\"stylesheet\">"
 
-header="${meta}${skeleton}${site}${fonts}"
-
 generated="Generated on `date +'%F %H:%M'`"
 currentyear=`date +'%Y'`
 futuredate=`[ $currentyear -gt 2019 ] && echo " - ${currentyear}"`
-footer="<div>Copyright (c) 2019${futuredate} Simon A. Nielsen Knights</div><div>${Generated}</div>"
+footer="Copyright (c) 2019${futuredate} Simon A. Nielsen Knights"
+header="${meta}${skeleton}${site}${fonts}"
 
-background="<div class=\"stripe\"></div>"
+echo -n "<html><head>${header}</head><body><h1>Levy's Articles</h1><div class=\"container\"><ul>" > index.html
+echo -n "<h3>Articles<h3>" >> index.html
+cat << EOF > README.md
+Levy's Articles
+===============
 
-echo -n "<html><head>${header}</head><body>${background}<h1>Levy's blog</h1><div class=\"container\"><ul>" > index.html
+A list of partially finished things I'm working on in my spare time.
+EOF
 for m in `ls ${target}`
 do
 	name=`echo $m | sed 's,\.[a-z]*$,,'`
+	title=`echo $name | sed -e 's,\([0-9][0-9]*\)-\([0-9][0-9]*\)-\([0-9][0-9]*\),\1/\2/\3 |,' -e 's,-, ,g'`
 
 	# html
 	echo "generating ${name}.html" && \
@@ -33,14 +38,26 @@ do
 		cat tmp/${name}.html \
 		| sed 's:\(images/[a-z0-9.]*\):../\1:g' \
 		>> html/${name}.html && \
-		echo -n "<footer>${footer}</footer></body></html>" >> html/${name}.html && \
-		rm tmp/*.html
+		echo -n "<footer>${footer}</footer></body></html>" >> html/${name}.html
+
+
+	echo "- [${title}](https://tauoverpi.github.com/html/${name}.html)" >> README.md
 
 	# pdf
 	# echo "generating ${name}.pdf" && pandoc ${target}/$m -o pdf/${name}.pdf -F diagrams-pandoc
 
 	# index
-	title=`echo $name | sed -e 's,\([0-9][0-9]*\)-\([0-9][0-9]*\)-\([0-9][0-9]*\),\1/\2/\3 |,' -e 's,-, ,g'`
 	echo -n "<li><a href=\"html/${name}.html\">${title}</a></li>" >> index.html
 done
+
+echo "copying over lexmvc"
+echo -n "<h3>Projects<h3>" >> index.html
+cp -r $HOME/projects/lexicon/site/html projects/lexmvc/
+cp -r $HOME/projects/lexicon/site/css projects/lexmvc/
+cp $HOME/projects/lexicon/site/index.html projects/lexmvc/
+echo -n "<li><a href=\"projects/lexmvc/index.html\">Lexicon MVC Assignments</a></li>" >> index.html
+
+rm tmp/*.html
+echo "" >> README.md
+echo "${footer}" >> README.md
 echo -n "</ul></div><footer>${footer}</footer></body></html>" >> index.html

@@ -1,0 +1,95 @@
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../css/skeleton.css"/><link rel="stylesheet" href="../css/site.css"/><link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet"></head><body><h1 id="configuration">Configuration</h1>
+<div class="container">
+<p>The project consist of items withing the <code>BackEnd</code> namespace.</p>
+<h2 id="entry-point">Entry-point</h2>
+<div class="sourceCode" id="cb1" data-file="src/BackEnd/Program.cs"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="cb1-1" title="1">&lt;&lt;program-modules&gt;&gt;</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">namespace</span> BackEnd</a>
+<a class="sourceLine" id="cb1-3" title="3">{</a>
+<a class="sourceLine" id="cb1-4" title="4">  &lt;&lt;define-the-program-<span class="kw">class</span>&gt;&gt;</a>
+<a class="sourceLine" id="cb1-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="define-the-program-class"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="define-the-program-class-1" title="1"><span class="kw">public</span> <span class="kw">class</span> Program</a>
+<a class="sourceLine" id="define-the-program-class-2" title="2">{</a>
+<a class="sourceLine" id="define-the-program-class-3" title="3">    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span>(<span class="dt">string</span>[] args)</a>
+<a class="sourceLine" id="define-the-program-class-4" title="4">    {</a>
+<a class="sourceLine" id="define-the-program-class-5" title="5">        <span class="fu">CreateHostBuilder</span>(args).<span class="fu">Build</span>().<span class="fu">Run</span>();</a>
+<a class="sourceLine" id="define-the-program-class-6" title="6">    }</a>
+<a class="sourceLine" id="define-the-program-class-7" title="7"></a>
+<a class="sourceLine" id="define-the-program-class-8" title="8">    <span class="kw">public</span> <span class="kw">static</span> IHostBuilder <span class="fu">CreateHostBuilder</span>(<span class="dt">string</span>[] args) =&gt;</a>
+<a class="sourceLine" id="define-the-program-class-9" title="9">        Host.<span class="fu">CreateDefaultBuilder</span>(args)</a>
+<a class="sourceLine" id="define-the-program-class-10" title="10">            .<span class="fu">ConfigureWebHostDefaults</span>(webBuilder =&gt;</a>
+<a class="sourceLine" id="define-the-program-class-11" title="11">            {</a>
+<a class="sourceLine" id="define-the-program-class-12" title="12">                webBuilder.<span class="fu">UseStartup</span>&lt;Startup&gt;();</a>
+<a class="sourceLine" id="define-the-program-class-13" title="13">            });</a>
+<a class="sourceLine" id="define-the-program-class-14" title="14">}</a></code></pre></div>
+<p>The modules used follows:</p>
+<div class="sourceCode" id="program-modules"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="program-modules-1" title="1"><span class="kw">using</span> System;</a>
+<a class="sourceLine" id="program-modules-2" title="2"><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</a>
+<a class="sourceLine" id="program-modules-3" title="3"><span class="kw">using</span> System.<span class="fu">Linq</span>;</a>
+<a class="sourceLine" id="program-modules-4" title="4"><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</a>
+<a class="sourceLine" id="program-modules-5" title="5"><span class="kw">using</span> Microsoft.<span class="fu">AspNetCore</span>.<span class="fu">Hosting</span>;</a>
+<a class="sourceLine" id="program-modules-6" title="6"><span class="kw">using</span> Microsoft.<span class="fu">Extensions</span>.<span class="fu">Configuration</span>;</a>
+<a class="sourceLine" id="program-modules-7" title="7"><span class="kw">using</span> Microsoft.<span class="fu">Extensions</span>.<span class="fu">Hosting</span>;</a>
+<a class="sourceLine" id="program-modules-8" title="8"><span class="kw">using</span> Microsoft.<span class="fu">Extensions</span>.<span class="fu">Logging</span>;</a></code></pre></div>
+<h2 id="initialization">Initialization</h2>
+<p>Initialization consists of just <code>Startup.cs</code> defining the <code>Startup</code> class within the project top-level namespace.</p>
+<div class="sourceCode" id="cb2" data-file="src/BackEnd/Startup.cs"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="cb2-1" title="1">&lt;&lt;include-startup-modules&gt;&gt;</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">namespace</span> BackEnd</a>
+<a class="sourceLine" id="cb2-3" title="3">{</a>
+<a class="sourceLine" id="cb2-4" title="4">  &lt;&lt;define-the-startup-<span class="kw">class</span>&gt;&gt;</a>
+<a class="sourceLine" id="cb2-5" title="5">}</a></code></pre></div>
+<p>The class is responsoible for launch and running configuration of services within the ASP.NET Core application.</p>
+<div class="sourceCode" id="define-the-startup-class"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="define-the-startup-class-1" title="1"><span class="kw">public</span> <span class="kw">class</span> Startup</a>
+<a class="sourceLine" id="define-the-startup-class-2" title="2">{</a>
+<a class="sourceLine" id="define-the-startup-class-3" title="3">  &lt;&lt;the-startup-constructor&gt;&gt;</a>
+<a class="sourceLine" id="define-the-startup-class-4" title="4">  &lt;&lt;the-<span class="kw">internal</span>-configuration&gt;&gt;</a>
+<a class="sourceLine" id="define-the-startup-class-5" title="5">  &lt;&lt;configuration-of-services&gt;&gt;</a>
+<a class="sourceLine" id="define-the-startup-class-6" title="6">  &lt;&lt;configure&gt;&gt;</a>
+<a class="sourceLine" id="define-the-startup-class-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="the-startup-constructor"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="the-startup-constructor-1" title="1"><span class="kw">public</span> <span class="fu">Startup</span>(IConfiguration configuration)</a>
+<a class="sourceLine" id="the-startup-constructor-2" title="2">{</a>
+<a class="sourceLine" id="the-startup-constructor-3" title="3">    Configuration = configuration;</a>
+<a class="sourceLine" id="the-startup-constructor-4" title="4">}</a></code></pre></div>
+<p>Configurations themselves are kept within an object derived from the <code>Startup</code> class but without a method for mutating outside of it.</p>
+<div class="sourceCode" id="the-internal-configuration"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="the-internal-configuration-1" title="1"><span class="kw">public</span> IConfiguration Configuration { <span class="kw">get</span>; }</a></code></pre></div>
+<div class="sourceCode" id="configuration-of-services"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="configuration-of-services-1" title="1"><span class="co">// This method gets called by the runtime. Use this method to add services to the container.</span></a>
+<a class="sourceLine" id="configuration-of-services-2" title="2"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ConfigureServices</span>(IServiceCollection services)</a>
+<a class="sourceLine" id="configuration-of-services-3" title="3">{</a>
+<a class="sourceLine" id="configuration-of-services-4" title="4">    services.<span class="fu">AddControllersWithViews</span>();</a>
+<a class="sourceLine" id="configuration-of-services-5" title="5">}</a></code></pre></div>
+<p>The HTTP pipeline</p>
+<div class="sourceCode" id="configure"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="configure-1" title="1"><span class="co">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span></a>
+<a class="sourceLine" id="configure-2" title="2"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">Configure</span>(IApplicationBuilder app, IWebHostEnvironment env)</a>
+<a class="sourceLine" id="configure-3" title="3">{</a>
+<a class="sourceLine" id="configure-4" title="4">  <span class="kw">if</span> (env.<span class="fu">IsDevelopment</span>())</a>
+<a class="sourceLine" id="configure-5" title="5">  {</a>
+<a class="sourceLine" id="configure-6" title="6">    app.<span class="fu">UseDeveloperExceptionPage</span>();</a>
+<a class="sourceLine" id="configure-7" title="7">  }</a>
+<a class="sourceLine" id="configure-8" title="8">  <span class="kw">else</span></a>
+<a class="sourceLine" id="configure-9" title="9">  {</a>
+<a class="sourceLine" id="configure-10" title="10">    app.<span class="fu">UseExceptionHandler</span>(<span class="st">&quot;/Home/Error&quot;</span>);</a>
+<a class="sourceLine" id="configure-11" title="11">    <span class="co">// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.</span></a>
+<a class="sourceLine" id="configure-12" title="12">    app.<span class="fu">UseHsts</span>();</a>
+<a class="sourceLine" id="configure-13" title="13">  }</a>
+<a class="sourceLine" id="configure-14" title="14">  app.<span class="fu">UseHttpsRedirection</span>();</a>
+<a class="sourceLine" id="configure-15" title="15">  app.<span class="fu">UseStaticFiles</span>();</a>
+<a class="sourceLine" id="configure-16" title="16"></a>
+<a class="sourceLine" id="configure-17" title="17">  app.<span class="fu">UseRouting</span>();</a>
+<a class="sourceLine" id="configure-18" title="18"></a>
+<a class="sourceLine" id="configure-19" title="19">  app.<span class="fu">UseAuthorization</span>();</a>
+<a class="sourceLine" id="configure-20" title="20"></a>
+<a class="sourceLine" id="configure-21" title="21">  app.<span class="fu">UseEndpoints</span>(Router.<span class="fu">SiteMapping</span>());</a>
+<a class="sourceLine" id="configure-22" title="22">}</a></code></pre></div>
+<p>A full listing of the modules used follows:</p>
+<div class="sourceCode" id="include-startup-modules"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="include-startup-modules-1" title="1"><span class="kw">using</span> System;</a>
+<a class="sourceLine" id="include-startup-modules-2" title="2"><span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;</a>
+<a class="sourceLine" id="include-startup-modules-3" title="3"><span class="kw">using</span> System.<span class="fu">Linq</span>;</a>
+<a class="sourceLine" id="include-startup-modules-4" title="4"><span class="kw">using</span> System.<span class="fu">Threading</span>.<span class="fu">Tasks</span>;</a>
+<a class="sourceLine" id="include-startup-modules-5" title="5"><span class="kw">using</span> Microsoft.<span class="fu">AspNetCore</span>.<span class="fu">Builder</span>;</a>
+<a class="sourceLine" id="include-startup-modules-6" title="6"><span class="kw">using</span> Microsoft.<span class="fu">AspNetCore</span>.<span class="fu">Hosting</span>;</a>
+<a class="sourceLine" id="include-startup-modules-7" title="7"><span class="kw">using</span> Microsoft.<span class="fu">AspNetCore</span>.<span class="fu">HttpsPolicy</span>;</a>
+<a class="sourceLine" id="include-startup-modules-8" title="8"><span class="kw">using</span> Microsoft.<span class="fu">Extensions</span>.<span class="fu">Configuration</span>;</a>
+<a class="sourceLine" id="include-startup-modules-9" title="9"><span class="kw">using</span> Microsoft.<span class="fu">Extensions</span>.<span class="fu">DependencyInjection</span>;</a>
+<a class="sourceLine" id="include-startup-modules-10" title="10"><span class="kw">using</span> Microsoft.<span class="fu">Extensions</span>.<span class="fu">Hosting</span>;</a>
+<a class="sourceLine" id="include-startup-modules-11" title="11"><span class="kw">using</span> BackEnd.<span class="fu">Routing</span>;</a></code></pre></div>
+</div>
+<footer>Copyright (c) 2019 Simon A. Nielsen Knights</footer></body></html>

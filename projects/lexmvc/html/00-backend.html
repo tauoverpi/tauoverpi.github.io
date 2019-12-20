@@ -1,0 +1,17 @@
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../css/skeleton.css"/><link rel="stylesheet" href="../css/site.css"/><link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet"></head><body><div class="container">
+<h2 id="scripts-git">Scripts &amp; Git</h2>
+<h3 id="make">Make</h3>
+<p><code>Makefile</code> contains tools enabling fluid workflow for the project.</p>
+<pre class="make" data-file="Makefile"><code>.PHONY: tangle commit pdf
+&lt;&lt;tangle&gt;&gt;
+&lt;&lt;commit&gt;&gt;
+&lt;&lt;pdf&gt;&gt;</code></pre>
+<p>Invocation of enTangleD.</p>
+<pre id="tangle" class="make"><code>tangle:
+    @clear
+    @entangled doc/??-*.md</code></pre>
+<pre id="commit" class="make"><code></code></pre>
+<pre id="pdf" class="make"><code>pdf:
+    pandoc doc/??-*.md -F diagrams-pandoc -o /tmp/pandoc.pdf</code></pre>
+</div>
+<footer>Copyright (c) 2019 Simon A. Nielsen Knights</footer></body></html>
