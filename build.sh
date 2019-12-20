@@ -17,7 +17,7 @@ footer="Copyright (c) 2019${futuredate} Simon A. Nielsen Knights"
 header="${meta}${skeleton}${site}${fonts}"
 
 echo -n "<html><head>${header}</head><body><h1>Levy's Articles</h1><div class=\"container\"><ul>" > index.html
-echo -n "<h3>Articles</h3>" >> index.html
+echo -n "<div class=\"columns six\"><h3>Articles</h3>" >> index.html
 cat << EOF > README.md
 Levy's Articles
 ===============
@@ -50,9 +50,10 @@ do
 	echo -n "<li><a href=\"html/${name}.html\">${title}</a></li>" >> index.html
 done
 
-echo -n "<h3>Projects</h3>" >> index.html
+echo -n "</div><div class=\"columns six\"><h3>Projects</h3>" >> index.html
 echo -n "<li><a href=\"projects/BackEndLexicon2019/index.html\">Lexicon 2019
 ASP.NET Assignment</a></li>" >> index.html
+echo -n "</div>" >> index.html
 
 rm tmp/*.html
 echo "" >> README.md
