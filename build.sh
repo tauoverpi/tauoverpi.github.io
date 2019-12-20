@@ -17,7 +17,7 @@ footer="Copyright (c) 2019${futuredate} Simon A. Nielsen Knights"
 header="${meta}${skeleton}${site}${fonts}"
 
 echo -n "<html><head>${header}</head><body><h1>Levy's Articles</h1><div class=\"container\"><ul>" > index.html
-echo -n "<h3>Articles<h3>" >> index.html
+echo -n "<h3>Articles</h3>" >> index.html
 cat << EOF > README.md
 Levy's Articles
 ===============
@@ -50,12 +50,7 @@ do
 	echo -n "<li><a href=\"html/${name}.html\">${title}</a></li>" >> index.html
 done
 
-echo "copying over lexmvc"
-echo -n "<h3>Projects<h3>" >> index.html
-cp -r $HOME/projects/lexicon/site/html projects/lexmvc/
-cp -r $HOME/projects/lexicon/site/css projects/lexmvc/
-cp $HOME/projects/lexicon/site/index.html projects/lexmvc/
-echo -n "<li><a href=\"projects/lexmvc/index.html\">Lexicon MVC Assignments</a></li>" >> index.html
+echo -n "<h3>Projects</h3>" >> index.html
 
 rm tmp/*.html
 echo "" >> README.md

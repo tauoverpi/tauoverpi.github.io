@@ -1,0 +1,3 @@
+[submodule "BackEndLexicon2019"]
+	path = projects/BackEndLexicon2019
+	url = https://github.com/tauoverpi/BackEndLexicon2019
