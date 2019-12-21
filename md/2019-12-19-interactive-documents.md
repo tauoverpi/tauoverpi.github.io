@@ -1,115 +1,89 @@
-Interactive documents
-=====================
+---
+title: Interactive Documents
+...
 
 <div class="container">
-Data types
-----------
+<p class="notice">NOTICE: Document not complete</p>
 
-### Pair
+Functional Programming
+----------------------
 
-```{.js #pair}
-const Pair = x => y =>
-    ({
-        fst: x,
-        snd: y,
-        bimap: f => g => Pair (f(x)) (g(y)),
-        lmap: f => Pair (f(x)) (y),
-        rmap: g => Pair (x) (g(y))
-    })
+### List
+
+```{.hs #list}
+data List a = Nil | Cons a (List a)
 ```
 
-### Events
-
-```{.js #maybe}
-const Now = x =>
-    ({
-        match: default => f => f(x),
-        map: f => Now(f(x))
-    })
+```{.hs #list}
+infixr 6 Cons as :
 ```
 
-```{.js #maybe}
-const NotNow = () =>
-    ({
-        maybe: default => f => default,
-        map: f => NotNow ()
-    })
+### Type Classes
+
+```{.hs #class-semigroup}
+class Semigroup a where
+    append :: a -> a -> a
 ```
 
-
-Reactive
---------
-
-Interactive documents rely heavily on user interaction which favours a reactive
-style of programming.
-
-### Pure wires
-
-```{.js #identity}
-const id = () => x => Pair (x) (id ())
+```{.hs #class-monoid}
+class Semigroup a <= Monoid a where
+    mempty :: a
 ```
 
-```{.js #composition}
-const o = f => g => x => {
-    const gx = g (x)
-    const fy = f (gx.fst)
-    return Pair (fy.fst) (o (fy.snd) (gx.snd))
-}
+### Type Classes Continued
+
+```{.hs #base-classes}
+class Functor f where
+    map :: forall a b. (a -> b) -> f a -> f b
 ```
 
-### Stateful wires
-
-```{.js #delay}
-const delayed = init => x => Pair (init) (delay (init))
+```{.hs #base-classes}
+class Pure f where
+    pure :: forall a. a -> f a
 ```
 
-```{.js #accum}
-const accumed = f => init => x => {
-    const r = f (init) (x)
-    return Pair (r) (accum(f, r))
-}
+```{.hs #base-classes}
+class Functor f <= Apply fwhere
+    ap :: forall a b. f (a -> b) -> f a -> f b
 ```
 
-```{.js #loop}
-const looped = w => init => x => {
-}
+```{.hs #base-classes}
+class (Apply f, Pure f) <= Applicative where
 ```
 
-### Event wires
+### IO
 
-```{.js #hold}
-const holdon = init => x =>
-    init === x
-    ? Pair (NotNow ()) (hold (init))
-    : Pair (Now (x)) (hold (x))
+<p class="guest">The example</p> <p class="me">well maybe not</p>
+
+```{.hs #io}
+foreign import data IO :: Type -> Type
+
+foreign import pureIO :: forall a. a -> IO a
+foreign import apIO :: forall a b. IO (a -> b) -> IO a -> IO b
+foreign import mapIO :: forall a b. (a -> b) -> IO a -> IO b
+foreign import bindIO :: forall a b. IO a -> (a -> IO b) -> IO b
 ```
 
-```{.js #altdef}
-const altdef = f => g => x => {
-    const fx = f(x)
-    return fx.fst.match(
-        (gx => Pair (gx.fst) (altdef (f) (gx.snd)) (g(x)),
-        r => Pair (r) (altdef (fx.snd) (g))
-    )
-}
+### Canvas
+
+```{.hs}
+foreign import data Canvas :: Type
+foreign import data Context2D :: Type
+foreign import createCanvas :: Int -> Int -> String -> IO Canvas
+foreign import getContext2D :: Canvas -> IO Context2D
+foreign import setCtxFillStyle :: String -> IO Unit
+foreign import setCtxFillRect :: Int -> Int -> Int -> Int -> IO Unit
 ```
 
-```{.js #alt}
-const alt = f => g => x => {
-    const fx = f(x)
-    return fx.fst.match(
-        (gx => Pair (gx.fst) (alt (f) (gx.snd)) (g(x)),
-        _ => Pair (fx.fst) (alt (fx.snd) (g))
-    )
-}
+### Animation
+
+```{.hs}
+foreign import requestAnimationFrame :: (Unit -> IO Unit) -> IO Unit
 ```
 
-### Applicatives
-
-```{.js #delay}
-const delay = init => w => o (delayed (init)) (w)
+```{.hs file=src/purescript/InteractiveDocuments/ID.purs}
+module ID where
+<<classes>>
 ```
 
-Interactive
------------
 </div>

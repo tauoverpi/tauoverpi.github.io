@@ -1,4 +1,75 @@
-<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../css/skeleton.css"/><link rel="stylesheet" href="../css/site.css"/><link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet"></head><body><h1 id="explaining-amb">Explaining amb</h1>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Explaining amb</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { font-weight: bold; } /* Alert */
+code span.an { font-style: italic; } /* Annotation */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.co { font-style: italic; } /* Comment */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.do { font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.er { font-weight: bold; } /* Error */
+code span.in { font-style: italic; } /* Information */
+code span.kw { font-weight: bold; } /* Keyword */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.wa { font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../css/normalize.css" />
+  <link rel="stylesheet" href="../css/skeleton.css" />
+  <link rel="stylesheet" href="../css/site.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  		<meta charset="UTF-8">
+  		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  		<link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Explaining amb</h1>
+</header>
 <div class="container">
 <p>While walking through the code of one of the assignment examples – the student stumbled over the definition and use of <code>amb</code> within the code. Their difficulty was understanding why and how it worked even when they understood the procedures involved. Thus I thought I should write about it’s definition and use in detail to clear up the cloud of mystery.</p>
 <p>Note, it’s probably better to skip the definition and try the examples first to gain a feel for how <code>amb</code> is used.</p>
@@ -10,9 +81,9 @@
 <a class="sourceLine" id="cb1-4" title="4">    <span class="bu">set</span> <span class="op">=</span> (item0,) <span class="op">+</span> (item1,) <span class="op">+</span> items</a>
 <a class="sourceLine" id="cb1-5" title="5">    index <span class="op">=</span> random.randint(<span class="dv">0</span>, <span class="bu">len</span>(items) <span class="op">+</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb1-6" title="6">    <span class="cf">return</span> <span class="bu">set</span>[index]</a></code></pre></div>
-<p>The definition is relatively short and could be made shorter had we declared the set and index inline. <code>amb</code> takes three arguments where the third <code>*items</code> is a collection of all arguments past the first two we pass it on line 3. This allows for <code>amb</code> to be used with <code>n + 2</code> arguments which can be expressed as <span class="math inline"><em>a</em><em>m</em><em>b</em>(<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, ..., <em>a</em><sub><em>n</em> − 1</sub>)</span> with the result of freeing us from having to think about <code>amb</code> being any different than <code>print</code> modulo the keyword arguments.</p>
+<p>The definition is relatively short and could be made shorter had we declared the set and index inline. <code>amb</code> takes three arguments where the third <code>*items</code> is a collection of all arguments past the first two we pass it on line 3. This allows for <code>amb</code> to be used with <code>n + 2</code> arguments which can be expressed as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>m</mi><mi>b</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>0</mn></msub><mo>,</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><msub><mi>a</mi><mn>2</mn></msub><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">amb(a_0, a_1, a_2, ..., a_{n-1})</annotation></semantics></math> with the result of freeing us from having to think about <code>amb</code> being any different than <code>print</code> modulo the keyword arguments.</p>
 <p>Line 4 contains the definition of the set we’ll later pick from. Note that the order we compose them in has no effect on the result as the index is picked at random without respect to the actual order of the collection. The slightly unfamiliar syntax of <code>(item0,)</code> creates a new 1-tuple which is needed as <code>*items</code> is passed as an n-tuple which is a list-like collection type supported by python. Tuples themselves allow python to return multiple values instead of just one from procedures. This is desired as quite a few calculations have more than one result we may be interested in. Back on-topic, <code>(item0,) + (item1,) + items</code> concatenates tuples much like a list would and ends in a set represented by an n-tuple of <code>len(items) + 2</code> size. Note, there’s no need to digest all of this at once as <code>amb</code> could really have used any collection type as long as it supports concatenation and indexing.</p>
-<p>Next is line 5 which makes use of <code>random.randint</code> to get an arbitrary index into the n-tuple. The upper bound is <span class="math inline"><em>l</em><em>e</em><em>n</em>(<em>i</em><em>t</em><em>e</em><em>m</em><em>s</em>) + 1</span> as we take two arguments thus the length of <code>items</code> represents two less than the actual length of the n-tuple <code>set</code> and one less than the index range of <code>set</code>. Thus it’s clear that the relation between <code>set</code> and <code>items</code> is <span class="math inline"><em>l</em><em>e</em><em>n</em>(<em>s</em><em>e</em><em>t</em>) − 1 = <em>l</em><em>e</em><em>n</em>(<em>i</em><em>t</em><em>e</em><em>m</em><em>s</em>) + 1</span> where the largest index is <span class="math inline"><em>l</em><em>e</em><em>n</em>(<em>s</em><em>e</em><em>t</em>) − 1</span> which is why we add one to the <code>length</code> of <code>items</code>.</p>
+<p>Next is line 5 which makes use of <code>random.randint</code> to get an arbitrary index into the n-tuple. The upper bound is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>e</mi><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>t</mi><mi>e</mi><mi>m</mi><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">len(items) + 1</annotation></semantics></math> as we take two arguments thus the length of <code>items</code> represents two less than the actual length of the n-tuple <code>set</code> and one less than the index range of <code>set</code>. Thus it’s clear that the relation between <code>set</code> and <code>items</code> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>e</mi><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mi>e</mi><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn><mo>=</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mi>t</mi><mi>e</mi><mi>m</mi><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">len(set) - 1 = len(items) + 1</annotation></semantics></math> where the largest index is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>e</mi><mi>n</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mi>e</mi><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">len(set) - 1</annotation></semantics></math> which is why we add one to the <code>length</code> of <code>items</code>.</p>
 <p>Finally on line 6 we return the chosen item by picking the value in <code>set</code> at the given <code>index</code> we computed.</p>
 <h3 id="examples-of-use">Examples of use</h3>
 <p>Now that we have a detailed description of <code>amb</code> we’re ready to put it to use!</p>
@@ -38,7 +109,7 @@
 <p><code>amb</code> is also useful in games. The procedure is particularly useful when we need to repeatedly pick something without knowing beforehand which we’ll get such as in this coin game. We start by defining the procedure <code>flipcoin</code> which returns <code>"heads"</code> and <code>"tails"</code> for representing the two sides of the coin.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">def</span> flipcoin():</a>
 <a class="sourceLine" id="cb4-2" title="2">    <span class="cf">return</span> amb(<span class="st">&quot;heads&quot;</span>, <span class="st">&quot;tails&quot;</span>)</a></code></pre></div>
-<p>After, we dive into the game itself with a <code>score</code> set to <code>0</code> and a loop over the interval <span class="math inline">[0, 9)</span> to kick off the nine rounds.</p>
+<p>After, we dive into the game itself with a <code>score</code> set to <code>0</code> and a loop over the interval <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>9</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[0,9)</annotation></semantics></math> to kick off the nine rounds.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1">score <span class="op">=</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">9</span>):</a>
 <a class="sourceLine" id="cb5-3" title="3">    text <span class="op">=</span> <span class="bu">input</span>(<span class="st">&quot;heads or tails?: &quot;</span>)</a>
@@ -65,7 +136,7 @@
 <a class="sourceLine" id="cb6-9" title="9">            items[oldindex] <span class="op">=</span> tmp</a></code></pre></div>
 <p>This procedure is a bit more involved and introduced possibly new syntax yet it’s concept and implementation are both made simple thanks to <code>amb</code>.</p>
 <h3 id="amb-is-not-perfect">amb is not perfect</h3>
-<p>There’s one issue with <code>amb</code> that’s inherent to any procedure dealing with random numbers. The sequence <span class="math inline">[1<sub>0</sub>, 1<sub>1</sub>, 1<sub>2</sub>, ..., 1<sub><em>n</em></sub> − 1]</span> is perfectly valid as far as random numbers go and <code>amb</code> doesn’t escape from true randomness. Had we wanted to make sure <code>amb</code> never returned the same result directly after the last we’d need to save the last result somewhere and compare. However, since we’re dealing with non-determinism we have a few problems:</p>
+<p>There’s one issue with <code>amb</code> that’s inherent to any procedure dealing with random numbers. The sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msub><mn>1</mn><mn>0</mn></msub><mo>,</mo><msub><mn>1</mn><mn>1</mn></msub><mo>,</mo><msub><mn>1</mn><mn>2</mn></msub><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msub><mn>1</mn><mi>n</mi></msub><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[1_0, 1_1, 1_2, ..., 1_n-1]</annotation></semantics></math> is perfectly valid as far as random numbers go and <code>amb</code> doesn’t escape from true randomness. Had we wanted to make sure <code>amb</code> never returned the same result directly after the last we’d need to save the last result somewhere and compare. However, since we’re dealing with non-determinism we have a few problems:</p>
 <ol type="1">
 <li>non-determinism means it’s possible to get the same value over and over again forever! This rarely happens in practice but when it does, software systems break spectacularly such as the recent locking up of the Linux kernel trying to get a unique random number each and repeating the request for all eternity as it refuses to move progress forward without a unique number. The same can happen to out code so we need to be careful, take the following for example:</li>
 </ol>
@@ -76,4 +147,5 @@
 <a class="sourceLine" id="cb7-5" title="5">        <span class="bu">print</span>(<span class="st">&quot;differet&quot;</span>)</a></code></pre></div>
 <p>Given a bad implementation of <code>random.randint</code> our application could hang forever if we’re checking against the last to roll again. So not checking would results in a lesser error than checking and recomputing as it’s terminating.</p>
 </div>
-<footer>Copyright (c) 2019 Simon A. Nielsen Knights</footer></body></html>
+</body>
+</html>

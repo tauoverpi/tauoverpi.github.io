@@ -1,64 +1,120 @@
-<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../css/skeleton.css"/><link rel="stylesheet" href="../css/site.css"/><link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet"></head><body><h1 id="interactive-documents">Interactive documents</h1>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Interactive Documents</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { font-weight: bold; } /* Alert */
+code span.an { font-style: italic; } /* Annotation */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.co { font-style: italic; } /* Comment */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.do { font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.er { font-weight: bold; } /* Error */
+code span.in { font-style: italic; } /* Information */
+code span.kw { font-weight: bold; } /* Keyword */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.wa { font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../css/normalize.css" />
+  <link rel="stylesheet" href="../css/skeleton.css" />
+  <link rel="stylesheet" href="../css/site.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  		<meta charset="UTF-8">
+  		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  		<link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Interactive Documents</h1>
+</header>
 <div class="container">
-<h2 id="data-types">Data types</h2>
-<h3 id="pair">Pair</h3>
-<div class="sourceCode" id="pair"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="pair-1" title="1"><span class="kw">const</span> Pair <span class="op">=</span> x <span class="kw">=&gt;</span> y <span class="kw">=&gt;</span></a>
-<a class="sourceLine" id="pair-2" title="2">    (<span class="op">{</span></a>
-<a class="sourceLine" id="pair-3" title="3">        <span class="dt">fst</span><span class="op">:</span> x<span class="op">,</span></a>
-<a class="sourceLine" id="pair-4" title="4">        <span class="dt">snd</span><span class="op">:</span> y<span class="op">,</span></a>
-<a class="sourceLine" id="pair-5" title="5">        <span class="dt">bimap</span><span class="op">:</span> f <span class="kw">=&gt;</span> g <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="at">f</span>(x)) (<span class="at">g</span>(y))<span class="op">,</span></a>
-<a class="sourceLine" id="pair-6" title="6">        <span class="dt">lmap</span><span class="op">:</span> f <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="at">f</span>(x)) (y)<span class="op">,</span></a>
-<a class="sourceLine" id="pair-7" title="7">        <span class="dt">rmap</span><span class="op">:</span> g <span class="kw">=&gt;</span> <span class="at">Pair</span> (x) (<span class="at">g</span>(y))</a>
-<a class="sourceLine" id="pair-8" title="8">    <span class="op">}</span>)</a></code></pre></div>
-<h3 id="events">Events</h3>
-<div class="sourceCode" id="maybe"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="maybe-1" title="1"><span class="kw">const</span> Now <span class="op">=</span> x <span class="kw">=&gt;</span></a>
-<a class="sourceLine" id="maybe-2" title="2">    (<span class="op">{</span></a>
-<a class="sourceLine" id="maybe-3" title="3">        <span class="dt">match</span><span class="op">:</span> <span class="im">default</span> <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> <span class="at">f</span>(x)<span class="op">,</span></a>
-<a class="sourceLine" id="maybe-4" title="4">        <span class="dt">map</span><span class="op">:</span> f <span class="kw">=&gt;</span> <span class="at">Now</span>(<span class="at">f</span>(x))</a>
-<a class="sourceLine" id="maybe-5" title="5">    <span class="op">}</span>)</a></code></pre></div>
-<div class="sourceCode" id="maybe"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="maybe-1" title="1"><span class="kw">const</span> NotNow <span class="op">=</span> () <span class="kw">=&gt;</span></a>
-<a class="sourceLine" id="maybe-2" title="2">    (<span class="op">{</span></a>
-<a class="sourceLine" id="maybe-3" title="3">        <span class="dt">maybe</span><span class="op">:</span> <span class="im">default</span> <span class="kw">=&gt;</span> f <span class="kw">=&gt;</span> <span class="im">default</span><span class="op">,</span></a>
-<a class="sourceLine" id="maybe-4" title="4">        <span class="dt">map</span><span class="op">:</span> f <span class="kw">=&gt;</span> <span class="at">NotNow</span> ()</a>
-<a class="sourceLine" id="maybe-5" title="5">    <span class="op">}</span>)</a></code></pre></div>
-<h2 id="reactive">Reactive</h2>
-<p>Interactive documents rely heavily on user interaction which favours a reactive style of programming.</p>
-<h3 id="pure-wires">Pure wires</h3>
-<div class="sourceCode" id="identity"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="identity-1" title="1"><span class="kw">const</span> id <span class="op">=</span> () <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="at">Pair</span> (x) (<span class="at">id</span> ())</a></code></pre></div>
-<div class="sourceCode" id="composition"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="composition-1" title="1"><span class="kw">const</span> o <span class="op">=</span> f <span class="kw">=&gt;</span> g <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
-<a class="sourceLine" id="composition-2" title="2">    <span class="kw">const</span> gx <span class="op">=</span> <span class="at">g</span> (x)</a>
-<a class="sourceLine" id="composition-3" title="3">    <span class="kw">const</span> fy <span class="op">=</span> <span class="at">f</span> (<span class="va">gx</span>.<span class="at">fst</span>)</a>
-<a class="sourceLine" id="composition-4" title="4">    <span class="cf">return</span> <span class="at">Pair</span> (<span class="va">fy</span>.<span class="at">fst</span>) (<span class="at">o</span> (<span class="va">fy</span>.<span class="at">snd</span>) (<span class="va">gx</span>.<span class="at">snd</span>))</a>
-<a class="sourceLine" id="composition-5" title="5"><span class="op">}</span></a></code></pre></div>
-<h3 id="stateful-wires">Stateful wires</h3>
-<div class="sourceCode" id="delay"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="delay-1" title="1"><span class="kw">const</span> delayed <span class="op">=</span> init <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="at">Pair</span> (init) (<span class="at">delay</span> (init))</a></code></pre></div>
-<div class="sourceCode" id="accum"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="accum-1" title="1"><span class="kw">const</span> accumed <span class="op">=</span> f <span class="kw">=&gt;</span> init <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
-<a class="sourceLine" id="accum-2" title="2">    <span class="kw">const</span> r <span class="op">=</span> <span class="at">f</span> (init) (x)</a>
-<a class="sourceLine" id="accum-3" title="3">    <span class="cf">return</span> <span class="at">Pair</span> (r) (<span class="at">accum</span>(f<span class="op">,</span> r))</a>
-<a class="sourceLine" id="accum-4" title="4"><span class="op">}</span></a></code></pre></div>
-<div class="sourceCode" id="loop"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="loop-1" title="1"><span class="kw">const</span> looped <span class="op">=</span> w <span class="kw">=&gt;</span> init <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
-<a class="sourceLine" id="loop-2" title="2"><span class="op">}</span></a></code></pre></div>
-<h3 id="event-wires">Event wires</h3>
-<div class="sourceCode" id="hold"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="hold-1" title="1"><span class="kw">const</span> holdon <span class="op">=</span> init <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span></a>
-<a class="sourceLine" id="hold-2" title="2">    init <span class="op">===</span> x</a>
-<a class="sourceLine" id="hold-3" title="3">    <span class="op">?</span> <span class="at">Pair</span> (<span class="at">NotNow</span> ()) (<span class="at">hold</span> (init))</a>
-<a class="sourceLine" id="hold-4" title="4">    : <span class="at">Pair</span> (<span class="at">Now</span> (x)) (<span class="at">hold</span> (x))</a></code></pre></div>
-<div class="sourceCode" id="altdef"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="altdef-1" title="1"><span class="kw">const</span> altdef <span class="op">=</span> f <span class="kw">=&gt;</span> g <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
-<a class="sourceLine" id="altdef-2" title="2">    <span class="kw">const</span> fx <span class="op">=</span> <span class="at">f</span>(x)</a>
-<a class="sourceLine" id="altdef-3" title="3">    <span class="cf">return</span> <span class="va">fx</span>.<span class="va">fst</span>.<span class="at">match</span>(</a>
-<a class="sourceLine" id="altdef-4" title="4">        (gx <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="va">gx</span>.<span class="at">fst</span>) (<span class="at">altdef</span> (f) (<span class="va">gx</span>.<span class="at">snd</span>)) (<span class="at">g</span>(x))<span class="op">,</span></a>
-<a class="sourceLine" id="altdef-5" title="5">        r <span class="kw">=&gt;</span> <span class="at">Pair</span> (r) (<span class="at">altdef</span> (<span class="va">fx</span>.<span class="at">snd</span>) (g))</a>
-<a class="sourceLine" id="altdef-6" title="6">    )</a>
-<a class="sourceLine" id="altdef-7" title="7"><span class="op">}</span></a></code></pre></div>
-<div class="sourceCode" id="alt"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="alt-1" title="1"><span class="kw">const</span> alt <span class="op">=</span> f <span class="kw">=&gt;</span> g <span class="kw">=&gt;</span> x <span class="kw">=&gt;</span> <span class="op">{</span></a>
-<a class="sourceLine" id="alt-2" title="2">    <span class="kw">const</span> fx <span class="op">=</span> <span class="at">f</span>(x)</a>
-<a class="sourceLine" id="alt-3" title="3">    <span class="cf">return</span> <span class="va">fx</span>.<span class="va">fst</span>.<span class="at">match</span>(</a>
-<a class="sourceLine" id="alt-4" title="4">        (gx <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="va">gx</span>.<span class="at">fst</span>) (<span class="at">alt</span> (f) (<span class="va">gx</span>.<span class="at">snd</span>)) (<span class="at">g</span>(x))<span class="op">,</span></a>
-<a class="sourceLine" id="alt-5" title="5">        _ <span class="kw">=&gt;</span> <span class="at">Pair</span> (<span class="va">fx</span>.<span class="at">fst</span>) (<span class="at">alt</span> (<span class="va">fx</span>.<span class="at">snd</span>) (g))</a>
-<a class="sourceLine" id="alt-6" title="6">    )</a>
-<a class="sourceLine" id="alt-7" title="7"><span class="op">}</span></a></code></pre></div>
-<h3 id="applicatives">Applicatives</h3>
-<div class="sourceCode" id="delay"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="delay-1" title="1"><span class="kw">const</span> delay <span class="op">=</span> init <span class="kw">=&gt;</span> w <span class="kw">=&gt;</span> <span class="at">o</span> (<span class="at">delayed</span> (init)) (w)</a></code></pre></div>
-<h2 id="interactive">Interactive</h2>
+<p class="notice">
+NOTICE: Document not complete
+</p>
+<h2 id="functional-programming">Functional Programming</h2>
+<h3 id="list">List</h3>
+<div class="sourceCode" id="list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-1" title="1"><span class="kw">data</span> <span class="dt">List</span> a <span class="ot">=</span> <span class="dt">Nil</span> <span class="op">|</span> <span class="dt">Cons</span> a (<span class="dt">List</span> a)</a></code></pre></div>
+<div class="sourceCode" id="list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-1" title="1"><span class="kw">infixr</span> <span class="dv">6</span> <span class="dt">Cons</span> as <span class="op">:</span></a></code></pre></div>
+<h3 id="type-classes">Type Classes</h3>
+<div class="sourceCode" id="class-semigroup"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="class-semigroup-1" title="1"><span class="kw">class</span> <span class="dt">Semigroup</span> a <span class="kw">where</span></a>
+<a class="sourceLine" id="class-semigroup-2" title="2"><span class="ot">    append ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</a></code></pre></div>
+<div class="sourceCode" id="class-monoid"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="class-monoid-1" title="1"><span class="kw">class</span> <span class="dt">Semigroup</span> a <span class="op">&lt;=</span> <span class="dt">Monoid</span> a <span class="kw">where</span></a>
+<a class="sourceLine" id="class-monoid-2" title="2"><span class="ot">    mempty ::</span> a</a></code></pre></div>
+<h3 id="type-classes-continued">Type Classes Continued</h3>
+<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="kw">where</span></a>
+<a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    map ::</span> <span class="kw">forall</span> a b<span class="op">.</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
+<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Pure</span> f <span class="kw">where</span></a>
+<a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    pure ::</span> <span class="kw">forall</span> a<span class="op">.</span> a <span class="ot">-&gt;</span> f a</a></code></pre></div>
+<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="op">&lt;=</span> <span class="dt">Apply</span> fwhere</a>
+<a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    ap ::</span> <span class="kw">forall</span> a b<span class="op">.</span> f (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
+<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> (<span class="dt">Apply</span> f, <span class="dt">Pure</span> f) <span class="op">&lt;=</span> <span class="dt">Applicative</span> <span class="kw">where</span></a></code></pre></div>
+<h3 id="io">IO</h3>
+<p class="guest">
+The example
+</p>
+<p class="me">
+well maybe not
+</p>
+<div class="sourceCode" id="io"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="io-1" title="1">foreign <span class="kw">import</span> data <span class="dt">IO</span> :: <span class="dt">Type</span> -&gt; <span class="dt">Type</span></a>
+<a class="sourceLine" id="io-2" title="2"></a>
+<a class="sourceLine" id="io-3" title="3">foreign <span class="kw">import</span> pureIO :: forall a. a -&gt; <span class="dt">IO</span> a</a>
+<a class="sourceLine" id="io-4" title="4">foreign <span class="kw">import</span> apIO :: forall a b. <span class="dt">IO</span> (a -&gt; b) -&gt; <span class="dt">IO</span> a -&gt; <span class="dt">IO</span> b</a>
+<a class="sourceLine" id="io-5" title="5">foreign <span class="kw">import</span> mapIO :: forall a b. (a -&gt; b) -&gt; <span class="dt">IO</span> a -&gt; <span class="dt">IO</span> b</a>
+<a class="sourceLine" id="io-6" title="6">foreign <span class="kw">import</span> bindIO :: forall a b. <span class="dt">IO</span> a -&gt; (a -&gt; <span class="dt">IO</span> b) -&gt; <span class="dt">IO</span> b</a></code></pre></div>
+<h3 id="canvas">Canvas</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1">foreign <span class="kw">import</span> data <span class="dt">Canvas</span> :: <span class="dt">Type</span></a>
+<a class="sourceLine" id="cb1-2" title="2">foreign <span class="kw">import</span> data <span class="dt">Context2D</span> :: <span class="dt">Type</span></a>
+<a class="sourceLine" id="cb1-3" title="3">foreign <span class="kw">import</span> createCanvas :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Canvas</span></a>
+<a class="sourceLine" id="cb1-4" title="4">foreign <span class="kw">import</span> getContext2D :: <span class="dt">Canvas</span> -&gt; <span class="dt">IO</span> <span class="dt">Context2D</span></a>
+<a class="sourceLine" id="cb1-5" title="5">foreign <span class="kw">import</span> setCtxFillStyle :: <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a>
+<a class="sourceLine" id="cb1-6" title="6">foreign <span class="kw">import</span> setCtxFillRect :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
+<h3 id="animation">Animation</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1">foreign <span class="kw">import</span> requestAnimationFrame :: (<span class="dt">Unit</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span>) -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
+<div class="sourceCode" id="cb3" data-file="src/purescript/InteractiveDocuments/ID.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">module</span> <span class="dt">ID</span> <span class="kw">where</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="op">&lt;&lt;</span>classes<span class="op">&gt;&gt;</span></a></code></pre></div>
 </div>
-<footer>Copyright (c) 2019 Simon A. Nielsen Knights</footer></body></html>
+</body>
+</html>

@@ -1,5 +1,79 @@
-<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../css/skeleton.css"/><link rel="stylesheet" href="../css/site.css"/><link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet"></head><body><h1 id="interfaces-generics-and-object-algebras">Interfaces, Generics, and Object-Algebras</h1>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Interfaces, Generics, and Object-Algebras</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { font-weight: bold; } /* Alert */
+code span.an { font-style: italic; } /* Annotation */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.co { font-style: italic; } /* Comment */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.do { font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.er { font-weight: bold; } /* Error */
+code span.in { font-style: italic; } /* Information */
+code span.kw { font-weight: bold; } /* Keyword */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.wa { font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../css/normalize.css" />
+  <link rel="stylesheet" href="../css/skeleton.css" />
+  <link rel="stylesheet" href="../css/site.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  		<meta charset="UTF-8">
+  		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  		<link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Interfaces, Generics, and Object-Algebras</h1>
+</header>
 <div class="container">
+<p class="notice">
+NOTICE: Document not complete
+</p>
 <h2 id="a-simple-algebra">A Simple Algebra</h2>
 <h3 id="interface">Interface</h3>
 <p>Interfaces in C# allow for the definition of a common communication protocol for objects involved without having to know more than the object implementing it. We start by defining an interface <code>IAlg</code> taking a generic type parameter <code>A</code> which the implementations will provide.</p>
@@ -9,7 +83,7 @@
 <a class="sourceLine" id="algebra-interface-4" title="4">    A <span class="fu">Add</span>(A x, A y);</a>
 <a class="sourceLine" id="algebra-interface-5" title="5">}</a></code></pre></div>
 <p>The language consists only of expressions of constants where <code>Lit</code> introduces a constant and addition with the <code>Add</code> constructor. Given this we can construct a set of programs in out meta language (C#) which construct valid programs in object language <code>IAlg</code>.</p>
-<p>The first constructs a program for calculating the sum of the expression <span class="math inline">3 + (4 + 5)</span>.</p>
+<p>The first constructs a program for calculating the sum of the expression <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo>+</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">3 + (4 + 5)</annotation></semantics></math>.</p>
 <div class="sourceCode" id="algebra-meta"><pre class="sourceCode cs"><code class="sourceCode cs"><a class="sourceLine" id="algebra-meta-1" title="1"><span class="kw">static</span> A ESum&lt;A&gt;(IAlg&lt;A&gt; o) =&gt;</a>
 <a class="sourceLine" id="algebra-meta-2" title="2">    o.<span class="fu">Add</span>(o.<span class="fu">Lit</span>(<span class="dv">3</span>), o.<span class="fu">Add</span>(o.<span class="fu">Lit</span>(<span class="dv">4</span>), o.<span class="fu">Lit</span>(<span class="dv">5</span>)));</a></code></pre></div>
 <p>While the second constructs the sum of the expression multiplied by two. However, the language doesn’t currently support multiplication thus we must make do with the sum of the expression evaluated twice.</p>
@@ -108,4 +182,5 @@
 <a class="sourceLine" id="script-interface-16" title="16">    S <span class="fu">If</span>(S cond, S cons, S alt);</a>
 <a class="sourceLine" id="script-interface-17" title="17">}</a></code></pre></div>
 </div>
-<footer>Copyright (c) 2019 Simon A. Nielsen Knights</footer></body></html>
+</body>
+</html>

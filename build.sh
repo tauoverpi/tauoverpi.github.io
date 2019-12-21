@@ -1,61 +1,83 @@
 #!/bin/sh
 
-target="md"
+source="md"
+target="html"
+title="Levy's Articles"
 
-######
-
-skeleton="<link rel=\"stylesheet\" href=\"css/skeleton.css\"/>"
-site="<link rel=\"stylesheet\" href=\"css/site.css\"/>"
-meta="<meta charset=\"UTF-8\">"
-fonts="<link href=\"https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap\" rel=\"stylesheet\">"
-fonts="${fonts}<link href=\"https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap\" rel=\"stylesheet\">"
-
-generated="Generated on `date +'%F %H:%M'`"
 currentyear=`date +'%Y'`
 futuredate=`[ $currentyear -gt 2019 ] && echo " - ${currentyear}"`
-footer="Copyright (c) 2019${futuredate} Simon A. Nielsen Knights"
-header="${meta}${skeleton}${site}${fonts}"
 
-echo -n "<html><head>${header}</head><body><h1>Levy's Articles</h1><div class=\"container\"><ul>" > index.html
-echo -n "<div class=\"columns six\"><h3>Articles</h3>" >> index.html
-cat << EOF > README.md
-Levy's Articles
-===============
-
-A list of partially finished things I'm working on in my spare time.
+cat << EOF > header.html
+		<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet">
 EOF
-for m in `ls ${target}`
+
+cat << EOF > index.html
+<html>
+	<head>
+`cat header.html`
+	</head>
+	<body>
+		<header>
+			<link rel="stylesheet" href="css/skeleton.css"/>
+			<link rel="stylesheet" href="css/site.css"/>
+			<h1>${title}</h1>
+		</header>
+		<main class="container">
+			<div class="row">
+				<div class="six columns">
+					<h3>Articles</h3>
+					<ul>
+EOF
+
+for article in `ls ${source} | sort -r`
 do
-	name=`echo $m | sed 's,\.[a-z]*$,,'`
-	title=`echo $name | sed -e 's,\([0-9][0-9]*\)-\([0-9][0-9]*\)-\([0-9][0-9]*\),\1/\2/\3 |,' -e 's,-, ,g'`
+	echo "given article ${article}"
+	name=`echo $article | sed 's,\.[a-z]*$,,'`
+	title=`echo $name | sed \
+		-e 's,\([0-9][0-9]*\)-\([0-9][0-9]*\)-\([0-9][0-9]*\),\1/\2/\3 |,' \
+		-e 's,-, ,g'`
+	echo "title is: ${title}"
+	echo "name is: ${name}"
 
-	# html
-	echo "generating ${name}.html" && \
-		pandoc ${target}/$m -o tmp/${name}.html -F diagrams-pandoc && \
-		echo -n "<html><head>${header}</head><body>" \
-		| sed 's:\(css/[a-z.]*\):../\1:g' \
-		> html/${name}.html && \
-		cat tmp/${name}.html \
-		| sed 's:\(images/[a-z0-9.]*\):../\1:g' \
-		>> html/${name}.html && \
-		echo -n "<footer>${footer}</footer></body></html>" >> html/${name}.html
+	tage=`stat -f %m ${target}/${name}.html`
+	oage=`stat -f %m ${source}/${article}`
+	if [ $oage -gt $tage ]
+	then
+		echo "generating ${name}.html"
+		pandoc -t html5 -o ${target}/${name}.html ${source}/${article} \
+			--section-divs \
+			--css ../css/normalize.css \
+			--highlight-style=monochrome \
+			--css ../css/skeleton.css \
+			--css ../css/site.css \
+			--include-in-header header.html \
+			--mathml
+	fi
 
-
-	echo "- [${title}](https://tauoverpi.github.com/html/${name}.html)" >> README.md
-
-	# pdf
-	# echo "generating ${name}.pdf" && pandoc ${target}/$m -o pdf/${name}.pdf -F diagrams-pandoc
-
-	# index
-	echo -n "<li><a href=\"html/${name}.html\">${title}</a></li>" >> index.html
+	cat << EOF >> index.html
+						<li><a href="${target}/${name}.html">${title}</a></li>
+EOF
 done
 
-echo -n "</div><div class=\"columns six\"><h3>Projects</h3>" >> index.html
-echo -n "<li><a href=\"projects/BackEndLexicon2019/index.html\">Lexicon 2019
-ASP.NET Assignment</a></li>" >> index.html
-echo -n "</div>" >> index.html
-
-rm tmp/*.html
-echo "" >> README.md
-echo "${footer}" >> README.md
-echo -n "</ul></div><footer>${footer}</footer></body></html>" >> index.html
+cat << EOF >> index.html
+						</ul>
+					</div>
+				<div class="six columns">
+					<h3>Projects</h3>
+					<ul>
+						<li><a href="projects/BackEndLexicon2019/index.html">
+							Lexicon 2019 - ASP.NET Core Assignments
+						</a></li>
+					</ul>
+					<h3>Slides</h3>
+				</div>
+			</div>
+		</main>
+		<footer>
+			Copyright (c) 2019${futuredate} Simon A. Nielsen Knights
+		</footer>
+	</body>
+</html>
+EOF

@@ -21,11 +21,6 @@ a:not(.sourceLine) {
 	padding: 2px 8px;
 	text-decoration: none;
 }
-
-a.sourceLine {
-    width: 100%;
-    display: inline-block;
-}
 /* ------ end */
 /* ------ begin <<style>>[2] */
 ul {
@@ -53,21 +48,36 @@ input[type="checkbox"]:checked {
 }
 /* ------ end */
 /* ------ begin <<style>>[4] */
-.fu { color: #111111; }
-.kw { color: #000000; font-weight: bold; }
-.dt { color: #222222; font-weight: bold; }
-.bu { color: #000000; font-weight: bold; }
-.op { color: #000000; font-weight: bold; }
-.cf { color: #000000; font-weight: bold; }
-
-.sourceLine { color: #000000; }
-.sourceLine:hover { color: #ffffff; background: #000000; }
-.sourceLine:hover > .kw { color: #ffffff; }
-.sourceLine:hover > .dt { color: #dddddd; }
-.sourceLine:hover > .fu { color: #eeeeee; }
-.sourceLine:hover > .bu { color: #ffffff; }
-.sourceLine:hover > .op { color: #ffffff; }
-.sourceLine:hover > .cf { color: #ffffff; }
+p.guest {
+    background: #3064ff22;
+    padding: 2px 8px;
+    margin-bottom: 0px;
+}
+p.me {
+    background: #30ff6a22;
+    padding: 2px 8px;
+    margin-bottom: 0px;
+}
+p.note {
+    background: #3064ffaa;
+    padding: 2px 8px;
+    margin-bottom: 0px;
+}
+p.tip {
+    background: #30ff6aaa;
+    padding: 2px 8px;
+    margin-bottom: 0px;
+}
+p.warning {
+    background: #ff4630dd;
+    padding: 2px 8px;
+    margin-bottom: 0px;
+}
+p.notice {
+    background: #ff9c30;
+    padding: 2px 8px;
+    margin-bottom: 0px;
+}
 /* ------ end */
 /* ------ begin <<style>>[5] */
 code {
@@ -128,17 +138,6 @@ img {
 }
 /* ------ end */
 /* ------ begin <<style>>[10] */
-::-webkit-scrollbar {
-	width: 7px;
-	height: 7px;
-}
 
-::-webkit-scrollbar-track {
-	background: #000000;
-}
-
-::-webkit-scrollbar-thumb {
-	background: #ffffff;
-}
 /* ------ end */
 /* ------ end */

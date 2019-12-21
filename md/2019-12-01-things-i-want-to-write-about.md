@@ -1,5 +1,6 @@
-Wishlist
-========
+---
+title: Wishlist
+...
 
 <div class="container">
 Nice things I'd like to write about at some point.

@@ -1,5 +1,6 @@
-Explaining amb
-==============
+---
+title: Explaining amb
+...
 
 <div class="container">
 While walking through the code of one of the assignment examples -- the student stumbled over the definition and use of `amb` within the code. Their difficulty was understanding why and how it worked even when they understood the procedures involved. Thus I thought I should write about it's definition and use in detail to clear up the cloud of mystery.

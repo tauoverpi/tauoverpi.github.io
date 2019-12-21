@@ -1,7 +1,10 @@
-Haskell Languages
-=================
+---
+title: Haskell Languages
+...
 
 <div class="container">
+<p class="notice">NOTICE: Document not complete</p>
+
 Copilot
 -------
 

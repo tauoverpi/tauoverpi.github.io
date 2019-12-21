@@ -1,7 +1,10 @@
-Interfaces, Generics, and Object-Algebras
-=========================================
+---
+title: Interfaces, Generics, and Object-Algebras
+...
 
 <div class="container">
+<p class="notice">NOTICE: Document not complete</p>
+
 A Simple Algebra
 ----------------
 
