@@ -4,7 +4,7 @@ title: Resources
 
 <div class="container">
 <p class="notice">NOTICE: Document not complete and will probably never be as
-there's always more to add...</p>
+there's always more to add</p>
 
 Haskell
 -------

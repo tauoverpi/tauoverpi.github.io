@@ -3,7 +3,6 @@
 html { background: #ffffff; }
 body { color: #000000; margin: 0px; }
 
-h1, h2 { text-align: center; }
 /* ------ end */
 /* ------ begin <<style>>[1] */
 a:hover:not(.sourceLine) {
@@ -48,35 +47,47 @@ input[type="checkbox"]:checked {
 }
 /* ------ end */
 /* ------ begin <<style>>[4] */
-p.guest {
+.guest {
     background: #3064ff22;
     padding: 2px 8px;
     margin-bottom: 0px;
 }
-p.me {
+.me {
     background: #30ff6a22;
     padding: 2px 8px;
     margin-bottom: 0px;
 }
-p.note {
+.note {
     background: #3064ffaa;
     padding: 2px 8px;
     margin-bottom: 0px;
 }
-p.tip {
+.tip {
     background: #30ff6aaa;
     padding: 2px 8px;
     margin-bottom: 0px;
 }
-p.warning {
+.warning {
     background: #ff4630dd;
     padding: 2px 8px;
     margin-bottom: 0px;
 }
-p.notice {
+.notice {
     background: #ff9c30;
     padding: 2px 8px;
     margin-bottom: 0px;
+}
+.boxed {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
+    padding: 0.5em;
+}
+details {
+    margin-bottom: 1em;
+}
+summary:focus {
+    outline-style: none;
 }
 /* ------ end */
 /* ------ begin <<style>>[5] */
@@ -98,7 +109,7 @@ pre > code {
 }
 /* ------ end */
 /* ------ begin <<style>>[7] */
-h1 {
+h1.title {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
 	font-size: 5em;
@@ -112,6 +123,7 @@ h1 {
 }
 /* ------ end */
 /* ------ begin <<style>>[8] */
+h1, h2 { text-align: center; }
 h2 {
 	padding-top: 50px;
 	padding-bottom: 0px;
@@ -120,15 +132,25 @@ h2 {
 }
 
 h3 {
-	background: #000000;
-	color: #ffffff;
+	font-size: 3.0rem;
 	padding: 2px 8px;
-	font-size: 2.4rem;
+	border-width: 0px 0px 1px 0px;
+	border-style: solid;
+	border-color: #000000;
 }
 
-h4 { font-size: 1.8rem; line-height: 1.35; letter-spacing: -.08rem; }
-h5 { font-size: 1.5rem; line-height: 1.5;  letter-spacing: -.05rem; }
-h6 { font-size: 1.2rem; line-height: 1.6;  letter-spacing: 0; }
+h4 {
+	font-size: 2.5rem;
+	line-height: 1.35;
+	letter-spacing: -.08rem;
+	padding-left: .5em;
+	border-width: 0px 0px 0px 1em;
+	border-style: solid;
+	border-color: #000000;
+}
+
+h5 { font-size: 2.0rem; line-height: 1.5;  letter-spacing: -.05rem; }
+h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
 /* ------ end */
 /* ------ begin <<style>>[9] */
 img {

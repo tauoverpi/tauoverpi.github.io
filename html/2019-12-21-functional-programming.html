@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Functional Programming</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { font-weight: bold; } /* Alert */
+code span.an { font-style: italic; } /* Annotation */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.co { font-style: italic; } /* Comment */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.do { font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.er { font-weight: bold; } /* Error */
+code span.in { font-style: italic; } /* Information */
+code span.kw { font-weight: bold; } /* Keyword */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.wa { font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../css/normalize.css" />
+  <link rel="stylesheet" href="../css/skeleton.css" />
+  <link rel="stylesheet" href="../css/site.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  		<meta charset="UTF-8">
+  		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  		<link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Functional Programming</h1>
+</header>
+<div class="container">
+<p class="notice">
+NOTICE: Document not complete
+</p>
+<h3 id="list">List</h3>
+<div class="sourceCode" id="list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-1" title="1"><span class="kw">data</span> <span class="dt">List</span> a <span class="ot">=</span> <span class="dt">Nil</span> <span class="op">|</span> <span class="dt">Cons</span> a (<span class="dt">List</span> a)</a></code></pre></div>
+<div class="sourceCode" id="list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-1" title="1"><span class="kw">infixr</span> <span class="dv">6</span> <span class="dt">Cons</span> as <span class="op">:</span></a></code></pre></div>
+<h3 id="type-classes">Type Classes</h3>
+<div class="sourceCode" id="class-semigroup"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="class-semigroup-1" title="1"><span class="kw">class</span> <span class="dt">Semigroup</span> a <span class="kw">where</span></a>
+<a class="sourceLine" id="class-semigroup-2" title="2"><span class="ot">    append ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</a></code></pre></div>
+<div class="sourceCode" id="class-monoid"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="class-monoid-1" title="1"><span class="kw">class</span> <span class="dt">Semigroup</span> a <span class="op">&lt;=</span> <span class="dt">Monoid</span> a <span class="kw">where</span></a>
+<a class="sourceLine" id="class-monoid-2" title="2"><span class="ot">    mempty ::</span> a</a></code></pre></div>
+<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="kw">where</span></a>
+<a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    map ::</span> <span class="kw">forall</span> a b<span class="op">.</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
+<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Pure</span> f <span class="kw">where</span></a>
+<a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    pure ::</span> <span class="kw">forall</span> a<span class="op">.</span> a <span class="ot">-&gt;</span> f a</a></code></pre></div>
+<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="op">&lt;=</span> <span class="dt">Apply</span> fwhere</a>
+<a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    ap ::</span> <span class="kw">forall</span> a b<span class="op">.</span> f (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
+<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> (<span class="dt">Apply</span> f, <span class="dt">Pure</span> f) <span class="op">&lt;=</span> <span class="dt">Applicative</span> <span class="kw">where</span></a></code></pre></div>
+<h2 id="lazy-evaluation">Lazy Evaluation</h2>
+<p>Lazy evaluation opens up a world of new patterns of infinite structure allowing for a truly declarative style. With lazy semantics it’s possible to write types such as <code>Stream</code> which represents infinite lists, <code>Wire</code> representing time varying values in intinite stepped computations, and so on.</p>
+<p>In this section we’ll be implementing our own lazy evaluation library and see how instances change along with concerns involving the performance of such. It includes one purescript module <code>Data.Lazy</code>.</p>
+<div class="sourceCode" id="cb1" data-file="src/purescript/FunctionalProgramming/Data/Lazy.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">module</span> <span class="dt">Lazy</span> <span class="kw">where</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="op">&lt;&lt;</span>lazy<span class="op">-</span>definition<span class="op">&gt;&gt;</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="op">&lt;&lt;</span>lazy<span class="op">-</span>numerical<span class="op">-</span>instances<span class="op">&gt;&gt;</span></a></code></pre></div>
+<p>And one javascript module implementing the runtime.</p>
+<div class="sourceCode" id="cb2" data-file="src/purescript/FunctionalProgramming/Data/Lazy.js"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="op">&lt;&lt;</span>lazy<span class="op">-</span>js<span class="op">-</span>definition<span class="op">&gt;&gt;</span></a></code></pre></div>
+<h3 id="definition">Definition</h3>
+<p>We begin by declaring an abstract type <code>Lazy</code> to represent defered computation.</p>
+<div class="sourceCode" id="lazy-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="lazy-definition-1" title="1">foreign <span class="kw">import</span> data <span class="dt">Lazy</span> :: <span class="dt">Type</span> -&gt; <span class="dt">Type</span></a></code></pre></div>
+<p>Since lazy evaluation is external to purescript it won’t be able to deconstruct <code>Lazy</code> inside purescript. Instead we’ll define <code>defer</code> taking a closure which it turns into a thunk to be evaluated later and <code>force</code> which evaluates the thunk in javascript.</p>
+<div class="sourceCode" id="lazy-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="lazy-definition-1" title="1">foreign <span class="kw">import</span> defer :: a -&gt; <span class="dt">Lazy</span> a</a>
+<a class="sourceLine" id="lazy-definition-2" title="2">foreign <span class="kw">import</span> force :: <span class="dt">Lazy</span> a -&gt; a</a></code></pre></div>
+<p>The machinery behind lazy evaluation is captured by <code>defer</code> which makes use of mutable state behind the scenes.</p>
+<p>First <code>defer</code> allocates a mutable variable <code>value</code> which will house the result once computed and takes a computation <code>thunk</code> which when run will give that value. Then <code>value</code> is captured in a new closure <code>lazy-js-closure</code> containing the thunk to be run later.</p>
+<div class="sourceCode" id="lazy-js-definition"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="lazy-js-definition-1" title="1"><span class="va">exports</span>.<span class="at">defer</span> <span class="op">=</span> <span class="kw">function</span>(thunk) <span class="op">{</span></a>
+<a class="sourceLine" id="lazy-js-definition-2" title="2">    <span class="kw">var</span> value <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="lazy-js-definition-3" title="3">    <span class="cf">return</span> <span class="op">&lt;&lt;</span>lazy<span class="op">-</span>js<span class="op">-</span>closure<span class="op">&gt;&gt;</span></a>
+<a class="sourceLine" id="lazy-js-definition-4" title="4"><span class="op">}</span></a></code></pre></div>
+<p>Upon the first execution of <code>lazy-js-closure</code> the <code>thunk</code> is defined and <code>value</code> is <code>null</code> thus the condition doesn’t fire. The sequence continues with setting <code>value</code> to the result of evaluating <code>thunk</code> and clearing <code>thunk</code> allowing the computation to be freed from memory before returing the result. For every use after <code>thunk</code> will still be <code>undefined</code> and <code>value</code> set which causes the condition to fire and result returned without recomputing <code>value</code>.</p>
+<div class="sourceCode" id="lazy-js-closure"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="lazy-js-closure-1" title="1"><span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="lazy-js-closure-2" title="2">    <span class="cf">if</span> (thunk <span class="op">===</span> <span class="kw">undefined</span>) <span class="cf">return</span> value<span class="op">;</span></a>
+<a class="sourceLine" id="lazy-js-closure-3" title="3">    value <span class="op">=</span> <span class="at">thunk</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="lazy-js-closure-4" title="4">    thunk <span class="op">=</span> <span class="kw">undefined</span><span class="op">;</span></a>
+<a class="sourceLine" id="lazy-js-closure-5" title="5">    <span class="cf">return</span> value<span class="op">;</span></a>
+<a class="sourceLine" id="lazy-js-closure-6" title="6"><span class="op">}</span></a></code></pre></div>
+By keeping the result around and throwing away the computation thunk we’ve implemented sharing of immutable values and on-demand evaluation which is the core of lazy evaluation.
+<details>
+<summary>note</summary>
+<p class="notice">
+There are other ways to implement lazy evaluation besides the one shown here. For example, a compiler may inline the conditional branch at the location of <code>force</code> along with procedures called after to eliminate the overhead of calling. However, implementation of such is out of scope for this article.
+</p>
+</details>
+<p><code>force</code> is considerably simpler in it’s definition. The closure ready to be evaluated, <code>force</code> only needs to invoke it to get the result.</p>
+<div class="sourceCode" id="lazy-js-definition"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="lazy-js-definition-1" title="1"><span class="va">exports</span>.<span class="at">force</span> <span class="op">=</span> <span class="kw">function</span>(closure) <span class="op">{</span></a>
+<a class="sourceLine" id="lazy-js-definition-2" title="2">    <span class="cf">return</span> <span class="at">closure</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="lazy-js-definition-3" title="3"><span class="op">}</span></a></code></pre></div>
+<h3 id="numerical-instances">Numerical Instances</h3>
+<h3 id="functor-applicative-instances">Functor &amp; Applicative Instances</h3>
+<h2 id="stream">Stream</h2>
+<h3 id="definition-1">Definition</h3>
+<div class="sourceCode" id="stream-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="stream-definition-1" title="1"><span class="kw">data</span> <span class="dt">Stream</span> a <span class="ot">=</span> <span class="dt">Cons</span> a (<span class="dt">Lazy</span> (<span class="dt">Stream</span> a))</a></code></pre></div>
+<h2 id="wire">Wire</h2>
+<p><code>Stream</code> is great for tasks where you can define the set of possible values up front while not taking into account the past states. While this works great for random numbers, spreadsheets, and similar it doesn’t fare so well when we need that state. Wires are stateful where the next value is derived from an input value and the past state while keeping the properties we like of streams.</p>
+<p>This section covers the design and implementation of the <code>Control.Wire</code> library along with the many utilities that come with it and since this is a pure purescript module there are only a few files to keep track of.</p>
+<p><code>Data.Wire</code> exports the wire prelude consisting of a collection of support modules and the most frequently used wires.</p>
+<div class="sourceCode" id="cb3" data-file="src/purescript/FunctionalProgramming/Control/Wire.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">module</span> <span class="dt">Wire</span> (<span class="kw">module</span> <span class="dt">X</span>) <span class="kw">where</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">import</span> <span class="dt">Control.Wire.Core</span> <span class="kw">as</span> <span class="dt">X</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">import</span> <span class="dt">Control.Wire.Event</span> <span class="kw">as</span> <span class="dt">X</span></a></code></pre></div>
+<h3 id="definition-2">Definition</h3>
+<div class="sourceCode" id="wire-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="wire-definition-1" title="1"><span class="kw">data</span> <span class="dt">Wire</span> m a b <span class="ot">=</span></a>
+<a class="sourceLine" id="wire-definition-2" title="2">    <span class="dt">Wire</span> (a <span class="ot">-&gt;</span> m (<span class="dt">Pair</span> (<span class="dt">Lazy</span> (<span class="dt">Wire</span> m a b)) b))</a></code></pre></div>
+<h3 id="events">Events</h3>
+<h2 id="io">IO</h2>
+<div class="sourceCode" id="io"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="io-1" title="1">foreign <span class="kw">import</span> data <span class="dt">IO</span> :: <span class="dt">Type</span> -&gt; <span class="dt">Type</span></a>
+<a class="sourceLine" id="io-2" title="2"></a>
+<a class="sourceLine" id="io-3" title="3">foreign <span class="kw">import</span> pureIO :: forall a. a -&gt; <span class="dt">IO</span> a</a>
+<a class="sourceLine" id="io-4" title="4">foreign <span class="kw">import</span> apIO :: forall a b. <span class="dt">IO</span> (a -&gt; b) -&gt; <span class="dt">IO</span> a -&gt; <span class="dt">IO</span> b</a>
+<a class="sourceLine" id="io-5" title="5">foreign <span class="kw">import</span> mapIO :: forall a b. (a -&gt; b) -&gt; <span class="dt">IO</span> a -&gt; <span class="dt">IO</span> b</a>
+<a class="sourceLine" id="io-6" title="6">foreign <span class="kw">import</span> bindIO :: forall a b. <span class="dt">IO</span> a -&gt; (a -&gt; <span class="dt">IO</span> b) -&gt; <span class="dt">IO</span> b</a>
+<a class="sourceLine" id="io-7" title="7"></a>
+<a class="sourceLine" id="io-8" title="8"><span class="kw">instance</span> <span class="dt">Functor</span> <span class="dt">IO</span> <span class="kw">where</span></a>
+<a class="sourceLine" id="io-9" title="9">    <span class="fu">map</span> <span class="ot">=</span> mapIO</a>
+<a class="sourceLine" id="io-10" title="10"></a>
+<a class="sourceLine" id="io-11" title="11"><span class="kw">instance</span> <span class="dt">Apply</span> <span class="dt">IO</span> <span class="kw">where</span></a>
+<a class="sourceLine" id="io-12" title="12">    ap <span class="ot">=</span> apIO</a></code></pre></div>
+<h3 id="canvas">Canvas</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb4-1" title="1">foreign <span class="kw">import</span> data <span class="dt">Canvas</span> :: <span class="dt">Type</span></a>
+<a class="sourceLine" id="cb4-2" title="2">foreign <span class="kw">import</span> data <span class="dt">Context2D</span> :: <span class="dt">Type</span></a>
+<a class="sourceLine" id="cb4-3" title="3">foreign <span class="kw">import</span> createCanvas :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Canvas</span></a>
+<a class="sourceLine" id="cb4-4" title="4">foreign <span class="kw">import</span> getContext2D :: <span class="dt">Canvas</span> -&gt; <span class="dt">IO</span> <span class="dt">Context2D</span></a>
+<a class="sourceLine" id="cb4-5" title="5">foreign <span class="kw">import</span> setCtxFillStyle :: <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a>
+<a class="sourceLine" id="cb4-6" title="6">foreign <span class="kw">import</span> setCtxFillRect :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
+<h3 id="animation">Animation</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb5-1" title="1">foreign <span class="kw">import</span> requestAnimationFrame :: (<span class="dt">Unit</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span>) -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
+</div>
+</body>
+</html>

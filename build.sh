@@ -22,7 +22,7 @@ cat << EOF > index.html
 		<header>
 			<link rel="stylesheet" href="css/skeleton.css"/>
 			<link rel="stylesheet" href="css/site.css"/>
-			<h1>${title}</h1>
+			<h1 class="title">${title}</h1>
 		</header>
 		<main class="container">
 			<div class="row">
@@ -43,6 +43,7 @@ do
 
 	tage=`stat -f %m ${target}/${name}.html`
 	oage=`stat -f %m ${source}/${article}`
+	[ -z "$tage" ] && tage=0 && oage=1
 	if [ $oage -gt $tage ]
 	then
 		echo "generating ${name}.html"
