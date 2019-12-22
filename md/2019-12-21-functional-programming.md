@@ -16,8 +16,13 @@ data Maybe a = Just a | Nothing
 
 ### List
 
-```{.hs #list}
-data ListF f a = Nil | Cons a f
+```{.hs #list-definition}
+data List a = Nil | Cons a (List a)
+```
+
+```{.hs #lazy-list-definition}
+data LazyList a = LNil
+                | LCons (Lazy (Pair a (LazyList a)))
 ```
 
 ```{.hs #list}
@@ -31,6 +36,8 @@ Type Classes
 
 ### Basic
 
+
+
 ```{.hs #class-semigroup}
 class Semigroup a where
     append :: a -> a -> a
@@ -42,6 +49,69 @@ class Semigroup a <= Monoid a where
 ```
 
 #### Basic Instances
+
+### Utility
+
+Some functions may diverge towards `_|_` when given certain values such as
+dividing by zero which raises an exception. Thus `Partial` is defined as a
+nullary class which act as a compile-time assertion that a function and any
+dervived form it are partial.
+
+```{.hs #partial-definition}
+class Partial where
+```
+
+Conversion between types is common and `Cast` collects the most usual between
+any two given types. Being a utility class it has no use other than being
+convenient.
+
+```{.hs #cast-definition}
+class Cast from to where
+    cast :: from -> to
+```
+
+Some casts may be partial thus require a version capable of failure. If an
+instance is safe by default the implementation is the same as `Cast` wrapped in
+a `Just`.
+
+```{.hs #safe-cast-definition}
+class SafeCast from to where
+    safeCast :: from -> Maybe to
+```
+
+#### Utility Instances
+
+Conversion from a `LazyList` requires forcing every element of the list.
+
+```{.hs #cast-lazylist-list}
+instance Cast (LazyList a) (List a) where
+    cast LNil = Nil
+    cast (LCons ls) =
+        let Pair x ls' = force ls in x : cast ls
+```
+<p class="warning">CAUTION: Passing an infinite list to `cast` results in
+`_|_`</p>
+
+```{.hs #cast-lazylist-list}
+instance SafeCast (LazyList a) (List a) where
+    safeCast = Just <<< cast
+```
+<p class="warning">CAUTION: Passing an infinite list to `safeCast` results in
+`_|_`</p>
+
+```{.hs #cast-lazylist-list}
+instance Cast (List a) (LazyList a) where
+    cast Nil = LNil
+    cast (Cons x xs) =
+        LCons (defer \_ -> Pair x (cast xs))
+
+instance SafeCast (List a) (LazyList a) where
+    safeCast = Just <<< cast
+
+```
+
+
+
 ### Functor
 
 ```{.hs #base-classes}
@@ -76,10 +146,17 @@ class Applicative f <= Selective f where
 
 ### Monad
 
-```{.hs}
-class Selective m <= Monad m where
+```{.hs #bind-definition}
+class Apply m <= Bind m where
     bind :: m a -> (a -> m b) -> m b
-    join :: m (m a) -> m a
+infixl 1 bind as >>=
+```
+
+```{.hs}
+class (Bind m, Selective m) <= Monad m where
+
+join :: m (m a) -> m a
+join m = m >>= id
 ```
 
 #### Monad Instances

@@ -78,7 +78,9 @@ NOTICE: Document not complete
 <h3 id="maybe">Maybe</h3>
 <div class="sourceCode" id="maybe-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="maybe-definition-1" title="1"><span class="kw">data</span> <span class="dt">Maybe</span> a <span class="ot">=</span> <span class="dt">Just</span> a <span class="op">|</span> <span class="dt">Nothing</span></a></code></pre></div>
 <h3 id="list">List</h3>
-<div class="sourceCode" id="list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-1" title="1"><span class="kw">data</span> <span class="dt">ListF</span> f a <span class="ot">=</span> <span class="dt">Nil</span> <span class="op">|</span> <span class="dt">Cons</span> a f</a></code></pre></div>
+<div class="sourceCode" id="list-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-definition-1" title="1"><span class="kw">data</span> <span class="dt">List</span> a <span class="ot">=</span> <span class="dt">Nil</span> <span class="op">|</span> <span class="dt">Cons</span> a (<span class="dt">List</span> a)</a></code></pre></div>
+<div class="sourceCode" id="lazy-list-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="lazy-list-definition-1" title="1"><span class="kw">data</span> <span class="dt">LazyList</span> a <span class="ot">=</span> <span class="dt">LNil</span></a>
+<a class="sourceLine" id="lazy-list-definition-2" title="2">                <span class="op">|</span> <span class="dt">LCons</span> (<span class="dt">Lazy</span> (<span class="dt">Pair</span> a (<span class="dt">LazyList</span> a)))</a></code></pre></div>
 <div class="sourceCode" id="list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-1" title="1"><span class="kw">infixr</span> <span class="dv">6</span> <span class="dt">Cons</span> as <span class="op">:</span></a></code></pre></div>
 <h3 id="array">Array</h3>
 <h2 id="type-classes">Type Classes</h2>
@@ -88,6 +90,36 @@ NOTICE: Document not complete
 <div class="sourceCode" id="class-monoid"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="class-monoid-1" title="1"><span class="kw">class</span> <span class="dt">Semigroup</span> a <span class="op">&lt;=</span> <span class="dt">Monoid</span> a <span class="kw">where</span></a>
 <a class="sourceLine" id="class-monoid-2" title="2"><span class="ot">    mempty ::</span> a</a></code></pre></div>
 <h4 id="basic-instances">Basic Instances</h4>
+<h3 id="utility">Utility</h3>
+<p>Some functions may diverge towards <code>_|_</code> when given certain values such as dividing by zero which raises an exception. Thus <code>Partial</code> is defined as a nullary class which act as a compile-time assertion that a function and any dervived form it are partial.</p>
+<div class="sourceCode" id="partial-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="partial-definition-1" title="1"><span class="kw">class</span> <span class="dt">Partial</span> <span class="kw">where</span></a></code></pre></div>
+<p>Conversion between types is common and <code>Cast</code> collects the most usual between any two given types. Being a utility class it has no use other than being convenient.</p>
+<div class="sourceCode" id="cast-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cast-definition-1" title="1"><span class="kw">class</span> <span class="dt">Cast</span> from to <span class="kw">where</span></a>
+<a class="sourceLine" id="cast-definition-2" title="2"><span class="ot">    cast ::</span> from <span class="ot">-&gt;</span> to</a></code></pre></div>
+<p>Some casts may be partial thus require a version capable of failure. If an instance is safe by default the implementation is the same as <code>Cast</code> wrapped in a <code>Just</code>.</p>
+<div class="sourceCode" id="safe-cast-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="safe-cast-definition-1" title="1"><span class="kw">class</span> <span class="dt">SafeCast</span> from to <span class="kw">where</span></a>
+<a class="sourceLine" id="safe-cast-definition-2" title="2"><span class="ot">    safeCast ::</span> from <span class="ot">-&gt;</span> <span class="dt">Maybe</span> to</a></code></pre></div>
+<h4 id="utility-instances">Utility Instances</h4>
+<p>Conversion from a <code>LazyList</code> requires forcing every element of the list.</p>
+<div class="sourceCode" id="cast-lazylist-list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cast-lazylist-list-1" title="1"><span class="kw">instance</span> <span class="dt">Cast</span> (<span class="dt">LazyList</span> a) (<span class="dt">List</span> a) <span class="kw">where</span></a>
+<a class="sourceLine" id="cast-lazylist-list-2" title="2">    cast <span class="dt">LNil</span> <span class="ot">=</span> <span class="dt">Nil</span></a>
+<a class="sourceLine" id="cast-lazylist-list-3" title="3">    cast (<span class="dt">LCons</span> ls) <span class="ot">=</span></a>
+<a class="sourceLine" id="cast-lazylist-list-4" title="4">        <span class="kw">let</span> <span class="dt">Pair</span> x ls&#39; <span class="ot">=</span> force ls <span class="kw">in</span> x <span class="op">:</span> cast ls</a></code></pre></div>
+<p class="warning">
+CAUTION: Passing an infinite list to <code>cast</code> results in <code>_|_</code>
+</p>
+<div class="sourceCode" id="cast-lazylist-list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cast-lazylist-list-1" title="1"><span class="kw">instance</span> <span class="dt">SafeCast</span> (<span class="dt">LazyList</span> a) (<span class="dt">List</span> a) <span class="kw">where</span></a>
+<a class="sourceLine" id="cast-lazylist-list-2" title="2">    safeCast <span class="ot">=</span> <span class="dt">Just</span> <span class="op">&lt;&lt;&lt;</span> cast</a></code></pre></div>
+<p class="warning">
+CAUTION: Passing an infinite list to <code>safeCast</code> results in <code>_|_</code>
+</p>
+<div class="sourceCode" id="cast-lazylist-list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cast-lazylist-list-1" title="1"><span class="kw">instance</span> <span class="dt">Cast</span> (<span class="dt">List</span> a) (<span class="dt">LazyList</span> a) <span class="kw">where</span></a>
+<a class="sourceLine" id="cast-lazylist-list-2" title="2">    cast <span class="dt">Nil</span> <span class="ot">=</span> <span class="dt">LNil</span></a>
+<a class="sourceLine" id="cast-lazylist-list-3" title="3">    cast (<span class="dt">Cons</span> x xs) <span class="ot">=</span></a>
+<a class="sourceLine" id="cast-lazylist-list-4" title="4">        <span class="dt">LCons</span> (defer \_ <span class="ot">-&gt;</span> <span class="dt">Pair</span> x (cast xs))</a>
+<a class="sourceLine" id="cast-lazylist-list-5" title="5"></a>
+<a class="sourceLine" id="cast-lazylist-list-6" title="6"><span class="kw">instance</span> <span class="dt">SafeCast</span> (<span class="dt">List</span> a) (<span class="dt">LazyList</span> a) <span class="kw">where</span></a>
+<a class="sourceLine" id="cast-lazylist-list-7" title="7">    safeCast <span class="ot">=</span> <span class="dt">Just</span> <span class="op">&lt;&lt;&lt;</span> cast</a></code></pre></div>
 <h3 id="functor">Functor</h3>
 <div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="kw">where</span></a>
 <a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    map ::</span> <span class="kw">forall</span> a b<span class="op">.</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
@@ -102,9 +134,13 @@ NOTICE: Document not complete
 <a class="sourceLine" id="cb1-2" title="2"><span class="ot">    select ::</span> f (<span class="dt">Either</span> a b) <span class="ot">-&gt;</span> f (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f b</a></code></pre></div>
 <h4 id="applicative-instances">Applicative Instances</h4>
 <h3 id="monad">Monad</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">class</span> <span class="dt">Selective</span> m <span class="op">&lt;=</span> <span class="dt">Monad</span> m <span class="kw">where</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="ot">    bind ::</span> m a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> m b</a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="ot">    join ::</span> m (m a) <span class="ot">-&gt;</span> m a</a></code></pre></div>
+<div class="sourceCode" id="bind-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="bind-definition-1" title="1"><span class="kw">class</span> <span class="dt">Apply</span> m <span class="op">&lt;=</span> <span class="dt">Bind</span> m <span class="kw">where</span></a>
+<a class="sourceLine" id="bind-definition-2" title="2"><span class="ot">    bind ::</span> m a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> m b</a>
+<a class="sourceLine" id="bind-definition-3" title="3"><span class="kw">infixl</span> <span class="dv">1</span> bind as <span class="op">&gt;&gt;=</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">class</span> (<span class="dt">Bind</span> m, <span class="dt">Selective</span> m) <span class="op">&lt;=</span> <span class="dt">Monad</span> m <span class="kw">where</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="ot">join ::</span> m (m a) <span class="ot">-&gt;</span> m a</a>
+<a class="sourceLine" id="cb2-4" title="4">join m <span class="ot">=</span> m <span class="op">&gt;&gt;=</span> <span class="fu">id</span></a></code></pre></div>
 <h4 id="monad-instances">Monad Instances</h4>
 <h3 id="comonad">Comonad</h3>
 <div class="sourceCode" id="comonad-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="comonad-definition-1" title="1"><span class="kw">class</span> <span class="dt">Comonad</span> w <span class="kw">where</span></a>
