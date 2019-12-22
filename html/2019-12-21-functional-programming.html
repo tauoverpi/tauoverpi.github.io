@@ -74,29 +74,101 @@ code span.wa { font-style: italic; } /* Warning */
 <p class="notice">
 NOTICE: Document not complete
 </p>
+<h2 id="base-data-types">Base Data Types</h2>
+<h3 id="maybe">Maybe</h3>
+<div class="sourceCode" id="maybe-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="maybe-definition-1" title="1"><span class="kw">data</span> <span class="dt">Maybe</span> a <span class="ot">=</span> <span class="dt">Just</span> a <span class="op">|</span> <span class="dt">Nothing</span></a></code></pre></div>
 <h3 id="list">List</h3>
-<div class="sourceCode" id="list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-1" title="1"><span class="kw">data</span> <span class="dt">List</span> a <span class="ot">=</span> <span class="dt">Nil</span> <span class="op">|</span> <span class="dt">Cons</span> a (<span class="dt">List</span> a)</a></code></pre></div>
+<div class="sourceCode" id="list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-1" title="1"><span class="kw">data</span> <span class="dt">ListF</span> f a <span class="ot">=</span> <span class="dt">Nil</span> <span class="op">|</span> <span class="dt">Cons</span> a f</a></code></pre></div>
 <div class="sourceCode" id="list"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="list-1" title="1"><span class="kw">infixr</span> <span class="dv">6</span> <span class="dt">Cons</span> as <span class="op">:</span></a></code></pre></div>
-<h3 id="type-classes">Type Classes</h3>
+<h3 id="array">Array</h3>
+<h2 id="type-classes">Type Classes</h2>
+<h3 id="basic">Basic</h3>
 <div class="sourceCode" id="class-semigroup"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="class-semigroup-1" title="1"><span class="kw">class</span> <span class="dt">Semigroup</span> a <span class="kw">where</span></a>
 <a class="sourceLine" id="class-semigroup-2" title="2"><span class="ot">    append ::</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</a></code></pre></div>
 <div class="sourceCode" id="class-monoid"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="class-monoid-1" title="1"><span class="kw">class</span> <span class="dt">Semigroup</span> a <span class="op">&lt;=</span> <span class="dt">Monoid</span> a <span class="kw">where</span></a>
 <a class="sourceLine" id="class-monoid-2" title="2"><span class="ot">    mempty ::</span> a</a></code></pre></div>
+<h4 id="basic-instances">Basic Instances</h4>
+<h3 id="functor">Functor</h3>
 <div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="kw">where</span></a>
 <a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    map ::</span> <span class="kw">forall</span> a b<span class="op">.</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
+<h4 id="functor-instances">Functor Instances</h4>
+<h3 id="applicative">Applicative</h3>
 <div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Pure</span> f <span class="kw">where</span></a>
 <a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    pure ::</span> <span class="kw">forall</span> a<span class="op">.</span> a <span class="ot">-&gt;</span> f a</a></code></pre></div>
-<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="op">&lt;=</span> <span class="dt">Apply</span> fwhere</a>
+<div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="op">&lt;=</span> <span class="dt">Apply</span> f <span class="kw">where</span></a>
 <a class="sourceLine" id="base-classes-2" title="2"><span class="ot">    ap ::</span> <span class="kw">forall</span> a b<span class="op">.</span> f (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
 <div class="sourceCode" id="base-classes"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="base-classes-1" title="1"><span class="kw">class</span> (<span class="dt">Apply</span> f, <span class="dt">Pure</span> f) <span class="op">&lt;=</span> <span class="dt">Applicative</span> <span class="kw">where</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">class</span> <span class="dt">Applicative</span> f <span class="op">&lt;=</span> <span class="dt">Selective</span> f <span class="kw">where</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="ot">    select ::</span> f (<span class="dt">Either</span> a b) <span class="ot">-&gt;</span> f (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f b</a></code></pre></div>
+<h4 id="applicative-instances">Applicative Instances</h4>
+<h3 id="monad">Monad</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">class</span> <span class="dt">Selective</span> m <span class="op">&lt;=</span> <span class="dt">Monad</span> m <span class="kw">where</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="ot">    bind ::</span> m a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> m b</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="ot">    join ::</span> m (m a) <span class="ot">-&gt;</span> m a</a></code></pre></div>
+<h4 id="monad-instances">Monad Instances</h4>
+<h3 id="comonad">Comonad</h3>
+<div class="sourceCode" id="comonad-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="comonad-definition-1" title="1"><span class="kw">class</span> <span class="dt">Comonad</span> w <span class="kw">where</span></a>
+<a class="sourceLine" id="comonad-definition-2" title="2"><span class="ot">    extract ::</span> w a <span class="ot">-&gt;</span> a</a>
+<a class="sourceLine" id="comonad-definition-3" title="3"><span class="ot">    extend ::</span> (w a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> w a <span class="ot">-&gt;</span> w b</a>
+<a class="sourceLine" id="comonad-definition-4" title="4"><span class="ot">    duplicate ::</span> w a <span class="ot">-&gt;</span> w (w a)</a></code></pre></div>
+<h4 id="comonad-instances">Comonad Instances</h4>
+<h3 id="foldable">Foldable</h3>
+<div class="sourceCode" id="foldable-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="foldable-definition-1" title="1"><span class="kw">class</span> <span class="dt">Foldable</span> f <span class="kw">where</span></a>
+<a class="sourceLine" id="foldable-definition-2" title="2"><span class="ot">    foldr ::</span> <span class="kw">forall</span> t a b<span class="op">.</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> b</a>
+<a class="sourceLine" id="foldable-definition-3" title="3"><span class="ot">    foldl ::</span> <span class="kw">forall</span> t a b<span class="op">.</span> (b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> b</a></code></pre></div>
+<div class="sourceCode" id="recursive-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="recursive-definition-1" title="1"><span class="kw">type</span> <span class="dt">Algebra</span> f t <span class="ot">=</span> f t <span class="ot">-&gt;</span> t</a>
+<a class="sourceLine" id="recursive-definition-2" title="2"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="op">&lt;=</span> <span class="dt">Recursive</span> f t <span class="op">|</span> f <span class="ot">-&gt;</span> t <span class="kw">where</span></a>
+<a class="sourceLine" id="recursive-definition-3" title="3"><span class="ot">    project ::</span> t <span class="ot">-&gt;</span> f t</a></code></pre></div>
+<h4 id="foldable-instances">Foldable Instances</h4>
+<pre><code>cata :: forall f t a. Recursive f t =&gt; Algebra f a -&gt; t -&gt; a
+cata f = c where c x = f (map c (project x))</code></pre>
+<h3 id="unfoldable">Unfoldable</h3>
+<div class="sourceCode" id="corecursive-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="corecursive-definition-1" title="1"><span class="kw">type</span> <span class="dt">CoAlgebra</span> f t <span class="ot">=</span> t <span class="ot">-&gt;</span> f t</a>
+<a class="sourceLine" id="corecursive-definition-2" title="2"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="op">&lt;=</span> <span class="dt">CoRecursive</span> f t <span class="op">|</span> f <span class="ot">-&gt;</span> t <span class="kw">where</span></a>
+<a class="sourceLine" id="corecursive-definition-3" title="3"><span class="ot">    embed ::</span> f t <span class="ot">-&gt;</span> t</a></code></pre></div>
+<h4 id="unfoldable-instances">Unfoldable Instances</h4>
+<pre><code>ana :: forall f t a. CoRecursive f t =&gt; CoAlgebra f a -&gt; a -&gt; t
+ana g = a where a x = embed (map a (g x))</code></pre>
+<h3 id="category">Category</h3>
+<div class="sourceCode" id="semigroupoid-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="semigroupoid-definition-1" title="1"><span class="kw">class</span> <span class="dt">Semigroupoid</span> k <span class="kw">where</span></a>
+<a class="sourceLine" id="semigroupoid-definition-2" title="2"><span class="ot">    compose ::</span> k b c <span class="ot">-&gt;</span> k a b <span class="ot">-&gt;</span> k a c</a>
+<a class="sourceLine" id="semigroupoid-definition-3" title="3"></a>
+<a class="sourceLine" id="semigroupoid-definition-4" title="4"><span class="kw">infixr</span> <span class="dv">10</span> compose as <span class="op">&lt;&lt;&lt;</span></a></code></pre></div>
+<div class="sourceCode" id="category-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="category-definition-1" title="1"><span class="kw">class</span> <span class="dt">Semigroupoid</span> k <span class="op">&lt;=</span> <span class="dt">Category</span> k <span class="kw">where</span></a>
+<a class="sourceLine" id="category-definition-2" title="2"><span class="ot">    id ::</span> k a a</a></code></pre></div>
+<div class="sourceCode" id="cartesian-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cartesian-definition-1" title="1"><span class="kw">class</span> <span class="dt">Category</span> k <span class="op">&lt;=</span> <span class="dt">Cartesian</span> k <span class="kw">where</span></a>
+<a class="sourceLine" id="cartesian-definition-2" title="2"><span class="ot">    fst ::</span> k (<span class="dt">Pair</span> a b) a</a>
+<a class="sourceLine" id="cartesian-definition-3" title="3"><span class="ot">    snd ::</span> k (<span class="dt">Pair</span> a b) b</a>
+<a class="sourceLine" id="cartesian-definition-4" title="4"><span class="ot">    dup ::</span> k a (<span class="dt">Pair</span> a a)</a></code></pre></div>
+<div class="sourceCode" id="cocartesian-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cocartesian-definition-1" title="1"><span class="kw">class</span> <span class="dt">Category</span> k <span class="op">&lt;=</span> <span class="dt">CoCartesian</span> k <span class="kw">where</span></a>
+<a class="sourceLine" id="cocartesian-definition-2" title="2"><span class="ot">    left ::</span> k a (<span class="dt">Either</span> a b)</a>
+<a class="sourceLine" id="cocartesian-definition-3" title="3"><span class="ot">    right ::</span> k b (<span class="dt">Either</span> a b)</a>
+<a class="sourceLine" id="cocartesian-definition-4" title="4"><span class="ot">    jam ::</span> k (<span class="dt">Either</span> a a) a</a></code></pre></div>
+<div class="sourceCode" id="closed-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="closed-definition-1" title="1"><span class="kw">class</span> (<span class="dt">CoCartesian</span> k, <span class="dt">Cartesian</span> k) <span class="op">&lt;=</span> <span class="dt">Closed</span> k <span class="kw">where</span></a>
+<a class="sourceLine" id="closed-definition-2" title="2"><span class="ot">    apply ::</span> k (<span class="dt">Pair</span> (k a b) a) b</a>
+<a class="sourceLine" id="closed-definition-3" title="3"><span class="ot">    curry ::</span> k (k a b) c <span class="ot">-&gt;</span> k a (k b c)</a>
+<a class="sourceLine" id="closed-definition-4" title="4"><span class="ot">    uncurry ::</span> k a (k b c) <span class="ot">-&gt;</span> k (k a b) c</a></code></pre></div>
+<div class="sourceCode" id="terminal-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="terminal-definition-1" title="1"><span class="kw">class</span> <span class="dt">Terminal</span> k <span class="kw">where</span></a>
+<a class="sourceLine" id="terminal-definition-2" title="2"><span class="ot">    it ::</span> k a <span class="dt">Unit</span></a></code></pre></div>
+<h4 id="category-instances">Category Instances</h4>
+<div class="sourceCode" id="semigroupoid-function-instance"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="semigroupoid-function-instance-1" title="1"><span class="kw">instance</span> <span class="dt">Semigroupoid</span> (<span class="ot">-&gt;</span>) <span class="kw">where</span></a>
+<a class="sourceLine" id="semigroupoid-function-instance-2" title="2">    compose f g x <span class="ot">=</span> f (g x)</a></code></pre></div>
+<div class="sourceCode" id="category-function-instance"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="category-function-instance-1" title="1"><span class="kw">instance</span> <span class="dt">Category</span> (<span class="ot">-&gt;</span>) <span class="kw">where</span></a>
+<a class="sourceLine" id="category-function-instance-2" title="2">    <span class="fu">id</span> x <span class="ot">=</span> x</a></code></pre></div>
+<div class="sourceCode" id="cartesian-function-instance"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cartesian-function-instance-1" title="1"><span class="kw">instance</span> <span class="dt">Cartesian</span> (<span class="ot">-&gt;</span>) <span class="kw">where</span></a>
+<a class="sourceLine" id="cartesian-function-instance-2" title="2">    <span class="fu">fst</span> (<span class="dt">Pair</span> a _) <span class="ot">=</span> a</a>
+<a class="sourceLine" id="cartesian-function-instance-3" title="3">    <span class="fu">snd</span> (<span class="dt">Pair</span> _ b) <span class="ot">=</span> b</a>
+<a class="sourceLine" id="cartesian-function-instance-4" title="4">    dup a <span class="ot">=</span> <span class="dt">Pair</span> a a</a></code></pre></div>
+<div class="sourceCode" id="terminal-function-instance"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="terminal-function-instance-1" title="1"><span class="kw">instance</span> <span class="dt">Terminal</span> (<span class="ot">-&gt;</span>) <span class="kw">where</span></a>
+<a class="sourceLine" id="terminal-function-instance-2" title="2">    it _ <span class="ot">=</span> <span class="dt">Unit</span></a></code></pre></div>
 <h2 id="lazy-evaluation">Lazy Evaluation</h2>
 <p>Lazy evaluation opens up a world of new patterns of infinite structure allowing for a truly declarative style. With lazy semantics it’s possible to write types such as <code>Stream</code> which represents infinite lists, <code>Wire</code> representing time varying values in intinite stepped computations, and so on.</p>
 <p>In this section we’ll be implementing our own lazy evaluation library and see how instances change along with concerns involving the performance of such. It includes one purescript module <code>Data.Lazy</code>.</p>
-<div class="sourceCode" id="cb1" data-file="src/purescript/FunctionalProgramming/Data/Lazy.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">module</span> <span class="dt">Lazy</span> <span class="kw">where</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="op">&lt;&lt;</span>lazy<span class="op">-</span>definition<span class="op">&gt;&gt;</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="op">&lt;&lt;</span>lazy<span class="op">-</span>numerical<span class="op">-</span>instances<span class="op">&gt;&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb5" data-file="src/purescript/FunctionalProgramming/Data/Lazy.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">module</span> <span class="dt">Lazy</span> <span class="kw">where</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="op">&lt;&lt;</span>lazy<span class="op">-</span>definition<span class="op">&gt;&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="op">&lt;&lt;</span>lazy<span class="op">-</span>numerical<span class="op">-</span>instances<span class="op">&gt;&gt;</span></a></code></pre></div>
 <p>And one javascript module implementing the runtime.</p>
-<div class="sourceCode" id="cb2" data-file="src/purescript/FunctionalProgramming/Data/Lazy.js"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="op">&lt;&lt;</span>lazy<span class="op">-</span>js<span class="op">-</span>definition<span class="op">&gt;&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb6" data-file="src/purescript/FunctionalProgramming/Data/Lazy.js"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb6-1" title="1"><span class="op">&lt;&lt;</span>lazy<span class="op">-</span>js<span class="op">-</span>definition<span class="op">&gt;&gt;</span></a></code></pre></div>
 <h3 id="definition">Definition</h3>
 <p>We begin by declaring an abstract type <code>Lazy</code> to represent defered computation.</p>
 <div class="sourceCode" id="lazy-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="lazy-definition-1" title="1">foreign <span class="kw">import</span> data <span class="dt">Lazy</span> :: <span class="dt">Type</span> -&gt; <span class="dt">Type</span></a></code></pre></div>
@@ -135,13 +207,24 @@ There are other ways to implement lazy evaluation besides the one shown here. Fo
 <h2 id="wire">Wire</h2>
 <p><code>Stream</code> is great for tasks where you can define the set of possible values up front while not taking into account the past states. While this works great for random numbers, spreadsheets, and similar it doesn’t fare so well when we need that state. Wires are stateful where the next value is derived from an input value and the past state while keeping the properties we like of streams.</p>
 <p>This section covers the design and implementation of the <code>Control.Wire</code> library along with the many utilities that come with it and since this is a pure purescript module there are only a few files to keep track of.</p>
-<p><code>Data.Wire</code> exports the wire prelude consisting of a collection of support modules and the most frequently used wires.</p>
-<div class="sourceCode" id="cb3" data-file="src/purescript/FunctionalProgramming/Control/Wire.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">module</span> <span class="dt">Wire</span> (<span class="kw">module</span> <span class="dt">X</span>) <span class="kw">where</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw">import</span> <span class="dt">Control.Wire.Core</span> <span class="kw">as</span> <span class="dt">X</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw">import</span> <span class="dt">Control.Wire.Event</span> <span class="kw">as</span> <span class="dt">X</span></a></code></pre></div>
+<p><code>Control.Wire</code> exports the wire prelude consisting of a collection of support modules and the most frequently used wires.</p>
+<div class="sourceCode" id="cb7" data-file="src/purescript/FunctionalProgramming/Control/Wire.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">module</span> <span class="dt">Control.Wire</span> (<span class="kw">module</span> <span class="dt">X</span>) <span class="kw">where</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">import</span> <span class="dt">Control.Wire.Core</span> <span class="kw">as</span> <span class="dt">X</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="kw">import</span> <span class="dt">Control.Wire.Event</span> <span class="kw">as</span> <span class="dt">X</span></a></code></pre></div>
+<p><code>Control.Wire.Core</code> exports the core data structure and definitions.</p>
+<div class="sourceCode" id="cb8" data-file="src/purescript/FunctionalProgramming/Control/Wire/Core.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">module</span> <span class="dt">Control.Wire.Core</span> <span class="kw">where</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="op">&lt;&lt;</span>wire<span class="op">-</span>definition<span class="op">&gt;&gt;</span></a></code></pre></div>
 <h3 id="definition-2">Definition</h3>
-<div class="sourceCode" id="wire-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="wire-definition-1" title="1"><span class="kw">data</span> <span class="dt">Wire</span> m a b <span class="ot">=</span></a>
+<div class="sourceCode" id="wire-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="wire-definition-1" title="1"><span class="kw">data</span> <span class="dt">Wire</span> m a b <span class="kw">where</span></a>
 <a class="sourceLine" id="wire-definition-2" title="2">    <span class="dt">Wire</span> (a <span class="ot">-&gt;</span> m (<span class="dt">Pair</span> (<span class="dt">Lazy</span> (<span class="dt">Wire</span> m a b)) b))</a></code></pre></div>
+<div class="sourceCode" id="wire-semigroupoid"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="wire-semigroupoid-1" title="1"><span class="kw">instance</span> <span class="dt">Semigroupoid</span> (<span class="dt">Wire</span> m) <span class="kw">where</span></a>
+<a class="sourceLine" id="wire-semigroupoid-2" title="2">    compose (<span class="dt">Wire</span> f) (<span class="dt">Wire</span> g) <span class="ot">=</span> <span class="dt">Wire</span> \x <span class="ot">-&gt;</span></a>
+<a class="sourceLine" id="wire-semigroupoid-3" title="3">        <span class="kw">let</span> <span class="dt">Pair</span> g&#39; x&#39; <span class="ot">=</span> g x</a>
+<a class="sourceLine" id="wire-semigroupoid-4" title="4">            <span class="dt">Pair</span> f&#39; x&#39;&#39; <span class="ot">=</span> f x&#39;</a>
+<a class="sourceLine" id="wire-semigroupoid-5" title="5">         <span class="kw">in</span> <span class="dt">Pair</span> (compose (force f&#39;) (force g&#39;)) x&#39;&#39;</a></code></pre></div>
+<div class="sourceCode" id="wire-category"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="wire-category-1" title="1"><span class="kw">instance</span> <span class="dt">Category</span> (<span class="dt">Wire</span> m) <span class="kw">where</span></a>
+<a class="sourceLine" id="wire-category-2" title="2">    <span class="fu">id</span> <span class="ot">=</span> <span class="dt">Wire</span> \x <span class="ot">-&gt;</span> <span class="dt">Pair</span> (delay \_ <span class="ot">-&gt;</span> <span class="fu">id</span>) x</a></code></pre></div>
+<div class="sourceCode" id="wire-loop"><pre class="sourceCode hs"><code class="sourceCode haskell"></code></pre></div>
 <h3 id="events">Events</h3>
 <h2 id="io">IO</h2>
 <div class="sourceCode" id="io"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="io-1" title="1">foreign <span class="kw">import</span> data <span class="dt">IO</span> :: <span class="dt">Type</span> -&gt; <span class="dt">Type</span></a>
@@ -157,14 +240,14 @@ There are other ways to implement lazy evaluation besides the one shown here. Fo
 <a class="sourceLine" id="io-11" title="11"><span class="kw">instance</span> <span class="dt">Apply</span> <span class="dt">IO</span> <span class="kw">where</span></a>
 <a class="sourceLine" id="io-12" title="12">    ap <span class="ot">=</span> apIO</a></code></pre></div>
 <h3 id="canvas">Canvas</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb4-1" title="1">foreign <span class="kw">import</span> data <span class="dt">Canvas</span> :: <span class="dt">Type</span></a>
-<a class="sourceLine" id="cb4-2" title="2">foreign <span class="kw">import</span> data <span class="dt">Context2D</span> :: <span class="dt">Type</span></a>
-<a class="sourceLine" id="cb4-3" title="3">foreign <span class="kw">import</span> createCanvas :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Canvas</span></a>
-<a class="sourceLine" id="cb4-4" title="4">foreign <span class="kw">import</span> getContext2D :: <span class="dt">Canvas</span> -&gt; <span class="dt">IO</span> <span class="dt">Context2D</span></a>
-<a class="sourceLine" id="cb4-5" title="5">foreign <span class="kw">import</span> setCtxFillStyle :: <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a>
-<a class="sourceLine" id="cb4-6" title="6">foreign <span class="kw">import</span> setCtxFillRect :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb9-1" title="1">foreign <span class="kw">import</span> data <span class="dt">Canvas</span> :: <span class="dt">Type</span></a>
+<a class="sourceLine" id="cb9-2" title="2">foreign <span class="kw">import</span> data <span class="dt">Context2D</span> :: <span class="dt">Type</span></a>
+<a class="sourceLine" id="cb9-3" title="3">foreign <span class="kw">import</span> createCanvas :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Canvas</span></a>
+<a class="sourceLine" id="cb9-4" title="4">foreign <span class="kw">import</span> getContext2D :: <span class="dt">Canvas</span> -&gt; <span class="dt">IO</span> <span class="dt">Context2D</span></a>
+<a class="sourceLine" id="cb9-5" title="5">foreign <span class="kw">import</span> setCtxFillStyle :: <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a>
+<a class="sourceLine" id="cb9-6" title="6">foreign <span class="kw">import</span> setCtxFillRect :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
 <h3 id="animation">Animation</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb5-1" title="1">foreign <span class="kw">import</span> requestAnimationFrame :: (<span class="dt">Unit</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span>) -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb10-1" title="1">foreign <span class="kw">import</span> requestAnimationFrame :: (<span class="dt">Unit</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span>) -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
 </div>
 </body>
 </html>

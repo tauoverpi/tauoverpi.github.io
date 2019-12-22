@@ -95,14 +95,14 @@ code {
 	font-family: 'IBM Plex Mono';
 	background: #000000;
 	color: #ffffff;
-	padding: 1px 4px;
-	border-radius: 0px;
-	border-color: #000000;
+	padding: .1rem .4rem;
+	border-radius: 0;
+	border-width: 0;
 }
 /* ------ end */
 /* ------ begin <<style>>[6] */
 pre > code {
-	background: #ffffff;
+	background: transparent;
 	color: #000000;
 	border-width: 0px 0px 0px 0px;
 	overflow: auto;
@@ -113,11 +113,11 @@ h1.title {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
 	font-size: 5em;
-	padding-top: 150px;
-	padding-bottom: 50px;
-	margin-bottom: 100px;
+	padding-top: 15rem;
+	padding-bottom: 5rem;
+	margin-bottom: 10rem;
 	width: 100%;
-	height: 200px;
+	height: 20rem;
 	color: #ffffff;
 	background: #000000;
 }
@@ -125,10 +125,10 @@ h1.title {
 /* ------ begin <<style>>[8] */
 h1, h2 { text-align: center; }
 h2 {
-	padding-top: 50px;
+	padding-top: 5rem;
 	padding-bottom: 0px;
-	margin-top: 150px;
-	margin-bottom: 50px;
+	margin-top: 15rem;
+	margin-bottom: 5rem;
 }
 
 h3 {

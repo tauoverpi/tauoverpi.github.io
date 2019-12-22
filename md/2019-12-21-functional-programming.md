@@ -4,17 +4,32 @@ title: Functional Programming
 
 <div class="container">
 <p class="notice">NOTICE: Document not complete</p>
+
+Base Data Types
+---------------
+
+### Maybe
+
+```{.hs #maybe-definition}
+data Maybe a = Just a | Nothing
+```
+
 ### List
 
 ```{.hs #list}
-data List a = Nil | Cons a (List a)
+data ListF f a = Nil | Cons a f
 ```
 
 ```{.hs #list}
 infixr 6 Cons as :
 ```
 
-### Type Classes
+### Array
+
+Type Classes
+------------
+
+### Basic
 
 ```{.hs #class-semigroup}
 class Semigroup a where
@@ -26,10 +41,17 @@ class Semigroup a <= Monoid a where
     mempty :: a
 ```
 
+#### Basic Instances
+### Functor
+
 ```{.hs #base-classes}
 class Functor f where
     map :: forall a b. (a -> b) -> f a -> f b
 ```
+
+#### Functor Instances
+
+### Applicative
 
 ```{.hs #base-classes}
 class Pure f where
@@ -37,12 +59,140 @@ class Pure f where
 ```
 
 ```{.hs #base-classes}
-class Functor f <= Apply fwhere
+class Functor f <= Apply f where
     ap :: forall a b. f (a -> b) -> f a -> f b
 ```
 
 ```{.hs #base-classes}
 class (Apply f, Pure f) <= Applicative where
+```
+
+```{.hs}
+class Applicative f <= Selective f where
+    select :: f (Either a b) -> f (a -> b) -> f b
+```
+
+#### Applicative Instances
+
+### Monad
+
+```{.hs}
+class Selective m <= Monad m where
+    bind :: m a -> (a -> m b) -> m b
+    join :: m (m a) -> m a
+```
+
+#### Monad Instances
+
+### Comonad
+
+```{.hs #comonad-definition}
+class Comonad w where
+    extract :: w a -> a
+    extend :: (w a -> b) -> w a -> w b
+    duplicate :: w a -> w (w a)
+```
+
+#### Comonad Instances
+
+### Foldable
+
+```{.hs #foldable-definition}
+class Foldable f where
+    foldr :: forall t a b. (a -> b -> b) -> b -> t a -> b
+    foldl :: forall t a b. (b -> a -> b) -> b -> t a -> b
+```
+
+```{.hs #recursive-definition}
+type Algebra f t = f t -> t
+class Functor f <= Recursive f t | f -> t where
+    project :: t -> f t
+```
+
+#### Foldable Instances
+
+```
+cata :: forall f t a. Recursive f t => Algebra f a -> t -> a
+cata f = c where c x = f (map c (project x))
+```
+
+### Unfoldable
+
+```{.hs #corecursive-definition}
+type CoAlgebra f t = t -> f t
+class Functor f <= CoRecursive f t | f -> t where
+    embed :: f t -> t
+```
+
+#### Unfoldable Instances
+
+```
+ana :: forall f t a. CoRecursive f t => CoAlgebra f a -> a -> t
+ana g = a where a x = embed (map a (g x))
+```
+
+### Category
+
+```{.hs #semigroupoid-definition}
+class Semigroupoid k where
+    compose :: k b c -> k a b -> k a c
+
+infixr 10 compose as <<<
+```
+
+```{.hs #category-definition}
+class Semigroupoid k <= Category k where
+    id :: k a a
+```
+
+```{.hs #cartesian-definition}
+class Category k <= Cartesian k where
+    fst :: k (Pair a b) a
+    snd :: k (Pair a b) b
+    dup :: k a (Pair a a)
+```
+
+```{.hs #cocartesian-definition}
+class Category k <= CoCartesian k where
+    left :: k a (Either a b)
+    right :: k b (Either a b)
+    jam :: k (Either a a) a
+```
+
+```{.hs #closed-definition}
+class (CoCartesian k, Cartesian k) <= Closed k where
+    apply :: k (Pair (k a b) a) b
+    curry :: k (k a b) c -> k a (k b c)
+    uncurry :: k a (k b c) -> k (k a b) c
+```
+
+```{.hs #terminal-definition}
+class Terminal k where
+    it :: k a Unit
+```
+
+
+#### Category Instances
+
+```{.hs #semigroupoid-function-instance}
+instance Semigroupoid (->) where
+    compose f g x = f (g x)
+```
+```{.hs #category-function-instance}
+instance Category (->) where
+    id x = x
+```
+
+```{.hs #cartesian-function-instance}
+instance Cartesian (->) where
+    fst (Pair a _) = a
+    snd (Pair _ b) = b
+    dup a = Pair a a
+```
+
+```{.hs #terminal-function-instance}
+instance Terminal (->) where
+    it _ = Unit
 ```
 
 Lazy Evaluation
@@ -130,7 +280,6 @@ overhead of calling. However, implementation of such is out of scope for this
 article.</p>
 </details>
 
-
 `force` is considerably simpler in it's definition. The closure ready to be
 evaluated, `force` only needs to invoke it to get the result.
 
@@ -165,20 +314,43 @@ This section covers the design and implementation of the `Control.Wire` library
 along with the many utilities that come with it and since this is a pure
 purescript module there are only a few files to keep track of.
 
-`Data.Wire` exports the wire prelude consisting of a collection of support
+`Control.Wire` exports the wire prelude consisting of a collection of support
 modules and the most frequently used wires.
 
 ```{.hs file=src/purescript/FunctionalProgramming/Control/Wire.purs}
-module Wire (module X) where
+module Control.Wire (module X) where
 import Control.Wire.Core as X
 import Control.Wire.Event as X
+```
+
+`Control.Wire.Core` exports the core data structure and definitions.
+
+```{.hs file=src/purescript/FunctionalProgramming/Control/Wire/Core.purs}
+module Control.Wire.Core where
+<<wire-definition>>
 ```
 
 ### Definition
 
 ```{.hs #wire-definition}
-data Wire m a b =
+data Wire m a b where
     Wire (a -> m (Pair (Lazy (Wire m a b)) b))
+```
+
+```{.hs #wire-semigroupoid}
+instance Semigroupoid (Wire m) where
+    compose (Wire f) (Wire g) = Wire \x ->
+        let Pair g' x' = g x
+            Pair f' x'' = f x'
+         in Pair (compose (force f') (force g')) x''
+```
+
+```{.hs #wire-category}
+instance Category (Wire m) where
+    id = Wire \x -> Pair (delay \_ -> id) x
+```
+
+```{.hs #wire-loop}
 ```
 
 ### Events
