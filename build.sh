@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO generate markdown and have pandoc build the index page
+
 source="md"
 target="html"
 title="Levy's Articles"

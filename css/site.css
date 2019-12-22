@@ -30,7 +30,7 @@ ul {
 input[type="checkbox"] {
 	-webkit-appearance: none;
 	display: inline-block;
-	padding: 12px;
+	padding: 11px;
 	margin-bottom: -7px;
 	border-style: solid;
 	border-width: 1px;
@@ -41,7 +41,7 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked {
 	-webkit-appearance: none;
-	padding: 12px;
+	padding: 11px;
 	border-color: #ffffff;
 	background: #000000;
 }

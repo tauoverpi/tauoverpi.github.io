@@ -20,6 +20,8 @@ data Maybe a = Just a | Nothing
 data List a = Nil | Cons a (List a)
 ```
 
+Lists work fine as long as list items remain small.
+
 ```{.hs #lazy-list-definition}
 data LazyList a = LNil
                 | LCons (Lazy (Pair a (LazyList a)))
@@ -31,8 +33,8 @@ infixr 6 Cons as :
 
 ### Array
 
-Type Classes
-------------
+Basic Type Classes
+------------------
 
 ### Basic
 
@@ -49,6 +51,7 @@ class Semigroup a <= Monoid a where
 ```
 
 #### Basic Instances
+
 
 ### Utility
 
@@ -90,14 +93,16 @@ instance Cast (LazyList a) (List a) where
         let Pair x ls' = force ls in x : cast ls
 ```
 <p class="warning">CAUTION: Passing an infinite list to `cast` results in
-`_|_`</p>
+`_|_`
+</p>
 
 ```{.hs #cast-lazylist-list}
 instance SafeCast (LazyList a) (List a) where
     safeCast = Just <<< cast
 ```
 <p class="warning">CAUTION: Passing an infinite list to `safeCast` results in
-`_|_`</p>
+`_|_`
+</p>
 
 ```{.hs #cast-lazylist-list}
 instance Cast (List a) (LazyList a) where
@@ -107,10 +112,43 @@ instance Cast (List a) (LazyList a) where
 
 instance SafeCast (List a) (LazyList a) where
     safeCast = Just <<< cast
+```
 
+Numerical Type Classes
+----------------------
+
+### Division
+#### Division Implementation
+
+```{.hs #int-div-implementation}
+foreign import intDiv :: Partial => Int -> Int -> Int
+```
+
+```{.js #int-div-ffi-implementation}
+exports.intDiv = function (x) {
+  return function (y) {
+    if (y === 0) throw "NaN";
+    return y > 0 ? Math.floor(x / y) : -Math.floor(x / -y);
+  }
+}
+```
+
+```{.hs #int-div-implementation}
+foreign import intSafeDiv :: Int -> Int -> Int
+```
+
+```{.js #int-safe-div-ffi-implementation}
+exports.intSafeDiv = function (x) {
+  return function (y) {
+    if (y === 0) return 0;
+    return y > 0 ? Math.floor(x / y) : -Math.floor(x / -y);
+  }
+}
 ```
 
 
+Higher Kinded Type Classes
+--------------------------
 
 ### Functor
 
@@ -208,6 +246,9 @@ ana :: forall f t a. CoRecursive f t => CoAlgebra f a -> a -> t
 ana g = a where a x = embed (map a (g x))
 ```
 
+Categories
+----------
+
 ### Category
 
 ```{.hs #semigroupoid-definition}
@@ -215,6 +256,11 @@ class Semigroupoid k where
     compose :: k b c -> k a b -> k a c
 
 infixr 10 compose as <<<
+
+flippedCompose :: Semigroupoid k => k a b -> k b c -> k a c
+flippedCompose = flip compose
+
+infixl 10 compose as >>>
 ```
 
 ```{.hs #category-definition}
@@ -354,7 +400,8 @@ core of lazy evaluation.
 one shown here. For example, a compiler may inline the conditional branch at
 the location of `force` along with procedures called after to eliminate the
 overhead of calling. However, implementation of such is out of scope for this
-article.</p>
+article.
+</p>
 </details>
 
 `force` is considerably simpler in it's definition. The closure ready to be
@@ -369,14 +416,43 @@ exports.force = function(closure) {
 ### Numerical Instances
 ### Functor & Applicative Instances
 
+Hash
+----
+
+### Definition
+
+#### FNV1a
+
+```hs
+class FNV1a a where
+    fnv1a32 :: a -> Int -> Int
+```
+
+### djb2
+
 Stream
 ------
 
 ### Definition
 
 ```{.hs #stream-definition}
-data Stream a = Cons a (Lazy (Stream a))
+data Stream a = SCons (Lazy (Pair a (Stream a)))
 ```
+
+```{.hs #stream-cast}
+instance Cast (Stream a) (LazyList a) where
+    cast (SCons s) = LCons (delay \_ ->
+        let Pair x ss = force s in
+            Pair x (cast ss))
+```
+<details>
+<summary>note</summary>
+<p class="notice">While it's possible to create an instance of `safeCast` for
+`LazyList` to `Stream` casts it's inefficient and doesn't result in any
+advantages over using `LazyList` directly.
+</p>
+</details>
+
 
 Wire
 ----
