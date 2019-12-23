@@ -265,9 +265,23 @@ There are other ways to implement lazy evaluation besides the one shown here. Fo
 <h2 id="hash">Hash</h2>
 <h3 id="definition-1">Definition</h3>
 <h4 id="fnv1a">FNV1a</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">class</span> <span class="dt">FNV1a</span> a <span class="kw">where</span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="ot">    fnv1a32 ::</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></a></code></pre></div>
-<h3 id="djb2">djb2</h3>
+<p class="warning">
+CAUTION: <code>fnv1a</code> is a non-cryptographic hash function and should never be used in place of a cryptographic hash function.
+</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">class</span> <span class="dt">FNV1aImpl</span> a b <span class="kw">where</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="ot">    fnv1aImpl ::</span> a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb8-1" title="1"><span class="ot">fnv1a32 ::</span> <span class="kw">forall</span> a<span class="op">.</span> <span class="dt">FNV1a</span> a <span class="dt">Int</span> <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb8-2" title="2">fnv1a32 x <span class="ot">=</span> fnv1aImpl x offset prime</a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">where</span> offset <span class="ot">=</span> <span class="dv">2166136261</span> <span class="co">-- TODO change to unsigned</span></a>
+<a class="sourceLine" id="cb8-4" title="4">          prime <span class="ot">=</span> <span class="dv">16777619</span> <span class="co">-- TODO change to unsigned</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">instance</span><span class="ot"> fnv1a_int ::</span> <span class="dt">FNV1a</span> <span class="dt">Int</span> <span class="dt">Int</span> <span class="kw">where</span></a>
+<a class="sourceLine" id="cb9-2" title="2">    fnv1aImpl x offset prime <span class="ot">=</span> (offset <span class="ot">`xor`</span> x) <span class="op">*</span> prime</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">instance</span><span class="ot"> fnv1a_list ::</span> <span class="dt">FNV1a</span> (<span class="dt">List</span> a) <span class="kw">where</span></a>
+<a class="sourceLine" id="cb10-2" title="2">    fnv1a32 x offset prime <span class="ot">=</span></a></code></pre></div>
+<h4 id="djb2">djb2</h4>
+<p class="warning">
+CAUTION: <code>djb2</code> is a non-cryptographic hash function and should never be used in place of a cryptographic hash function.
+</p>
 <h2 id="stream">Stream</h2>
 <h3 id="definition-2">Definition</h3>
 <div class="sourceCode" id="stream-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="stream-definition-1" title="1"><span class="kw">data</span> <span class="dt">Stream</span> a <span class="ot">=</span> <span class="dt">SCons</span> (<span class="dt">Lazy</span> (<span class="dt">Pair</span> a (<span class="dt">Stream</span> a)))</a></code></pre></div>
@@ -285,12 +299,12 @@ While it’s possible to create an instance of <code>safeCast</code> for <code>L
 <p><code>Stream</code> is great for tasks where you can define the set of possible values up front while not taking into account the past states. While this works great for random numbers, spreadsheets, and similar it doesn’t fare so well when we need that state. Wires are stateful where the next value is derived from an input value and the past state while keeping the properties we like of streams.</p>
 <p>This section covers the design and implementation of the <code>Control.Wire</code> library along with the many utilities that come with it and since this is a pure purescript module there are only a few files to keep track of.</p>
 <p><code>Control.Wire</code> exports the wire prelude consisting of a collection of support modules and the most frequently used wires.</p>
-<div class="sourceCode" id="cb8" data-file="src/purescript/FunctionalProgramming/Control/Wire.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">module</span> <span class="dt">Control.Wire</span> (<span class="kw">module</span> <span class="dt">X</span>) <span class="kw">where</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="kw">import</span> <span class="dt">Control.Wire.Core</span> <span class="kw">as</span> <span class="dt">X</span></a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="kw">import</span> <span class="dt">Control.Wire.Event</span> <span class="kw">as</span> <span class="dt">X</span></a></code></pre></div>
+<div class="sourceCode" id="cb11" data-file="src/purescript/FunctionalProgramming/Control/Wire.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">module</span> <span class="dt">Control.Wire</span> (<span class="kw">module</span> <span class="dt">X</span>) <span class="kw">where</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">import</span> <span class="dt">Control.Wire.Core</span> <span class="kw">as</span> <span class="dt">X</span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="kw">import</span> <span class="dt">Control.Wire.Event</span> <span class="kw">as</span> <span class="dt">X</span></a></code></pre></div>
 <p><code>Control.Wire.Core</code> exports the core data structure and definitions.</p>
-<div class="sourceCode" id="cb9" data-file="src/purescript/FunctionalProgramming/Control/Wire/Core.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">module</span> <span class="dt">Control.Wire.Core</span> <span class="kw">where</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="op">&lt;&lt;</span>wire<span class="op">-</span>definition<span class="op">&gt;&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb12" data-file="src/purescript/FunctionalProgramming/Control/Wire/Core.purs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">module</span> <span class="dt">Control.Wire.Core</span> <span class="kw">where</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="op">&lt;&lt;</span>wire<span class="op">-</span>definition<span class="op">&gt;&gt;</span></a></code></pre></div>
 <h3 id="definition-3">Definition</h3>
 <div class="sourceCode" id="wire-definition"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="wire-definition-1" title="1"><span class="kw">data</span> <span class="dt">Wire</span> m a b <span class="kw">where</span></a>
 <a class="sourceLine" id="wire-definition-2" title="2">    <span class="dt">Wire</span> (a <span class="ot">-&gt;</span> m (<span class="dt">Pair</span> (<span class="dt">Lazy</span> (<span class="dt">Wire</span> m a b)) b))</a></code></pre></div>
@@ -317,14 +331,14 @@ While it’s possible to create an instance of <code>safeCast</code> for <code>L
 <a class="sourceLine" id="io-11" title="11"><span class="kw">instance</span> <span class="dt">Apply</span> <span class="dt">IO</span> <span class="kw">where</span></a>
 <a class="sourceLine" id="io-12" title="12">    ap <span class="ot">=</span> apIO</a></code></pre></div>
 <h3 id="canvas">Canvas</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb10-1" title="1">foreign <span class="kw">import</span> data <span class="dt">Canvas</span> :: <span class="dt">Type</span></a>
-<a class="sourceLine" id="cb10-2" title="2">foreign <span class="kw">import</span> data <span class="dt">Context2D</span> :: <span class="dt">Type</span></a>
-<a class="sourceLine" id="cb10-3" title="3">foreign <span class="kw">import</span> createCanvas :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Canvas</span></a>
-<a class="sourceLine" id="cb10-4" title="4">foreign <span class="kw">import</span> getContext2D :: <span class="dt">Canvas</span> -&gt; <span class="dt">IO</span> <span class="dt">Context2D</span></a>
-<a class="sourceLine" id="cb10-5" title="5">foreign <span class="kw">import</span> setCtxFillStyle :: <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a>
-<a class="sourceLine" id="cb10-6" title="6">foreign <span class="kw">import</span> setCtxFillRect :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb13-1" title="1">foreign <span class="kw">import</span> data <span class="dt">Canvas</span> :: <span class="dt">Type</span></a>
+<a class="sourceLine" id="cb13-2" title="2">foreign <span class="kw">import</span> data <span class="dt">Context2D</span> :: <span class="dt">Type</span></a>
+<a class="sourceLine" id="cb13-3" title="3">foreign <span class="kw">import</span> createCanvas :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Canvas</span></a>
+<a class="sourceLine" id="cb13-4" title="4">foreign <span class="kw">import</span> getContext2D :: <span class="dt">Canvas</span> -&gt; <span class="dt">IO</span> <span class="dt">Context2D</span></a>
+<a class="sourceLine" id="cb13-5" title="5">foreign <span class="kw">import</span> setCtxFillStyle :: <span class="dt">String</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a>
+<a class="sourceLine" id="cb13-6" title="6">foreign <span class="kw">import</span> setCtxFillRect :: <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">Int</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
 <h3 id="animation">Animation</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb11-1" title="1">foreign <span class="kw">import</span> requestAnimationFrame :: (<span class="dt">Unit</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span>) -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb14-1" title="1">foreign <span class="kw">import</span> requestAnimationFrame :: (<span class="dt">Unit</span> -&gt; <span class="dt">IO</span> <span class="dt">Unit</span>) -&gt; <span class="dt">IO</span> <span class="dt">Unit</span></a></code></pre></div>
 </div>
 </body>
 </html>

@@ -422,13 +422,38 @@ Hash
 ### Definition
 
 #### FNV1a
+<p class="warning">CAUTION: `fnv1a` is a non-cryptographic hash function and
+should never be used in place of a cryptographic hash function.
+</p>
+
 
 ```hs
-class FNV1a a where
-    fnv1a32 :: a -> Int -> Int
+class FNV1aImpl a b where
+    fnv1aImpl :: a -> b -> b -> b
 ```
 
-### djb2
+```hs
+fnv1a32 :: forall a. FNV1a a Int => a -> Int
+fnv1a32 x = fnv1aImpl x offset prime
+    where offset = 2166136261 -- TODO change to unsigned
+          prime = 16777619 -- TODO change to unsigned
+```
+
+```hs
+instance fnv1a_int :: FNV1a Int Int where
+    fnv1aImpl x offset prime = (offset `xor` x) * prime
+```
+
+```hs
+instance fnv1a_list :: FNV1a (List a) where
+    fnv1a32 x offset prime =
+```
+
+#### djb2
+
+<p class="warning">CAUTION: `djb2` is a non-cryptographic hash function and
+should never be used in place of a cryptographic hash function.
+</p>
 
 Stream
 ------
