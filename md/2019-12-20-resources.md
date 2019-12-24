@@ -16,12 +16,23 @@ code {
 Programming
 -----------
 
+- [ ] [Structure and Interpretation of Computer Programs](http://xuanji.appspot.com/isicp/)
+- [ ] [Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9)
+
 #### Hash Algorithms
 
 - [X] `article` [FNV](http://www.isthe.com/chongo/tech/comp/fnv/)
 - [X] `article` [djb2](http://www.cse.yorku.ca/~oz/hash.html)
 - [ ] `blog` [Hash functions: An empirical comparison](https://www.strchr.com/hash_functions)
 - [ ] `blog` [Paul Hsieh Hash](http://www.azillionmonkeys.com/qed/hash.html)
+
+#### Parsing
+
+- [ ] `article` [Earley Parsing Explained](http://loup-vaillant.fr/tutorials/earley-parsing)
+
+#### Compression
+
+- [ ] `article` [Data Compression with Arithmetic Encoding](http://www.drdobbs.com/cpp/data-compression-with-arithmetic-encodin/240169251)
 
 #### Crypto
 
@@ -34,17 +45,32 @@ Programming
 - [ ] `paper` [Ceptre: A Language for Modeling Generative Interactive Systems](http://www.cs.cmu.edu/~cmartens/ceptre.pdf)
 - [ ] `paper` [Linear Logic Programming for Narrative Generation](https://www.cs.cmu.edu/~cmartens/lpnmr13-short.pdf)
 
+#### Type
+
+- [ ] `blog` [Typing the technical interview](https://aphyr.com/posts/342-typing-the-technical-interview)
+- [ ] `project` [Relational Hindley-Milner type inferencer in miniKanren](https://github.com/webyrd/hindley-milner-type-inferencer)
+
 #### Garbage Collection
 
 - [ ] `paper` [Compile-Time Garbage Collection for the Declarative Language Mercury](https://www.mercurylang.org/documentation/papers/CW2004_03_mazur.pdf)
 
+### Machine Learning
+
+- [ ] `paper` [Programming with a Differentiable Forth Interpreter](https://arxiv.org/pdf/1605.06640)
+
 ### Functional Programming
+
+- [ ] `article` [The Evolution of a Haskell Programmer](https://www.willamette.edu/~fruehr/haskell/evolution.html)
 
 #### Category
 
 - [ ] `paper` [Generalized Convolution and Efficient Language Recognition](https://arxiv.org/pdf/1903.10677.pdf)
 - [ ] `paper` [Compiling to Categories](http://conal.net/papers/compiling-to-categories/compiling-to-categories.pdf)
 - [ ] `paper` [Selecitve Applicative Functors](https://dl.acm.org/ft_gateway.cfm?id=3341694)
+- [ ] `book` [An Introduction to Category Theory for the working computer scientist](https://www.researchgate.net/publication/235778993_The_optimal_implementation_of_functional_programming_languages)
+- [ ] `blog` [From Adjunctions to Monads](http://www.stephendiehl.com/posts/adjunctions.html)
+- [ ] `book` [Category Theory for Programmers: The Preface](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
+- [ ] `blog` [Profunctors, Arrows, & Static Analysis](https://elvishjerricco.github.io/2017/03/10/profunctors-arrows-and-static-analysis.html)
 
 #### Interpreters
 
@@ -53,6 +79,8 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 - [ ] `paper` [How to add laziness to a strict language without even being odd](http://hh.diva-portal.org/smash/get/diva2:413532/FULLTEXT01.pdf)
 - [ ] `paper` [Partial Evaluation and Automatic Program Generation](http://www.itu.dk/people/sestoft/pebook/jonesgomardsestoft-a4.pdf)
 - [ ] `paper` [Revised7 Report on the Algorithmic Language Scheme](http://www.larcenists.org/Documentation/Documentation0.98/r7rs.pdf)
+- [ ] `blog` [Reflecting On Incremental Folds](http://comonad.com/reader/2009/incremental-folds/)
+- [ ] `book` [The Beam Book](https://happi.github.io/theBeamBook)
 
 #### Transactional Memory
 
@@ -66,6 +94,7 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 - [ ] `paper` [Functional Reactive Programming, Refactored](https://dl.acm.org/authorize?N34896)
 - [ ] `paper` [Composing Reactive Animations](http://conal.net/fran/tutorial.htm)
 - [ ] `paper` [Flask: Staged Functional Programming for Sensor Networks](http://www.cl.cam.ac.uk/~ey204/teaching/ACS/R202/papers/S5_Stream_Query/papers/mainland_icfp_2008.pdf)
+- [ ] `blog` [Understanding Yoneda](https://www.schoolofhaskell.com/user/bartosz/understanding-yoneda)
 
 #### Types
 
@@ -79,17 +108,37 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 - [ ] `paper` [Programming and Reasoning with Algebraic Effects and Dependent Types](https://eb.host.cs.st-andrews.ac.uk/drafts/effects.pdf)
 - [ ] `paper` [The Power of Pi](https://cs.ru.nl/~wouters/Publications/ThePowerOfPi.pdf)
 - [ ] `paper` [Lightweight higher-kinded polymorphism](https://ocamllabs.github.io/higher/lightweight-higher-kinded-polymorphism.pdf)
+- [ ] `blog` [Write You a Haskell](http://dev.stephendiehl.com/fun/)
+- [ ] `book` [Learn you an Agda](http://learnyouanagda.liamoc.net/pages/introduction.html)
+- [ ] `blog` [Row Polymorphism Isn't Subtyping](https://brianmckenna.org/blog/row_polymorphism_isnt_subtyping)
+- [ ] `book` [Programming Language Foundations in Agda](https://plfa.github.io/)
 
 #### Graphics
 
 #### Continuations
 
 - [ ] `blog` [Object Oriented Programming in Haskell](https://www.well-typed.com/blog/2018/03/oop-in-haskell/)
+- [ ] `blog` [Mirrored Lenses](http://comonad.com/reader/2012/mirrored-lenses/)
+- [ ] `blog` [From walking to zipping, Part 3: Caught in a zipper](http://conway.rutgers.edu/~ccshan/wiki/blog/posts/WalkZip3/)
 
 #### Compilation
 
 - [ ] `book` [Static Single Assignment Book](http://ssabook.gforge.inria.fr/latest/book.pdf)
 - [ ] `paper` [Cross-platform Compilers for Functional Languages](https://eb.host.cs.st-andrews.ac.uk/drafts/compile-idris.pdf)
+- [ ] `blog` [Monads to Machine Code](http://www.stephendiehl.com/posts/monads_machine_code.html)
+- [ ] `blog` [Simple SMT solver for use in an optimizing compiler](https://www.well-typed.com/blog/2014/12/simple-smt-solver/)
+- [ ] `blog` [Quasi-quoting DSLs for free](http://www.well-typed.com/blog/2014/10/quasi-quoting-dsls/)
+
+#### DSLs & EDSLs
+
+- [ ] `project` [Copilot](http://leepike.github.io/Copilot/)
+- [ ] `project` [Clash](http://www.clash-lang.org/)
+- [ ] `project` [ComonadSheet](https://github.com/kwf/ComonadSheet)
+- [ ] `blog` [Quick and Easy DSLs with Writer Endo](https://ocharles.org.uk/blog/posts/2013-02-12-quick-dsls-with-endo-writers.html)
+
+#### Optimization
+
+- [ ] `blog` [Seemingly impossible functional programs](http://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/)
 
 #### Editing
 
