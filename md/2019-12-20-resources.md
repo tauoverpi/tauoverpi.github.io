@@ -150,10 +150,19 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 - [ ] `paper` [Pretty Printing](http://i.stanford.edu/pub/cstr/reports/cs/tr/79/770/CS-TR-79-770.pdf)
 - [ ] `paper` [The Final Pretty Printer](http://davidchristiansen.dk/drafts/final-pretty-printer-draft.pdf)
 
-Object Oriented Programming
----------------------------
+### Object Oriented Programming
 
 - [ ] `paper` [Smalltalk-80 The Language And It's Implementation](http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf)
+
+#### Object Algebra
+
+- [ ] `paper` [Extensibility for the Masses Practical Extensibility with Object Algebras](http://www.cs.utexas.edu/~wcook/Drafts/2012/ecoop2012.pdf)
+- [ ] `paper` [Feature-Oriented Programming with Object Algebras](https://www.cs.utexas.edu/~wcook/Drafts/2012/FOPwOA.pdf)
+- [ ] `paper` [Streams à la carte: Extensible Pipelines with Object Algebras](http://drops.dagstuhl.de/opus/volltexte/2015/5239/pdf/29.pdf)
+- [ ] `paper` [Scrap Your Boilerplate with Object Algebras](https://i.cs.hku.hk/~bruno/papers/oopsla2015.pdf)
+- [ ] `paper` [An Analysis and Discussion of Solutions to the Expression Problem Across Programming Languages](https://cs242.stanford.edu/f17/assets/projects/2017/kjtian-colinwei.pdf)
+- [ ] `paper` [Modular Interpreters with Implicit Context Propagation](https://homepages.cwi.nl/~storm/publications/implicit-ctx.pdf)
+- [ ] `paper` [Type-Safe Modular Parsing](https://i.cs.hku.hk/~bruno/papers/sle17.pdf)
 
 Misc
 ----
