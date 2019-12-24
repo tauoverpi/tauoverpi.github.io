@@ -71,6 +71,9 @@ code span.wa { font-style: italic; } /* Warning */
 <h1 class="title">Coins &amp; Potions</h1>
 </header>
 <div class="container">
+<p class="notice">
+NOTICE: Document not complete
+</p>
 <div class="sourceCode" id="coins-and-potions"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="coins-and-potions-1" title="1"><span class="kw">data</span> <span class="dt">Item</span> <span class="ot">=</span> <span class="dt">Coin</span> <span class="op">|</span> <span class="dt">Potion</span></a></code></pre></div>
 <p>The program consists of:</p>
 <div class="sourceCode" id="cb1" data-file="src/haskell/CoinsAndPotions/CoinsAndPotions.hs"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="op">&lt;&lt;</span>modules<span class="op">-</span><span class="fu">and</span><span class="op">-</span>pragma<span class="op">&gt;&gt;</span></a>
@@ -86,8 +89,8 @@ code span.wa { font-style: italic; } /* Warning */
 <a class="sourceLine" id="cb1-11" title="11"><span class="op">&lt;&lt;</span>gameloop<span class="op">&gt;&gt;</span></a></code></pre></div>
 <p>Full source can be found <a href="https://github.com/tauoverpi/tauoverpi.github.io/tree/master/src/haskell/CoinsAndPotions/CoinsAndPotions.hs">here</a></p>
 <h3 id="rng">RNG</h3>
-<p>Since the game needs to make unpredictable choices</p>
-<div class="sourceCode" id="rng"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="rng-1" title="1"><span class="ot">rng ::</span> <span class="dt">Word</span> <span class="ot">-&gt;</span> <span class="dt">Object</span> () <span class="dt">Word</span></a>
+<p>Random number generation is handled through continuously computing a hash over an infinite cycled stream of values from <code>0</code> to <code>maxBound</code> with <code>fnv1a</code>. Since <code>rng</code> doesn’t take any influence from it’s input it’s equivalent to a pure stream.</p>
+<div class="sourceCode" id="rng"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="rng-1" title="1"><span class="ot">rng ::</span> <span class="dt">Word</span> <span class="ot">-&gt;</span> <span class="dt">Stream</span> <span class="dt">Word</span></a>
 <a class="sourceLine" id="rng-2" title="2">rng seed <span class="ot">=</span> count <span class="op">&gt;&gt;&gt;</span> loop offset (lift (<span class="fu">uncurry</span> fnv1a) <span class="op">&gt;&gt;&gt;</span> dup)</a>
 <a class="sourceLine" id="rng-3" title="3">    <span class="kw">where</span> offset <span class="ot">=</span> <span class="dv">14695981039346656037</span></a>
 <a class="sourceLine" id="rng-4" title="4">          prime <span class="ot">=</span> <span class="dv">1099511628211</span></a>
@@ -114,9 +117,10 @@ code span.wa { font-style: italic; } /* Warning */
 <a class="sourceLine" id="state-6" title="6">    ,<span class="ot"> erng ::</span> <span class="dt">Object</span> () <span class="dt">Word</span></a>
 <a class="sourceLine" id="state-7" title="7">    }</a></code></pre></div>
 <h3 id="objects">Objects</h3>
-<p>Objects in the world are represented as</p>
 <div class="sourceCode" id="object-structure"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="object-structure-1" title="1"><span class="kw">data</span> <span class="dt">Object</span> input output <span class="ot">=</span></a>
-<a class="sourceLine" id="object-structure-2" title="2">    <span class="dt">Object</span> (input <span class="ot">-&gt;</span> (<span class="dt">Object</span> input output, output))</a></code></pre></div>
+<a class="sourceLine" id="object-structure-2" title="2">    <span class="dt">Object</span> (input <span class="ot">-&gt;</span> (<span class="dt">Object</span> input output, output))</a>
+<a class="sourceLine" id="object-structure-3" title="3"></a>
+<a class="sourceLine" id="object-structure-4" title="4"><span class="kw">type</span> <span class="dt">Stream</span> a <span class="ot">=</span> <span class="dt">Object</span> () a</a></code></pre></div>
 <div class="sourceCode" id="object-structure"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="object-structure-1" title="1"><span class="ot">step ::</span> <span class="dt">Object</span> a b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> (<span class="dt">Object</span> a b, b)</a>
 <a class="sourceLine" id="object-structure-2" title="2">step (<span class="dt">Object</span> f) x <span class="ot">=</span> f x</a></code></pre></div>
 <div class="sourceCode" id="object-structure"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="object-structure-1" title="1"><span class="ot">identity ::</span> <span class="dt">Object</span> a a</a>
@@ -128,23 +132,23 @@ code span.wa { font-style: italic; } /* Warning */
 <a class="sourceLine" id="object-structure-5" title="5"></a>
 <a class="sourceLine" id="object-structure-6" title="6"><span class="ot">animate ::</span> <span class="dt">Object</span> (<span class="dt">Object</span> a b, a) (<span class="dt">Object</span> a b, b)</a>
 <a class="sourceLine" id="object-structure-7" title="7">animate <span class="ot">=</span> lift (<span class="fu">uncurry</span> step)</a></code></pre></div>
+<p>Since the language of <code>Object</code> can’t make use of <code>let</code> bindings we instead have sharing through duplication of values.</p>
 <div class="sourceCode" id="object-structure"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="object-structure-1" title="1"><span class="ot">dup ::</span> <span class="dt">Object</span> a (a, a)</a>
-<a class="sourceLine" id="object-structure-2" title="2">dup <span class="ot">=</span> lift \x <span class="ot">-&gt;</span> (x, x)</a>
+<a class="sourceLine" id="object-structure-2" title="2">dup <span class="ot">=</span> lift \x <span class="ot">-&gt;</span> (x, x)</a></code></pre></div>
+<div class="sourceCode" id="object-structure"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="object-structure-1" title="1"><span class="ot">swap ::</span> <span class="dt">Object</span> (a, b) (b, a)</a>
+<a class="sourceLine" id="object-structure-2" title="2">swap <span class="ot">=</span> lift \(x, y) <span class="ot">-&gt;</span> (y, x)</a>
 <a class="sourceLine" id="object-structure-3" title="3"></a>
-<a class="sourceLine" id="object-structure-4" title="4"><span class="ot">swap ::</span> <span class="dt">Object</span> (a, b) (b, a)</a>
-<a class="sourceLine" id="object-structure-5" title="5">swap <span class="ot">=</span> lift \(x, y) <span class="ot">-&gt;</span> (y, x)</a>
-<a class="sourceLine" id="object-structure-6" title="6"></a>
-<a class="sourceLine" id="object-structure-7" title="7"><span class="ot">first ::</span> <span class="dt">Object</span> a b <span class="ot">-&gt;</span> <span class="dt">Object</span> (a, c) (b, c)</a>
-<a class="sourceLine" id="object-structure-8" title="8">first w <span class="ot">=</span> loop w (lift impl)</a>
-<a class="sourceLine" id="object-structure-9" title="9">    <span class="kw">where</span> impl ((input, c), w) <span class="ot">=</span></a>
-<a class="sourceLine" id="object-structure-10" title="10">              <span class="kw">let</span> (w&#39;, out) <span class="ot">=</span> step w input</a>
-<a class="sourceLine" id="object-structure-11" title="11">               <span class="kw">in</span> ((out, c), w&#39;)</a>
-<a class="sourceLine" id="object-structure-12" title="12"></a>
-<a class="sourceLine" id="object-structure-13" title="13">second w <span class="ot">=</span> swap <span class="op">&gt;&gt;&gt;</span> first w <span class="op">&gt;&gt;&gt;</span> swap</a>
-<a class="sourceLine" id="object-structure-14" title="14"></a>
-<a class="sourceLine" id="object-structure-15" title="15"><span class="kw">infixr</span> <span class="dv">3</span> <span class="op">&amp;&amp;&amp;</span></a>
-<a class="sourceLine" id="object-structure-16" title="16"><span class="ot">(&amp;&amp;&amp;) ::</span> <span class="dt">Object</span> a b <span class="ot">-&gt;</span> <span class="dt">Object</span> a b&#39; <span class="ot">-&gt;</span> <span class="dt">Object</span> a (b, b&#39;)</a>
-<a class="sourceLine" id="object-structure-17" title="17">left <span class="op">&amp;&amp;&amp;</span> right <span class="ot">=</span> dup <span class="op">&gt;&gt;&gt;</span> first left <span class="op">&gt;&gt;&gt;</span> second right</a></code></pre></div>
+<a class="sourceLine" id="object-structure-4" title="4"><span class="ot">first ::</span> <span class="dt">Object</span> a b <span class="ot">-&gt;</span> <span class="dt">Object</span> (a, c) (b, c)</a>
+<a class="sourceLine" id="object-structure-5" title="5">first w <span class="ot">=</span> loop w (lift impl)</a>
+<a class="sourceLine" id="object-structure-6" title="6">    <span class="kw">where</span> impl ((input, c), w) <span class="ot">=</span></a>
+<a class="sourceLine" id="object-structure-7" title="7">              <span class="kw">let</span> (w&#39;, out) <span class="ot">=</span> step w input</a>
+<a class="sourceLine" id="object-structure-8" title="8">               <span class="kw">in</span> ((out, c), w&#39;)</a></code></pre></div>
+<p><code>second</code> is</p>
+<div class="sourceCode" id="object-structure"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="object-structure-1" title="1">second w <span class="ot">=</span> swap <span class="op">&gt;&gt;&gt;</span> first w <span class="op">&gt;&gt;&gt;</span> swap</a>
+<a class="sourceLine" id="object-structure-2" title="2"></a>
+<a class="sourceLine" id="object-structure-3" title="3"><span class="kw">infixr</span> <span class="dv">3</span> <span class="op">&amp;&amp;&amp;</span></a>
+<a class="sourceLine" id="object-structure-4" title="4"><span class="ot">(&amp;&amp;&amp;) ::</span> <span class="dt">Object</span> a b <span class="ot">-&gt;</span> <span class="dt">Object</span> a b&#39; <span class="ot">-&gt;</span> <span class="dt">Object</span> a (b, b&#39;)</a>
+<a class="sourceLine" id="object-structure-5" title="5">left <span class="op">&amp;&amp;&amp;</span> right <span class="ot">=</span> dup <span class="op">&gt;&gt;&gt;</span> first left <span class="op">&gt;&gt;&gt;</span> second right</a></code></pre></div>
 <div class="sourceCode" id="object-structure"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="object-structure-1" title="1"><span class="kw">infixl</span> <span class="dv">8</span> <span class="op">&gt;&gt;&gt;</span></a>
 <a class="sourceLine" id="object-structure-2" title="2"><span class="kw">infixl</span> <span class="dv">8</span> <span class="op">&lt;&lt;&lt;</span></a>
 <a class="sourceLine" id="object-structure-3" title="3"><span class="ot">(&gt;&gt;&gt;) ::</span> <span class="dt">Object</span> a b <span class="ot">-&gt;</span> <span class="dt">Object</span> b c <span class="ot">-&gt;</span> <span class="dt">Object</span> a c</a>
@@ -170,7 +174,7 @@ code span.wa { font-style: italic; } /* Warning */
 <a class="sourceLine" id="npc-implementation-6" title="6">          items <span class="ot">=</span> lift (eitems <span class="op">.</span> <span class="fu">snd</span>)</a>
 <a class="sourceLine" id="npc-implementation-7" title="7">          hostile <span class="ot">=</span> lift (ehostile <span class="op">.</span> <span class="fu">snd</span>)</a>
 <a class="sourceLine" id="npc-implementation-8" title="8">          self <span class="ot">=</span> lift (eself <span class="op">.</span> <span class="fu">snd</span>)</a>
-<a class="sourceLine" id="npc-implementation-9" title="9">          rng <span class="ot">=</span> animate <span class="op">&lt;&lt;&lt;</span> lift (erng <span class="op">.</span> <span class="fu">snd</span>) <span class="op">&amp;&amp;&amp;</span> cst ()</a></code></pre></div>
+<a class="sourceLine" id="npc-implementation-9" title="9">          <span class="co">-- rng = animate &lt;&lt;&lt; lift (erng . snd) &amp;&amp;&amp; cst ()</span></a></code></pre></div>
 <div class="sourceCode" id="player"><pre class="sourceCode hs"><code class="sourceCode haskell"><a class="sourceLine" id="player-1" title="1"><span class="ot">player ::</span> <span class="dt">PlayerState</span> <span class="ot">-&gt;</span> <span class="dt">Object</span> <span class="dt">Message</span> <span class="dt">Message</span></a>
 <a class="sourceLine" id="player-2" title="2">player config <span class="ot">=</span> loop config behaviour</a>
 <a class="sourceLine" id="player-3" title="3">    <span class="kw">where</span><span class="ot"> behaviour ::</span> <span class="dt">Object</span> (<span class="dt">Message</span>, <span class="dt">PlayerState</span>) (<span class="dt">Message</span>, <span class="dt">PlayerState</span>)</a>

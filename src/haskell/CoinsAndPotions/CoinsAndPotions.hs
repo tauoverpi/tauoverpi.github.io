@@ -9,7 +9,7 @@ import Control.Monad (when)
 import System.IO (hFlush, stdout)
 -- ------ end
 -- ------ begin <<rng>>[0]
-rng :: Word -> Object () Word
+rng :: Word -> Stream Word
 rng seed = count >>> loop offset (lift (uncurry fnv1a) >>> dup)
     where offset = 14695981039346656037
           prime = 1099511628211
@@ -57,6 +57,8 @@ data Message = Message Address Action
 -- ------ begin <<object-structure>>[0]
 data Object input output =
     Object (input -> (Object input output, output))
+
+type Stream a = Object () a
 -- ------ end
 -- ------ begin <<object-structure>>[1]
 step :: Object a b -> a -> (Object a b, b)
@@ -78,7 +80,8 @@ animate = lift (uncurry step)
 -- ------ begin <<object-structure>>[4]
 dup :: Object a (a, a)
 dup = lift \x -> (x, x)
-
+-- ------ end
+-- ------ begin <<object-structure>>[5]
 swap :: Object (a, b) (b, a)
 swap = lift \(x, y) -> (y, x)
 
@@ -87,14 +90,15 @@ first w = loop w (lift impl)
     where impl ((input, c), w) =
               let (w', out) = step w input
                in ((out, c), w')
-
+-- ------ end
+-- ------ begin <<object-structure>>[6]
 second w = swap >>> first w >>> swap
 
 infixr 3 &&&
 (&&&) :: Object a b -> Object a b' -> Object a (b, b')
 left &&& right = dup >>> first left >>> second right
 -- ------ end
--- ------ begin <<object-structure>>[5]
+-- ------ begin <<object-structure>>[7]
 infixl 8 >>>
 infixl 8 <<<
 (>>>) :: Object a b -> Object b c -> Object a c
@@ -108,7 +112,7 @@ infixl 8 <<<
 
 cst v = Object \_ -> (cst v, v)
 -- ------ end
--- ------ begin <<object-structure>>[6]
+-- ------ begin <<object-structure>>[8]
 loop :: state -> Object (a, state) (b, state) -> Object a b
 loop state obj = Object \input ->
     let (obj', (out, state')) = step obj (input, state)
@@ -123,7 +127,7 @@ npc config = loop config behaviour
           items = lift (eitems . snd)
           hostile = lift (ehostile . snd)
           self = lift (eself . snd)
-          rng = animate <<< lift (erng . snd) &&& cst ()
+          -- rng = animate <<< lift (erng . snd) &&& cst ()
 -- ------ end
 -- ------ begin <<player>>[0]
 player :: PlayerState -> Object Message Message

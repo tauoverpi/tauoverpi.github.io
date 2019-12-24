@@ -3,6 +3,7 @@ title: Coins & Potions
 ...
 
 <div class="container">
+<p class="notice">NOTICE: Document not complete</p>
 
 ```{.hs #coins-and-potions}
 data Item = Coin | Potion
@@ -28,10 +29,13 @@ Full source can be found
 
 ### RNG
 
-Since the game needs to make unpredictable choices
+Random number generation is handled through continuously computing a hash over an
+infinite cycled stream of values from `0` to `maxBound` with `fnv1a`. Since
+`rng` doesn't take any influence from it's input it's equivalent to a pure
+stream.
 
 ```{.hs #rng}
-rng :: Word -> Object () Word
+rng :: Word -> Stream Word
 rng seed = count >>> loop offset (lift (uncurry fnv1a) >>> dup)
     where offset = 14695981039346656037
           prime = 1099511628211
@@ -73,11 +77,11 @@ data NPCState = ES
 
 ### Objects
 
-Objects in the world are represented as
-
 ```{.hs #object-structure}
 data Object input output =
     Object (input -> (Object input output, output))
+
+type Stream a = Object () a
 ```
 
 ```{.hs #object-structure}
@@ -100,10 +104,15 @@ animate :: Object (Object a b, a) (Object a b, b)
 animate = lift (uncurry step)
 ```
 
+Since the language of `Object` can't make use of `let` bindings we instead have
+sharing through duplication of values.
+
 ```{.hs #object-structure}
 dup :: Object a (a, a)
 dup = lift \x -> (x, x)
+```
 
+```{.hs #object-structure}
 swap :: Object (a, b) (b, a)
 swap = lift \(x, y) -> (y, x)
 
@@ -112,7 +121,11 @@ first w = loop w (lift impl)
     where impl ((input, c), w) =
               let (w', out) = step w input
                in ((out, c), w')
+```
 
+`second` is
+
+```{.hs #object-structure}
 second w = swap >>> first w >>> swap
 
 infixr 3 &&&
@@ -153,7 +166,7 @@ npc config = loop config behaviour
           items = lift (eitems . snd)
           hostile = lift (ehostile . snd)
           self = lift (eself . snd)
-          rng = animate <<< lift (erng . snd) &&& cst ()
+          -- rng = animate <<< lift (erng . snd) &&& cst ()
 ```
 
 ```{.hs #player}
