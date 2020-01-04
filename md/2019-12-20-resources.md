@@ -18,6 +18,7 @@ Programming
 
 - [ ] [Structure and Interpretation of Computer Programs](http://xuanji.appspot.com/isicp/)
 - [ ] [Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9)
+- [ ] [DESIGN PATTERNS](https://refactoring.guru/design-patterns/)
 
 #### Hash Algorithms
 
@@ -44,23 +45,35 @@ Programming
 - [ ] `paper` [Probabilistic Inductive Logic Programming](http://people.csail.mit.edu/kersting/ecmlpkdd05_pilp/pilp.pdf)
 - [ ] `paper` [Ceptre: A Language for Modeling Generative Interactive Systems](http://www.cs.cmu.edu/~cmartens/ceptre.pdf)
 - [ ] `paper` [Linear Logic Programming for Narrative Generation](https://www.cs.cmu.edu/~cmartens/lpnmr13-short.pdf)
+- [ ] `guide` [LATEX for Logicians](https://www.logicmatters.net/resources/pdfs/latex/BussGuide2.pdf)
 
 #### Type
 
-- [ ] `blog` [Typing the technical interview](https://aphyr.com/posts/342-typing-the-technical-interview)
 - [ ] `project` [Relational Hindley-Milner type inferencer in miniKanren](https://github.com/webyrd/hindley-milner-type-inferencer)
+- [ ] `paper` [](https://www.academia.edu/2622889/Principal_typing_in_elementary_affine_logic)
+- [ ] `paper` [](https://www.academia.edu/2622886/Elementary_affine_logic_and_the_call-by-value_lambda_calculus)
+- [ ] `paper` [The Syntax and Semantics of Quantitative Type Theory](https://bentnib.org/quantitative-type-theory.html)
+- [ ] `paper` [Quantitative program reasoning with graded modal types](https://granule-project.github.io/papers/granule-paper-draft.pdf)
+- [ ] `book` [Type Theory & Functional Programming](https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf)
 
 #### Garbage Collection
 
 - [ ] `paper` [Compile-Time Garbage Collection for the Declarative Language Mercury](https://www.mercurylang.org/documentation/papers/CW2004_03_mazur.pdf)
 
+#### SAT & SMT
+
+- [ ] `paper` [Formal Verification of a Modern SAT Solver](http://poincare.matf.bg.ac.rs/~filip/phd/sat-verification-shallow.pdf)
+
 ### Machine Learning
 
 - [ ] `paper` [Programming with a Differentiable Forth Interpreter](https://arxiv.org/pdf/1605.06640)
 
+
 ### Functional Programming
 
 - [ ] `article` [The Evolution of a Haskell Programmer](https://www.willamette.edu/~fruehr/haskell/evolution.html)
+- [ ] `book` [Real World Ocaml](https://realworldocaml.org/)
+- [ ] `blog` [fclabels 2.0](http://fvisser.nl/post/2013/okt/1/fclabels-2.0.html)
 
 #### Category
 
@@ -81,6 +94,9 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 - [ ] `paper` [Revised7 Report on the Algorithmic Language Scheme](http://www.larcenists.org/Documentation/Documentation0.98/r7rs.pdf)
 - [ ] `blog` [Reflecting On Incremental Folds](http://comonad.com/reader/2009/incremental-folds/)
 - [ ] `book` [The Beam Book](https://happi.github.io/theBeamBook)
+- [ ] `project` [toysolver: Assorted decision procedures for SAT, SMT, Max-SAT, PB, MIP, etc](http://hackage.haskell.org/package/toysolver)
+- [ ] `paper` [Backtracking, Interleaving, and Terminating Monad Transformers](http://okmij.org/ftp/Computation/LogicT.pdf)
+- [ ] `blog` [Overloading lambda](http://conal.net/blog/posts/overloading-lambda)
 
 #### Transactional Memory
 
@@ -112,6 +128,9 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 - [ ] `book` [Learn you an Agda](http://learnyouanagda.liamoc.net/pages/introduction.html)
 - [ ] `blog` [Row Polymorphism Isn't Subtyping](https://brianmckenna.org/blog/row_polymorphism_isnt_subtyping)
 - [ ] `book` [Programming Language Foundations in Agda](https://plfa.github.io/)
+- [ ] `paper` [Improving Haskell Types with SMT](http://yav.github.io/publications/improving-smt-types.pdf)
+- [ ] `blog` [Typing the technical interview](https://aphyr.com/posts/342-typing-the-technical-interview)
+- [ ] `paper` [1ML – Core and Modules United (F-ing First-class Modules)](https://people.mpi-sws.org/~rossberg/1ml/1ml.pdf)
 
 #### Graphics
 
@@ -126,8 +145,15 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 - [ ] `book` [Static Single Assignment Book](http://ssabook.gforge.inria.fr/latest/book.pdf)
 - [ ] `paper` [Cross-platform Compilers for Functional Languages](https://eb.host.cs.st-andrews.ac.uk/drafts/compile-idris.pdf)
 - [ ] `blog` [Monads to Machine Code](http://www.stephendiehl.com/posts/monads_machine_code.html)
-- [ ] `blog` [Simple SMT solver for use in an optimizing compiler](https://www.well-typed.com/blog/2014/12/simple-smt-solver/)
 - [ ] `blog` [Quasi-quoting DSLs for free](http://www.well-typed.com/blog/2014/10/quasi-quoting-dsls/)
+- [ ] `article` [Kaleidoscope LLVM tutorial Ocaml](https://llvm.org/docs/tutorial/OCamlLangImpl1.html)
+
+#### SAT & SMT
+
+- [ ] `blog` [Writing a SAT Solver](http://andrew.gibiansky.com/blog/verification/writing-a-sat-solver/)
+- [ ] `blog` [Simple SMT solver for use in an optimizing compiler](https://www.well-typed.com/blog/2014/12/simple-smt-solver/)
+- [ ] `paper` [G2Q: Haskell Constraint Solving](http://www.cs.yale.edu/homes/piskac/papers/2019HallahanETALquasiquoter.pdf)
+- [ ] `paper` [SMT Solving for Functional Programming over Infinite Structures∗](https://arxiv.org/pdf/1604.01185v1.pdf)
 
 #### DSLs & EDSLs
 

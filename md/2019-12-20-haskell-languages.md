@@ -10,6 +10,11 @@ Copilot
 
 [Copilot](https://copilot-language.github.io/)
 
+Ivory
+-----
+
+[Ivory](https://ivorylang.org/)
+
 Clash
 -----
 
