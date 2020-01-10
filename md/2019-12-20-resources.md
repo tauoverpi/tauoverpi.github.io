@@ -13,6 +13,24 @@ code {
 }
 </style>
 
+Matematics
+----------
+
+### Geometry
+
+- [ ] [THE ELEMENTS OF EUCLID](https://www.c82.net/euclid/)
+
+### Category Theory
+
+### Logic
+
+- [ ] `article` [Interactive Tutorial of the Sequent Calculus](http://logitext.mit.edu/tutorial)
+- [ ] `guide` [LATEX for Logicians](https://www.logicmatters.net/resources/pdfs/latex/BussGuide2.pdf)
+
+### Machine Learning
+
+- [ ] `book` [Finite and Infinite Machines by Marvin Minsky](https://github.com/media-lib/science_lib/raw/master/books/Computation_Finite_And_Infinite_Machines_by_Marvin_Minksy.pdf)
+
 Programming
 -----------
 
@@ -20,32 +38,56 @@ Programming
 - [ ] [Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9)
 - [ ] [DESIGN PATTERNS](https://refactoring.guru/design-patterns/)
 
+### Games
+
+- [ ] [Fix Your Timestep!](https://gafferongames.com/post/fix_your_timestep/)
+
 #### Hash Algorithms
 
 - [X] `article` [FNV](http://www.isthe.com/chongo/tech/comp/fnv/)
 - [X] `article` [djb2](http://www.cse.yorku.ca/~oz/hash.html)
 - [ ] `blog` [Hash functions: An empirical comparison](https://www.strchr.com/hash_functions)
 - [ ] `blog` [Paul Hsieh Hash](http://www.azillionmonkeys.com/qed/hash.html)
+- [ ] `paper` [SHA-1 is a Shambles](https://eprint.iacr.org/2020/014.pdf)
 
-#### Parsing
+### Bit Twiddling
 
-- [ ] `article` [Earley Parsing Explained](http://loup-vaillant.fr/tutorials/earley-parsing)
+- [ ] `article` [Bit Twiddling Hacks](https://graphics.stanford.edu/~seander/bithacks.html)
+- [ ] `program` [Othello for Desktop, Mobile and Web: an AI and GUI Exercise](https://www.hanshq.net/othello.html)
 
 #### Compression
 
 - [ ] `article` [Data Compression with Arithmetic Encoding](http://www.drdobbs.com/cpp/data-compression-with-arithmetic-encodin/240169251)
+
+#### Data Structures
+
+- [X] `article` [Bloom Filters by Example](https://llimllib.github.io/bloomfilter-tutorial/)
+- [ ] `paper` [Less hashing, same performance: Building a better bloom filter (2006)](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=F45130A950930D9DEC1C6454277F4B34?doi=10.1.1.152.579&rep=rep1&type=pdf)
+- [ ] `paper` [Cuckoo Filter: Practically Better Than Bloom](https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf)
+- [X] `program` [Bloom Filter Calculator](https://hur.st/bloomfilter/)
+- [ ] `article` [Probabilistic Filters By Example](https://bdupras.github.io/filter-tutorial/)
 
 #### Crypto
 
 - [ ] `pdf` [Simple High-Level Code For Cryptographic Arithmetic – With Proofs, Without Compromises](http://adam.chlipala.net/papers/FiatCryptoSP19/FiatCryptoSP19.pdf)
 
 
+### Compilers
+
+#### Parsing
+
+- [ ] `paper` [LEX & YACC](https://www.epaperpress.com/lexandyacc/download/LexAndYacc.pdf)
+- [ ] `article` [Earley Parsing Explained](http://loup-vaillant.fr/tutorials/earley-parsing)
+
+#### Representation
+
+- [ ] `book` [Static Single Assignment Book](http://ssabook.gforge.inria.fr/latest/book.pdf)
+
 ### Logic Programming
 
 - [ ] `paper` [Probabilistic Inductive Logic Programming](http://people.csail.mit.edu/kersting/ecmlpkdd05_pilp/pilp.pdf)
 - [ ] `paper` [Ceptre: A Language for Modeling Generative Interactive Systems](http://www.cs.cmu.edu/~cmartens/ceptre.pdf)
 - [ ] `paper` [Linear Logic Programming for Narrative Generation](https://www.cs.cmu.edu/~cmartens/lpnmr13-short.pdf)
-- [ ] `guide` [LATEX for Logicians](https://www.logicmatters.net/resources/pdfs/latex/BussGuide2.pdf)
 
 #### Type
 
@@ -142,7 +184,6 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 
 #### Compilation
 
-- [ ] `book` [Static Single Assignment Book](http://ssabook.gforge.inria.fr/latest/book.pdf)
 - [ ] `paper` [Cross-platform Compilers for Functional Languages](https://eb.host.cs.st-andrews.ac.uk/drafts/compile-idris.pdf)
 - [ ] `blog` [Monads to Machine Code](http://www.stephendiehl.com/posts/monads_machine_code.html)
 - [ ] `blog` [Quasi-quoting DSLs for free](http://www.well-typed.com/blog/2014/10/quasi-quoting-dsls/)
