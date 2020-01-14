@@ -22,14 +22,22 @@ Matematics
 
 ### Category Theory
 
+### Bigraphical Reactive Systems
+- [ ] `book` [The space and motion of communicating agents](http://www.cl.cam.ac.uk/archive/rm135/Bigraphs-draft.pdf)
+
 ### Logic
 
 - [ ] `article` [Interactive Tutorial of the Sequent Calculus](http://logitext.mit.edu/tutorial)
 - [ ] `guide` [LATEX for Logicians](https://www.logicmatters.net/resources/pdfs/latex/BussGuide2.pdf)
+- [ ] `program` [WebPPL probabilistic programming for the web](http://webppl.org/)
+- [ ] `paper` [The Design and Implementation of Probabilistic Programming Languages](http://dippl.org)
 
 ### Machine Learning
 
 - [ ] `book` [Finite and Infinite Machines by Marvin Minsky](https://github.com/media-lib/science_lib/raw/master/books/Computation_Finite_And_Infinite_Machines_by_Marvin_Minksy.pdf)
+- [ ] `paper` [Graph Neural Networks: A Review of Methods and Applications](https://arxiv.org/pdf/1812.08434.pdf)
+- [ ] `paper` [Programming with a Differentiable Forth Interpreter](https://arxiv.org/pdf/1605.06640)
+- [ ] `paper` [A JIT Compiler for Neural Network Inference](https://arxiv.org/pdf/1906.05737v1.pdf)
 
 Programming
 -----------
@@ -106,9 +114,6 @@ Programming
 
 - [ ] `paper` [Formal Verification of a Modern SAT Solver](http://poincare.matf.bg.ac.rs/~filip/phd/sat-verification-shallow.pdf)
 
-### Machine Learning
-
-- [ ] `paper` [Programming with a Differentiable Forth Interpreter](https://arxiv.org/pdf/1605.06640)
 
 
 ### Functional Programming
@@ -219,7 +224,7 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 
 ### Object Oriented Programming
 
-- [ ] `paper` [Smalltalk-80 The Language And It's Implementation](http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf)
+- [ ] `book` [Smalltalk-80 The Language And It's Implementation](http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf)
 
 #### Object Algebra
 
