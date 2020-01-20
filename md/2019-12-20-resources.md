@@ -18,12 +18,15 @@ Matematics
 
 ### Geometry
 
-- [ ] [THE ELEMENTS OF EUCLID](https://www.c82.net/euclid/)
+- [ ] `book` [THE ELEMENTS OF EUCLID](https://www.c82.net/euclid/)
 
 ### Category Theory
 
 ### Bigraphical Reactive Systems
 - [ ] `book` [The space and motion of communicating agents](http://www.cl.cam.ac.uk/archive/rm135/Bigraphs-draft.pdf)
+- [ ] `paper` [On lions, impala, and bigraphs: modelling interactions in physical/virtual spaces](http://eprints.nottingham.ac.uk/39044/1/main_savannah-accepted.pdf)
+- [ ] `paper` [Modelling IEEE 802.11 CSMA/CA RTS/CTS with stochastic bigraphs with sharing](https://link.springer.com/content/pdf/10.1007%2Fs00165-012-0270-3.pdf)
+- [ ] `paper` [Bigraphs with sharing](https://www.sciencedirect.com/science/article/pii/S0304397515001085?via%3Dihub)
 
 ### Logic
 
@@ -38,17 +41,26 @@ Matematics
 - [ ] `paper` [Graph Neural Networks: A Review of Methods and Applications](https://arxiv.org/pdf/1812.08434.pdf)
 - [ ] `paper` [Programming with a Differentiable Forth Interpreter](https://arxiv.org/pdf/1605.06640)
 - [ ] `paper` [A JIT Compiler for Neural Network Inference](https://arxiv.org/pdf/1906.05737v1.pdf)
+- [ ] `paper` [A Critical Review of Recurrent Neural Networks for Sequence Learning](https://arxiv.org/pdf/1506.00019.pdf)
+- [ ] `article` [Get a Brain](https://crypto.stanford.edu/~blynn/haskell/brain.html)
 
 Programming
 -----------
 
-- [ ] [Structure and Interpretation of Computer Programs](http://xuanji.appspot.com/isicp/)
-- [ ] [Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9)
-- [ ] [DESIGN PATTERNS](https://refactoring.guru/design-patterns/)
+- [ ] `book` [Structure and Interpretation of Computer Programs](http://xuanji.appspot.com/isicp/)
+- [ ] `article` [Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9)
+- [ ] `book` [DESIGN PATTERNS](https://refactoring.guru/design-patterns/)
+- [ ] `article` [Intro to Low-Level Graphics on Linux](http://betteros.org/tut/graphics1.php)
+
+### Parallel Programming & Concurrency
+
+- [ ] `video` [How we program multicores - Joe Armstrong](https://invidio.us/watch?v=bo5WL5IQAd0)
+- [ ] `book` [learn you some Erlang Clients and Servers](https://learnyousomeerlang.com/clients-and-servers)
 
 ### Games
 
 - [ ] [Fix Your Timestep!](https://gafferongames.com/post/fix_your_timestep/)
+- [ ] [Integration Basics](https://gafferongames.com/post/integration_basics/)
 
 #### Hash Algorithms
 
@@ -62,6 +74,8 @@ Programming
 
 - [ ] `article` [Bit Twiddling Hacks](https://graphics.stanford.edu/~seander/bithacks.html)
 - [ ] `program` [Othello for Desktop, Mobile and Web: an AI and GUI Exercise](https://www.hanshq.net/othello.html)
+- [ ] `article` [Fixed Point Arithmetic and Tricks](http://x86asm.net/articles/fixed-point-arithmetic-and-tricks/)
+- [ ] `program` [ipow](https://gist.github.com/orlp/3551590)
 
 #### Compression
 
@@ -78,7 +92,6 @@ Programming
 #### Crypto
 
 - [ ] `pdf` [Simple High-Level Code For Cryptographic Arithmetic – With Proofs, Without Compromises](http://adam.chlipala.net/papers/FiatCryptoSP19/FiatCryptoSP19.pdf)
-
 
 ### Compilers
 
@@ -113,8 +126,6 @@ Programming
 #### SAT & SMT
 
 - [ ] `paper` [Formal Verification of a Modern SAT Solver](http://poincare.matf.bg.ac.rs/~filip/phd/sat-verification-shallow.pdf)
-
-
 
 ### Functional Programming
 
