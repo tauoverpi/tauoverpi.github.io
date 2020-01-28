@@ -44,6 +44,15 @@ Matematics
 - [ ] `paper` [A Critical Review of Recurrent Neural Networks for Sequence Learning](https://arxiv.org/pdf/1506.00019.pdf)
 - [ ] `article` [Get a Brain](https://crypto.stanford.edu/~blynn/haskell/brain.html)
 
+Hardware
+--------
+
+### Faults
+
+- [ ] `paper` [CacheOut: Leaking Data on Intel CPUs via Cache Evictions](https://cacheoutattack.com/CacheOut.pdf)
+- [ ] `paper` [Meltdown: Reading Kernel Memory from User Space](https://meltdownattack.com/meltdown.pdf)
+- [ ] `paper` [Spectre Attacks: Exploiting Speculative Execution](https://spectreattack.com/spectre.pdf)
+
 Programming
 -----------
 
@@ -51,6 +60,8 @@ Programming
 - [ ] `article` [Temporal correlation detection using computational phase-change memory](https://www.nature.com/articles/s41467-017-01481-9)
 - [ ] `book` [DESIGN PATTERNS](https://refactoring.guru/design-patterns/)
 - [ ] `article` [Intro to Low-Level Graphics on Linux](http://betteros.org/tut/graphics1.php)
+- [ ] `book` [Mastering Dyalog APL](https://www.dyalog.com/uploads/documents/MasteringDyalogAPL.pdf)
+- [ ] `repo` [Programmer books](https://programmer-books.com/wp-content/uploads/)
 
 ### Parallel Programming & Concurrency
 
@@ -95,10 +106,13 @@ Programming
 
 ### Compilers
 
+- [ ] `book` [Write Yourself a Scheme in 48 Hours](https://upload.wikimedia.org/wikipedia/commons/a/aa/Write_Yourself_a_Scheme_in_48_Hours.pdf)
+
 #### Parsing
 
 - [ ] `paper` [LEX & YACC](https://www.epaperpress.com/lexandyacc/download/LexAndYacc.pdf)
 - [ ] `article` [Earley Parsing Explained](http://loup-vaillant.fr/tutorials/earley-parsing)
+- [ ] `article` [Fast Haskell: Competing with C at parsing XML](https://chrisdone.com/posts/fast-haskell-c-parsing-xml/)
 
 #### Representation
 
@@ -191,6 +205,8 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 - [ ] `paper` [1ML – Core and Modules United (F-ing First-class Modules)](https://people.mpi-sws.org/~rossberg/1ml/1ml.pdf)
 
 #### Graphics
+
+- [ ] `paper` [Functional Geometry](https://eprints.soton.ac.uk/257577/1/funcgeo2.pdf)
 
 #### Continuations
 
