@@ -99,6 +99,8 @@ Programming
 - [ ] `paper` [Cuckoo Filter: Practically Better Than Bloom](https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf)
 - [X] `program` [Bloom Filter Calculator](https://hur.st/bloomfilter/)
 - [ ] `article` [Probabilistic Filters By Example](https://bdupras.github.io/filter-tutorial/)
+- [ ] `paper` [Making Data Structures Persistent](http://www.cs.cmu.edu/~sleator/papers/another-persistence.pdf)
+- [ ] `paper` [Persistent Data Structures](http://www.math.tau.ac.il/~haimk/papers/persistent-survey.ps)
 
 #### Crypto
 
@@ -267,5 +269,6 @@ Misc
 ----
 
 - [ ] `blog` [Text Rendering Hates You](https://gankra.github.io/blah/text-hates-you/)
+- [ ] `article` [oom_pardon, aka don't kill my xlock](lwn.net/Articles/104185)
 
 </div>
