@@ -102,6 +102,9 @@ Programming
 - [ ] `paper` [Making Data Structures Persistent](http://www.cs.cmu.edu/~sleator/papers/another-persistence.pdf)
 - [ ] `paper` [Persistent Data Structures](http://www.math.tau.ac.il/~haimk/papers/persistent-survey.ps)
 
+#### Compilers
+- [ ] `program` [The new Smol compiler and reference.](https://github.com/CurtisFenner/zsmol)
+
 ### FORTH
 
 - [ ] `blog` [MOVING FORTH](http://www.bradrodriguez.com/papers/moving1.htm)
@@ -227,6 +230,7 @@ Barbed Wire](https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functi
 - [ ] `blog` [Monads to Machine Code](http://www.stephendiehl.com/posts/monads_machine_code.html)
 - [ ] `blog` [Quasi-quoting DSLs for free](http://www.well-typed.com/blog/2014/10/quasi-quoting-dsls/)
 - [ ] `article` [Kaleidoscope LLVM tutorial Ocaml](https://llvm.org/docs/tutorial/OCamlLangImpl1.html)
+- [ ] `paper` [Compiling with Continuations and LLVM](https://arxiv.org/pdf/1805.08842.pdf)
 
 #### SAT & SMT
 
@@ -275,5 +279,17 @@ Misc
 
 - [ ] `blog` [Text Rendering Hates You](https://gankra.github.io/blah/text-hates-you/)
 - [ ] `article` [oom_pardon, aka don't kill my xlock](lwn.net/Articles/104185)
+
+Abysmal
+-------
+
+Bad practices in the wild involving install scripts
+
+- NixOS - `curl https://nixos.org/nix/install | sh`
+- Rustup - `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+- Ghcup - `curl https://gitlab.haskell.org/haskell/ghcup/raw/master/bootstrap-haskell -sSf | sh`
+- Nim - `curl https://nim-lang.org/choosenim/init.sh -sSf | sh`
+- Chocolatey - `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))`
+- Homebrew - `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
 </div>

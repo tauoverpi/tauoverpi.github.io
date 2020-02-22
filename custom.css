@@ -1,0 +1,18 @@
+/* ------ language="CSS" file="custom.css" project://article.md#37 */
+/* ------ begin <<custom-css>>[0] project://article.md#147 */
+.resource-tag {
+  margin-left: 2px;
+  margin-right: 2px;
+  border-style: none;
+  box-shadow: 1px 2px 4px #ccccc8;
+  background-color: #fffff8;
+}
+
+.resource {
+  display: flex;
+  width: 55%;
+  margin-top: 5px;
+  justify-content: space-between;
+}
+/* ------ end */
+/* ------ end */

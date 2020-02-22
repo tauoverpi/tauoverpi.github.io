@@ -1,4 +1,28 @@
-.PHONY: tangle
+## ------ language="Make" file="Makefile" project://article.md#12
+FILTER := --filter pandoc-crossref
+FILTER += --filter pandoc-sidenote
+FILTER += --filter pandoc-filter-graphviz
+FILTER += --filter pandoc-citeproc
 
-tangle:
-	entangled md/*.md
+OPTIONS := --standalone
+OPTIONS += --table-of-contents
+OPTIONS += --number-sections
+OPTIONS += --section-divs
+OPTIONS += --reference-links
+OPTIONS += --css tufte.css
+OPTIONS += --css custom.css
+OPTIONS += --csl ieee.csl
+OPTIONS += --metadata-file=references.yaml
+OPTIONS += --highlight-style monochrome
+
+.PHONY: blog
+blog: resbrowser
+	@pandoc ${OPTIONS} ${FILTER} article.md -o index.html
+## ------ begin <<resource-browser-makefile>>[0] project://article.md#184
+.PHONY: resbrowser
+resbrowser:
+	@cd ./projects/elm/resbrowser/ && \
+		elm make src/ResourceBrowser.elm \
+			--optimize --output=../../../scripts/resbrowser.js
+## ------ end
+## ------ end

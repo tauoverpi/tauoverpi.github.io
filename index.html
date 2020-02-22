@@ -1,44 +1,250 @@
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet">
-	</head>
-	<body>
-		<header>
-			<link rel="stylesheet" href="css/skeleton.css"/>
-			<link rel="stylesheet" href="css/site.css"/>
-			<h1 class="title">Levy's Articles</h1>
-		</header>
-		<main class="container">
-			<div class="row">
-				<div class="six columns">
-					<h3>Articles</h3>
-					<ul>
-						<li><a href="html/2020-01-12-markov-chains.html">2020/01/12 | markov chains</a></li>
-						<li><a href="html/2019-12-22-coins-and-potions.html">2019/12/22 | coins and potions</a></li>
-						<li><a href="html/2019-12-21-functional-programming.html">2019/12/21 | functional programming</a></li>
-						<li><a href="html/2019-12-20-resources.html">2019/12/20 | resources</a></li>
-						<li><a href="html/2019-12-20-haskell-languages.html">2019/12/20 | haskell languages</a></li>
-						<li><a href="html/2019-12-19-interactive-documents.html">2019/12/19 | interactive documents</a></li>
-						<li><a href="html/2019-12-18-interfaces-and-generics.html">2019/12/18 | interfaces and generics</a></li>
-						<li><a href="html/2019-12-01-things-i-want-to-write-about.html">2019/12/01 | things i want to write about</a></li>
-						<li><a href="html/2019-12-01-explaining-amb-python.html">2019/12/01 | explaining amb python</a></li>
-						</ul>
-					</div>
-				<div class="six columns">
-					<h3>Projects</h3>
-					<ul>
-						<li><a href="projects/BackEndLexicon2019/index.html">
-							Lexicon 2019 - ASP.NET Core Assignments
-						</a></li>
-					</ul>
-					<h3>Slides</h3>
-				</div>
-			</div>
-		</main>
-		<footer>
-			Copyright (c) 2019 - 2020 Simon A. Nielsen Knights
-		</footer>
-	</body>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Tau’s Articles</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { font-weight: bold; } /* Alert */
+code span.an { font-style: italic; } /* Annotation */
+code span.cf { font-weight: bold; } /* ControlFlow */
+code span.co { font-style: italic; } /* Comment */
+code span.cv { font-style: italic; } /* CommentVar */
+code span.do { font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.er { font-weight: bold; } /* Error */
+code span.in { font-style: italic; } /* Information */
+code span.kw { font-weight: bold; } /* Keyword */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.wa { font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="tufte.css" />
+  <link rel="stylesheet" href="custom.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Tau’s Articles</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#the-setup"><span class="toc-section-number">1</span> The setup</a></li>
+<li><a href="#trying-out-elm"><span class="toc-section-number">2</span> Trying out Elm</a><ul>
+<li><a href="#building-a-resource-browser"><span class="toc-section-number">2.1</span> Building a resource browser</a><ul>
+<li><a href="#the-model"><span class="toc-section-number">2.1.1</span> The Model</a></li>
+<li><a href="#update"><span class="toc-section-number">2.1.2</span> Update</a></li>
+<li><a href="#view"><span class="toc-section-number">2.1.3</span> View</a></li>
+<li><a href="#main"><span class="toc-section-number">2.1.4</span> Main</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#zig-in-the-browser"><span class="toc-section-number">3</span> Zig in the browser</a></li>
+</ul>
+</nav>
+<section id="the-setup" class="level1">
+<h1><span class="header-section-number">1</span> The setup</h1>
+<p>Everything is built by a single Makefile invoking language specific build-systems. The file is extended throughout the document with instructions for each listed project in their respective section.</p>
+<pre class="make" data-file="Makefile"><code>FILTER := --filter pandoc-crossref
+FILTER += --filter pandoc-sidenote
+FILTER += --filter pandoc-filter-graphviz
+FILTER += --filter pandoc-citeproc
+
+OPTIONS := --standalone
+OPTIONS += --table-of-contents
+OPTIONS += --number-sections
+OPTIONS += --section-divs
+OPTIONS += --reference-links
+OPTIONS += --css tufte.css
+OPTIONS += --css custom.css
+OPTIONS += --csl ieee.csl
+OPTIONS += --metadata-file=references.yaml
+OPTIONS += --highlight-style monochrome
+
+.PHONY: blog
+blog: resbrowser
+    @pandoc ${OPTIONS} ${FILTER} article.md -o index.html
+&lt;&lt;resource-browser-makefile&gt;&gt;</code></pre>
+<p>There’s also custom CSS which is again extended throughout the document.</p>
+<div class="sourceCode" id="cb2" data-file="custom.css"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1"></a>&lt;&lt;custom-css<span class="op">&gt;&gt;</span></span></code></pre></div>
+</section>
+<section id="trying-out-elm" class="level1">
+<h1><span class="header-section-number">2</span> Trying out Elm</h1>
+<p>There are a lot of programming languages out there with flashy features and meta programming capabilities embedding the whole language within itself. This isn’t about those languages, this is about Elm.</p>
+<p>Elm is a language I’ve avoided for a while due to a number of reasons:</p>
+<ol type="1">
+<li>It’s a front-end language which I tend not to need as most projects reside outside of a browser.</li>
+<li>It doesn’t have type-classes and thus I assumed I’d need to write the same code for several different types over and over again.</li>
+<li>An endless pursuit of suckless<span class="citation" data-cites="catvh">[1]</span> qualities for software since complex software is the enemy of correctness.</li>
+</ol>
+<p>Despite those I eventually decided Elm would be the language for a future project.</p>
+<section id="building-a-resource-browser" class="level2">
+<h2><span class="header-section-number">2.1</span> Building a resource browser</h2>
+<div class="sourceCode" id="cb3" data-file="projects/elm/resbrowser/src/ResourceBrowser.elm"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">&lt;&lt;</span><span class="fu">resbrowser</span><span class="op">-</span><span class="fu">main</span><span class="op">&gt;&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="op">&lt;&lt;</span><span class="fu">resbrowser</span><span class="op">-</span><span class="fu">model</span><span class="op">&gt;&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="op">&lt;&lt;</span><span class="fu">resbrowser</span><span class="op">-</span><span class="fu">update</span><span class="op">&gt;&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="op">&lt;&lt;</span><span class="fu">resbrowser</span><span class="op">-</span><span class="fu">view</span><span class="op">&gt;&gt;</span></span></code></pre></div>
+<section id="the-model" class="level3">
+<h3><span class="header-section-number">2.1.1</span> The Model</h3>
+<div class="sourceCode" id="resbrowser-model"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="resbrowser-model-1"><a href="#resbrowser-model-1"></a><span class="kw">type</span> <span class="dt">Order</span></span>
+<span id="resbrowser-model-2"><a href="#resbrowser-model-2"></a>  <span class="op">=</span> <span class="dt">TagName</span> <span class="dt">String</span></span>
+<span id="resbrowser-model-3"><a href="#resbrowser-model-3"></a>  <span class="op">|</span> <span class="dt">Name</span> <span class="dt">String</span></span>
+<span id="resbrowser-model-4"><a href="#resbrowser-model-4"></a></span>
+<span id="resbrowser-model-5"><a href="#resbrowser-model-5"></a><span class="kw">type</span> <span class="kw">alias</span> <span class="dt">Model</span> <span class="op">=</span></span>
+<span id="resbrowser-model-6"><a href="#resbrowser-model-6"></a>  { <span class="fu">resources</span>: <span class="dt">List</span> <span class="dt">Resource</span></span>
+<span id="resbrowser-model-7"><a href="#resbrowser-model-7"></a>  <span class="op">,</span> <span class="fu">order</span>: <span class="dt">Order</span></span>
+<span id="resbrowser-model-8"><a href="#resbrowser-model-8"></a>  }</span>
+<span id="resbrowser-model-9"><a href="#resbrowser-model-9"></a></span>
+<span id="resbrowser-model-10"><a href="#resbrowser-model-10"></a><span class="fu">init</span> : <span class="dt">Model</span></span>
+<span id="resbrowser-model-11"><a href="#resbrowser-model-11"></a><span class="fu">init</span> <span class="op">=</span></span>
+<span id="resbrowser-model-12"><a href="#resbrowser-model-12"></a>  { <span class="fu">resources</span> <span class="op">=</span> <span class="dt">Resources</span><span class="op">.</span><span class="fu">resources</span></span>
+<span id="resbrowser-model-13"><a href="#resbrowser-model-13"></a>  <span class="op">,</span> <span class="fu">order</span> <span class="op">=</span> <span class="dt">Name</span> <span class="st">&quot;&quot;</span></span>
+<span id="resbrowser-model-14"><a href="#resbrowser-model-14"></a>  }</span></code></pre></div>
+</section>
+<section id="update" class="level3">
+<h3><span class="header-section-number">2.1.2</span> Update</h3>
+<div class="sourceCode" id="resbrowser-update"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="resbrowser-update-1"><a href="#resbrowser-update-1"></a><span class="kw">type</span> <span class="dt">Msg</span></span>
+<span id="resbrowser-update-2"><a href="#resbrowser-update-2"></a>  <span class="op">=</span> <span class="dt">SortBy</span> <span class="dt">Order</span></span>
+<span id="resbrowser-update-3"><a href="#resbrowser-update-3"></a></span>
+<span id="resbrowser-update-4"><a href="#resbrowser-update-4"></a><span class="fu">update</span> : <span class="dt">Msg</span> <span class="op">-&gt;</span> <span class="dt">Model</span> <span class="op">-&gt;</span> <span class="dt">Model</span></span>
+<span id="resbrowser-update-5"><a href="#resbrowser-update-5"></a><span class="fu">update</span> <span class="fu">msg</span> <span class="fu">model</span> <span class="op">=</span></span>
+<span id="resbrowser-update-6"><a href="#resbrowser-update-6"></a>  <span class="cf">case</span> <span class="fu">msg</span> <span class="cf">of</span></span>
+<span id="resbrowser-update-7"><a href="#resbrowser-update-7"></a>    <span class="dt">SortBy</span> <span class="fu">order</span> <span class="op">-&gt;</span> { <span class="fu">model</span> <span class="op">|</span> <span class="fu">order</span> <span class="op">=</span> <span class="fu">order</span> }</span></code></pre></div>
+</section>
+<section id="view" class="level3">
+<h3><span class="header-section-number">2.1.3</span> View</h3>
+<div class="sourceCode" id="resbrowser-view"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="resbrowser-view-1"><a href="#resbrowser-view-1"></a><span class="fu">view</span> : <span class="dt">Model</span> <span class="op">-&gt;</span> <span class="dt">Html</span> <span class="dt">Msg</span></span>
+<span id="resbrowser-view-2"><a href="#resbrowser-view-2"></a><span class="fu">view</span> {<span class="fu">resources</span><span class="op">,</span> <span class="fu">order</span>} <span class="op">=</span></span>
+<span id="resbrowser-view-3"><a href="#resbrowser-view-3"></a>  <span class="kw">let</span></span>
+<span id="resbrowser-view-4"><a href="#resbrowser-view-4"></a>    <span class="fu">byOrder</span> <span class="fu">r</span> <span class="op">=</span></span>
+<span id="resbrowser-view-5"><a href="#resbrowser-view-5"></a>      <span class="cf">case</span> <span class="fu">order</span> <span class="cf">of</span></span>
+<span id="resbrowser-view-6"><a href="#resbrowser-view-6"></a>        <span class="dt">Name</span> <span class="fu">name</span> <span class="op">-&gt;</span> <span class="dt">String</span><span class="op">.</span><span class="fu">contains</span> <span class="fu">name</span> (<span class="dt">String</span><span class="op">.</span><span class="fu">toLower</span> <span class="fu">r</span><span class="op">.</span><span class="fu">title</span>)</span>
+<span id="resbrowser-view-7"><a href="#resbrowser-view-7"></a>        <span class="dt">TagName</span> <span class="fu">name</span> <span class="op">-&gt;</span> <span class="dt">List</span><span class="op">.</span><span class="fu">any</span> (\<span class="fu">x</span> <span class="op">-&gt;</span> <span class="fu">x</span> <span class="op">==</span> <span class="fu">name</span>) <span class="fu">r</span><span class="op">.</span><span class="fu">tags</span></span>
+<span id="resbrowser-view-8"><a href="#resbrowser-view-8"></a>    <span class="fu">hidden</span> <span class="op">=</span></span>
+<span id="resbrowser-view-9"><a href="#resbrowser-view-9"></a>      <span class="cf">case</span> <span class="fu">order</span> <span class="cf">of</span></span>
+<span id="resbrowser-view-10"><a href="#resbrowser-view-10"></a>        <span class="dt">Name</span> <span class="st">&quot;&quot;</span> <span class="op">-&gt;</span> <span class="dt">True</span></span>
+<span id="resbrowser-view-11"><a href="#resbrowser-view-11"></a>        <span class="fu">_</span>       <span class="op">-&gt;</span> <span class="dt">False</span></span>
+<span id="resbrowser-view-12"><a href="#resbrowser-view-12"></a>    <span class="fu">sorted</span> <span class="op">=</span></span>
+<span id="resbrowser-view-13"><a href="#resbrowser-view-13"></a>      <span class="cf">if</span> <span class="fu">hidden</span></span>
+<span id="resbrowser-view-14"><a href="#resbrowser-view-14"></a>        <span class="cf">then</span> []</span>
+<span id="resbrowser-view-15"><a href="#resbrowser-view-15"></a>        <span class="cf">else</span> <span class="dt">List</span><span class="op">.</span><span class="fu">filter</span> <span class="fu">byOrder</span> <span class="fu">resources</span></span>
+<span id="resbrowser-view-16"><a href="#resbrowser-view-16"></a>  <span class="kw">in</span></span>
+<span id="resbrowser-view-17"><a href="#resbrowser-view-17"></a>    <span class="fu">section</span> []</span>
+<span id="resbrowser-view-18"><a href="#resbrowser-view-18"></a>      [ <span class="fu">div</span> []</span>
+<span id="resbrowser-view-19"><a href="#resbrowser-view-19"></a>        [ <span class="fu">text</span> <span class="st">&quot;search for resources: &quot;</span></span>
+<span id="resbrowser-view-20"><a href="#resbrowser-view-20"></a>        <span class="op">,</span> <span class="fu">input</span> [ <span class="fu">onInput</span> (<span class="dt">SortBy</span> <span class="op">&lt;&lt;</span> <span class="dt">Name</span>) ] []</span>
+<span id="resbrowser-view-21"><a href="#resbrowser-view-21"></a>        ]</span>
+<span id="resbrowser-view-22"><a href="#resbrowser-view-22"></a>      <span class="op">,</span> <span class="fu">div</span> [] (<span class="dt">List</span><span class="op">.</span><span class="fu">map</span> <span class="fu">viewResource</span> <span class="fu">sorted</span>)</span>
+<span id="resbrowser-view-23"><a href="#resbrowser-view-23"></a>      ]</span></code></pre></div>
+<div class="sourceCode" id="resbrowser-view"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="resbrowser-view-1"><a href="#resbrowser-view-1"></a><span class="fu">viewResource</span> : <span class="dt">Resource</span> <span class="op">-&gt;</span> <span class="dt">Html</span> <span class="dt">Msg</span></span>
+<span id="resbrowser-view-2"><a href="#resbrowser-view-2"></a><span class="fu">viewResource</span> {<span class="fu">title</span><span class="op">,</span> <span class="fu">url</span><span class="op">,</span> <span class="fu">tags</span>} <span class="op">=</span></span>
+<span id="resbrowser-view-3"><a href="#resbrowser-view-3"></a>  <span class="kw">let</span></span>
+<span id="resbrowser-view-4"><a href="#resbrowser-view-4"></a>    <span class="fu">tag</span> <span class="fu">x</span> <span class="op">=</span></span>
+<span id="resbrowser-view-5"><a href="#resbrowser-view-5"></a>      <span class="fu">button</span></span>
+<span id="resbrowser-view-6"><a href="#resbrowser-view-6"></a>        [ <span class="fu">onClick</span> (<span class="dt">SortBy</span> (<span class="dt">TagName</span> <span class="fu">x</span>))</span>
+<span id="resbrowser-view-7"><a href="#resbrowser-view-7"></a>        <span class="op">,</span> <span class="fu">class</span> <span class="st">&quot;resource-tag&quot;</span></span>
+<span id="resbrowser-view-8"><a href="#resbrowser-view-8"></a>        ]</span>
+<span id="resbrowser-view-9"><a href="#resbrowser-view-9"></a>        [<span class="fu">text</span> (<span class="st">&quot;#&quot;</span> <span class="op">++</span> <span class="fu">x</span>)]</span>
+<span id="resbrowser-view-10"><a href="#resbrowser-view-10"></a>    <span class="fu">res</span> <span class="op">=</span> <span class="dt">List</span><span class="op">.</span><span class="fu">map</span> <span class="fu">tag</span> <span class="fu">tags</span></span>
+<span id="resbrowser-view-11"><a href="#resbrowser-view-11"></a>  <span class="kw">in</span></span>
+<span id="resbrowser-view-12"><a href="#resbrowser-view-12"></a>    <span class="fu">div</span> [ <span class="fu">class</span> <span class="st">&quot;resource&quot;</span> ]</span>
+<span id="resbrowser-view-13"><a href="#resbrowser-view-13"></a>      [ <span class="fu">div</span> [ <span class="fu">class</span> <span class="st">&quot;resource-link&quot;</span> ] [ <span class="fu">a</span> [ <span class="fu">href</span> <span class="fu">url</span> ] [ <span class="fu">text</span> <span class="fu">title</span> ] ]</span>
+<span id="resbrowser-view-14"><a href="#resbrowser-view-14"></a>      <span class="op">,</span> <span class="fu">div</span> [ <span class="fu">class</span> <span class="st">&quot;resource-tags&quot;</span> ] <span class="fu">res</span></span>
+<span id="resbrowser-view-15"><a href="#resbrowser-view-15"></a>      ]</span></code></pre></div>
+<p>But they look a bit plain without a bit of style so lets add some.</p>
+<div class="sourceCode" id="custom-css"><pre class="sourceCode css"><code class="sourceCode css"><span id="custom-css-1"><a href="#custom-css-1"></a><span class="fu">.resource-tag</span> {</span>
+<span id="custom-css-2"><a href="#custom-css-2"></a>  <span class="kw">margin-left</span>: <span class="dv">2</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="custom-css-3"><a href="#custom-css-3"></a>  <span class="kw">margin-right</span>: <span class="dv">2</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="custom-css-4"><a href="#custom-css-4"></a>  <span class="kw">border-style</span>: <span class="dv">none</span><span class="op">;</span></span>
+<span id="custom-css-5"><a href="#custom-css-5"></a>  <span class="kw">box-shadow</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">2</span><span class="dt">px</span> <span class="dv">4</span><span class="dt">px</span> <span class="cn">#ccccc8</span><span class="op">;</span></span>
+<span id="custom-css-6"><a href="#custom-css-6"></a>  <span class="kw">background-color</span>: <span class="cn">#fffff8</span><span class="op">;</span></span>
+<span id="custom-css-7"><a href="#custom-css-7"></a>}</span>
+<span id="custom-css-8"><a href="#custom-css-8"></a></span>
+<span id="custom-css-9"><a href="#custom-css-9"></a><span class="fu">.resource</span> {</span>
+<span id="custom-css-10"><a href="#custom-css-10"></a>  <span class="kw">display</span>: flex<span class="op">;</span></span>
+<span id="custom-css-11"><a href="#custom-css-11"></a>  <span class="kw">width</span>: <span class="dv">55</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="custom-css-12"><a href="#custom-css-12"></a>  <span class="kw">margin-top</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="custom-css-13"><a href="#custom-css-13"></a>  <span class="kw">justify-content</span>: space-between<span class="op">;</span></span>
+<span id="custom-css-14"><a href="#custom-css-14"></a>}</span></code></pre></div>
+</section>
+<section id="main" class="level3">
+<h3><span class="header-section-number">2.1.4</span> Main</h3>
+<div class="sourceCode" id="resbrowser-main"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="resbrowser-main-1"><a href="#resbrowser-main-1"></a><span class="kw">import</span> <span class="dt">Html</span> <span class="kw">exposing</span> (<span class="op">..</span>)</span>
+<span id="resbrowser-main-2"><a href="#resbrowser-main-2"></a><span class="kw">import</span> <span class="dt">Html</span><span class="op">.</span><span class="dt">Attributes</span> <span class="kw">exposing</span> (<span class="op">..</span>)</span>
+<span id="resbrowser-main-3"><a href="#resbrowser-main-3"></a><span class="kw">import</span> <span class="dt">Html</span><span class="op">.</span><span class="dt">Events</span> <span class="kw">exposing</span> (<span class="fu">onClick</span><span class="op">,</span> <span class="fu">onInput</span>)</span>
+<span id="resbrowser-main-4"><a href="#resbrowser-main-4"></a><span class="kw">import</span> <span class="dt">Browser</span></span>
+<span id="resbrowser-main-5"><a href="#resbrowser-main-5"></a><span class="kw">import</span> <span class="dt">Resources</span> <span class="kw">exposing</span> (<span class="dt">Resource</span>)</span></code></pre></div>
+<div class="sourceCode" id="resbrowser-main"><pre class="sourceCode elm"><code class="sourceCode elm"><span id="resbrowser-main-1"><a href="#resbrowser-main-1"></a><span class="fu">main</span> <span class="op">=</span> <span class="dt">Browser</span><span class="op">.</span><span class="fu">sandbox</span></span>
+<span id="resbrowser-main-2"><a href="#resbrowser-main-2"></a>  { <span class="fu">init</span> <span class="op">=</span> <span class="fu">init</span></span>
+<span id="resbrowser-main-3"><a href="#resbrowser-main-3"></a>  <span class="op">,</span> <span class="fu">update</span> <span class="op">=</span> <span class="fu">update</span></span>
+<span id="resbrowser-main-4"><a href="#resbrowser-main-4"></a>  <span class="op">,</span> <span class="fu">view</span> <span class="op">=</span> <span class="fu">view</span></span>
+<span id="resbrowser-main-5"><a href="#resbrowser-main-5"></a>  }</span></code></pre></div>
+<p>Finally to build the project</p>
+<pre id="resource-browser-makefile" class="make"><code>.PHONY: resbrowser
+resbrowser:
+    @cd ./projects/elm/resbrowser/ &amp;&amp; \
+        elm make src/ResourceBrowser.elm \
+            --optimize --output=../../../scripts/resbrowser.js</code></pre>
+<p>And here it is! Try entering “category theory” or similar and watch the results roll-in.</p>
+<div id="resbrowser">
+
+</div>
+<script src="scripts/resbrowser.js"></script>
+<script>
+var resbrowser = Elm.Main.init({
+    node: document.getElementById("resbrowser")
+});
+</script>
+</section>
+</section>
+</section>
+<section id="zig-in-the-browser" class="level1">
+<h1><span class="header-section-number">3</span> Zig in the browser</h1>
+<pre class="zig" data-file="projects/zig/ziginbrowser/src/main.zig"><code>const std = @import(&quot;std&quot;);</code></pre>
+<div id="refs" class="references" role="doc-bibliography">
+<div id="ref-catvh">
+<p>[1] “All software sucks.”.</p>
+</div>
+</div>
+</section>
+</body>
 </html>
