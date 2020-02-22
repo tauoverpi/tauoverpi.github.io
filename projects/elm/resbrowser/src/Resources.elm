@@ -1,4 +1,5 @@
-module Resources exposing (..)
+module Resources exposing (Resource, resources, tags)
+import Set
 
 type alias Resource =
   { title: String
@@ -7,7 +8,15 @@ type alias Resource =
   }
 
 resources : List Resource
-resources = papers ++ articles ++ projects ++ books
+resources =
+  papers ++ articles ++ projects ++ books
+  |> List.map (\r -> { r | tags = List.sort r.tags })
+
+tags : List String
+tags = resources
+     |> List.concatMap .tags
+     |> Set.fromList
+     |> Set.toList
 
 papers : List Resource
 papers =
@@ -309,7 +318,16 @@ papers =
     }
   , { title = "Type-Safe Modular Parsing"
     , url = "https://i.cs.hku.hk/~bruno/papers/sle17.pdf"
-    , tags = []
+    , tags = ["parsing"]
+    }
+  , { title = "A purely functional implementation of ROBDDs in Haskell"
+    , url = "http://www.cs.nott.ac.uk/~psznhn/TFP2006/Papers/09-ChristiansenHuch"
+         ++ "-APurelyFunctionalImplementationOfROBDDs.pdf"
+    , tags = ["haskell", "data structure", "lazy", "tree"]
+    }
+  , { title = "Functional Pearl Trouble Shared is Trouble Halved"
+    , url = "http://www.cs.ox.ac.uk/ralf.hinze/publications/HW03.pdf"
+    , tags = ["haskell", "data structure", "tree"]
     }
   ]
 

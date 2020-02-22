@@ -15,14 +15,16 @@ OPTIONS += --csl ieee.csl
 OPTIONS += --metadata-file=references.yaml
 OPTIONS += --highlight-style monochrome
 
-.PHONY: blog
-blog: resbrowser
+PROJECTS := scripts/resbrowser.js
+
+index.html: ${PROJECTS} article.md
 	@pandoc ${OPTIONS} ${FILTER} article.md -o index.html
-## ------ begin <<resource-browser-makefile>>[0] project://article.md#184
-.PHONY: resbrowser
-resbrowser:
-	@cd ./projects/elm/resbrowser/ && \
+## ------ begin <<resource-browser-makefile>>[0] project://article.md#249
+RESBROWSER := projects/elm/resbrowser/src/ResourceBrowser.elm
+scripts/resbrowser.js: ${RESBROWSER}
+	cd ./projects/elm/resbrowser/ && \
 		elm make src/ResourceBrowser.elm \
 			--optimize --output=../../../scripts/resbrowser.js
 ## ------ end
+
 ## ------ end

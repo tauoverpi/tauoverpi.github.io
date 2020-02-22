@@ -1,3 +1,5 @@
 pdf/*.pdf
 images/*.pdf
 .uuid
+.elmi
+.elmo

@@ -600,11 +600,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.J.z === region.O.z)
+	if (region.I.z === region.N.z)
 	{
-		return 'on line ' + region.J.z;
+		return 'on line ' + region.I.z;
 	}
-	return 'on lines ' + region.J.z + ' through ' + region.O.z;
+	return 'on lines ' + region.I.z + ' through ' + region.N.z;
 }
 
 
@@ -789,113 +789,6 @@ function _Utils_ap(xs, ys)
 		curr = curr.b = _List_Cons(xs.a, ys);
 	}
 	return root;
-}
-
-
-
-// MATH
-
-var _Basics_add = F2(function(a, b) { return a + b; });
-var _Basics_sub = F2(function(a, b) { return a - b; });
-var _Basics_mul = F2(function(a, b) { return a * b; });
-var _Basics_fdiv = F2(function(a, b) { return a / b; });
-var _Basics_idiv = F2(function(a, b) { return (a / b) | 0; });
-var _Basics_pow = F2(Math.pow);
-
-var _Basics_remainderBy = F2(function(b, a) { return a % b; });
-
-// https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
-var _Basics_modBy = F2(function(modulus, x)
-{
-	var answer = x % modulus;
-	return modulus === 0
-		? _Debug_crash(11)
-		:
-	((answer > 0 && modulus < 0) || (answer < 0 && modulus > 0))
-		? answer + modulus
-		: answer;
-});
-
-
-// TRIGONOMETRY
-
-var _Basics_pi = Math.PI;
-var _Basics_e = Math.E;
-var _Basics_cos = Math.cos;
-var _Basics_sin = Math.sin;
-var _Basics_tan = Math.tan;
-var _Basics_acos = Math.acos;
-var _Basics_asin = Math.asin;
-var _Basics_atan = Math.atan;
-var _Basics_atan2 = F2(Math.atan2);
-
-
-// MORE MATH
-
-function _Basics_toFloat(x) { return x; }
-function _Basics_truncate(n) { return n | 0; }
-function _Basics_isInfinite(n) { return n === Infinity || n === -Infinity; }
-
-var _Basics_ceiling = Math.ceil;
-var _Basics_floor = Math.floor;
-var _Basics_round = Math.round;
-var _Basics_sqrt = Math.sqrt;
-var _Basics_log = Math.log;
-var _Basics_isNaN = isNaN;
-
-
-// BOOLEANS
-
-function _Basics_not(bool) { return !bool; }
-var _Basics_and = F2(function(a, b) { return a && b; });
-var _Basics_or  = F2(function(a, b) { return a || b; });
-var _Basics_xor = F2(function(a, b) { return a !== b; });
-
-
-
-function _Char_toCode(char)
-{
-	var code = char.charCodeAt(0);
-	if (0xD800 <= code && code <= 0xDBFF)
-	{
-		return (code - 0xD800) * 0x400 + char.charCodeAt(1) - 0xDC00 + 0x10000
-	}
-	return code;
-}
-
-function _Char_fromCode(code)
-{
-	return _Utils_chr(
-		(code < 0 || 0x10FFFF < code)
-			? '\uFFFD'
-			:
-		(code <= 0xFFFF)
-			? String.fromCharCode(code)
-			:
-		(code -= 0x10000,
-			String.fromCharCode(Math.floor(code / 0x400) + 0xD800, code % 0x400 + 0xDC00)
-		)
-	);
-}
-
-function _Char_toUpper(char)
-{
-	return _Utils_chr(char.toUpperCase());
-}
-
-function _Char_toLower(char)
-{
-	return _Utils_chr(char.toLowerCase());
-}
-
-function _Char_toLocaleUpper(char)
-{
-	return _Utils_chr(char.toLocaleUpperCase());
-}
-
-function _Char_toLocaleLower(char)
-{
-	return _Utils_chr(char.toLocaleLowerCase());
 }
 
 
@@ -1209,6 +1102,113 @@ function _String_fromList(chars)
 	return _List_toArray(chars).join('');
 }
 
+
+
+
+// MATH
+
+var _Basics_add = F2(function(a, b) { return a + b; });
+var _Basics_sub = F2(function(a, b) { return a - b; });
+var _Basics_mul = F2(function(a, b) { return a * b; });
+var _Basics_fdiv = F2(function(a, b) { return a / b; });
+var _Basics_idiv = F2(function(a, b) { return (a / b) | 0; });
+var _Basics_pow = F2(Math.pow);
+
+var _Basics_remainderBy = F2(function(b, a) { return a % b; });
+
+// https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
+var _Basics_modBy = F2(function(modulus, x)
+{
+	var answer = x % modulus;
+	return modulus === 0
+		? _Debug_crash(11)
+		:
+	((answer > 0 && modulus < 0) || (answer < 0 && modulus > 0))
+		? answer + modulus
+		: answer;
+});
+
+
+// TRIGONOMETRY
+
+var _Basics_pi = Math.PI;
+var _Basics_e = Math.E;
+var _Basics_cos = Math.cos;
+var _Basics_sin = Math.sin;
+var _Basics_tan = Math.tan;
+var _Basics_acos = Math.acos;
+var _Basics_asin = Math.asin;
+var _Basics_atan = Math.atan;
+var _Basics_atan2 = F2(Math.atan2);
+
+
+// MORE MATH
+
+function _Basics_toFloat(x) { return x; }
+function _Basics_truncate(n) { return n | 0; }
+function _Basics_isInfinite(n) { return n === Infinity || n === -Infinity; }
+
+var _Basics_ceiling = Math.ceil;
+var _Basics_floor = Math.floor;
+var _Basics_round = Math.round;
+var _Basics_sqrt = Math.sqrt;
+var _Basics_log = Math.log;
+var _Basics_isNaN = isNaN;
+
+
+// BOOLEANS
+
+function _Basics_not(bool) { return !bool; }
+var _Basics_and = F2(function(a, b) { return a && b; });
+var _Basics_or  = F2(function(a, b) { return a || b; });
+var _Basics_xor = F2(function(a, b) { return a !== b; });
+
+
+
+function _Char_toCode(char)
+{
+	var code = char.charCodeAt(0);
+	if (0xD800 <= code && code <= 0xDBFF)
+	{
+		return (code - 0xD800) * 0x400 + char.charCodeAt(1) - 0xDC00 + 0x10000
+	}
+	return code;
+}
+
+function _Char_fromCode(code)
+{
+	return _Utils_chr(
+		(code < 0 || 0x10FFFF < code)
+			? '\uFFFD'
+			:
+		(code <= 0xFFFF)
+			? String.fromCharCode(code)
+			:
+		(code -= 0x10000,
+			String.fromCharCode(Math.floor(code / 0x400) + 0xD800, code % 0x400 + 0xDC00)
+		)
+	);
+}
+
+function _Char_toUpper(char)
+{
+	return _Utils_chr(char.toUpperCase());
+}
+
+function _Char_toLower(char)
+{
+	return _Utils_chr(char.toLowerCase());
+}
+
+function _Char_toLocaleUpper(char)
+{
+	return _Utils_chr(char.toLocaleUpperCase());
+}
+
+function _Char_toLocaleLower(char)
+{
+	return _Utils_chr(char.toLocaleLowerCase());
+}
 
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.ax,
-		impl.aE,
-		impl.aD,
+		impl.av,
+		impl.aC,
+		impl.aB,
 		function() { return function() {} }
 	);
 });
@@ -2705,7 +2705,7 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		o: func(record.o),
-		K: record.K,
+		J: record.J,
 		H: record.H
 	}
 });
@@ -2975,7 +2975,7 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.o;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.K;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.J;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
 			(tag == 2 ? value.b : tag == 3 && value.H) && event.preventDefault(),
@@ -3928,11 +3928,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.ax,
-		impl.aE,
-		impl.aD,
+		impl.av,
+		impl.aC,
+		impl.aB,
 		function(sendToApp, initialModel) {
-			var view = impl.aG;
+			var view = impl.aE;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3964,12 +3964,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.ax,
-		impl.aE,
-		impl.aD,
+		impl.av,
+		impl.aC,
+		impl.aB,
 		function(sendToApp, initialModel) {
 			var divertHrefToApp = impl.A && impl.A(sendToApp)
-			var view = impl.aG;
+			var view = impl.aE;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3977,12 +3977,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ap);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.an);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.ai) && (_VirtualDom_doc.title = title = doc.ai);
+				(title !== doc.E) && (_VirtualDom_doc.title = title = doc.E);
 			});
 		}
 	);
@@ -4038,8 +4038,8 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.az;
-	var onUrlRequest = impl.aA;
+	var onUrlChange = impl.ax;
+	var onUrlRequest = impl.ay;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.aa === next.aa
-							&& curr.S === next.S
-							&& curr.Y.a === next.Y.a
+							&& curr._ === next._
+							&& curr.R === next.R
+							&& curr.X.a === next.X.a
 						)
 							? elm$browser$Browser$Internal(next)
 							: elm$browser$Browser$External(href)
@@ -4069,13 +4069,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		ax: function(flags)
+		av: function(flags)
 		{
-			return A3(impl.ax, flags, _Browser_getUrl(), key);
+			return A3(impl.av, flags, _Browser_getUrl(), key);
 		},
-		aG: impl.aG,
 		aE: impl.aE,
-		aD: impl.aD
+		aC: impl.aC,
+		aB: impl.aB
 	});
 }
 
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { av: 'hidden', aq: 'visibilitychange' }
+		? { at: 'hidden', ao: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { av: 'mozHidden', aq: 'mozvisibilitychange' }
+		? { at: 'mozHidden', ao: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { av: 'msHidden', aq: 'msvisibilitychange' }
+		? { at: 'msHidden', ao: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { av: 'webkitHidden', aq: 'webkitvisibilitychange' }
-		: { av: 'hidden', aq: 'visibilitychange' };
+		? { at: 'webkitHidden', ao: 'webkitvisibilitychange' }
+		: { at: 'hidden', ao: 'visibilitychange' };
 }
 
 
@@ -4232,12 +4232,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		ae: _Browser_getScene(),
-		aj: {
-			al: _Browser_window.pageXOffset,
-			am: _Browser_window.pageYOffset,
-			ak: _Browser_doc.documentElement.clientWidth,
-			R: _Browser_doc.documentElement.clientHeight
+		ad: _Browser_getScene(),
+		ah: {
+			aj: _Browser_window.pageXOffset,
+			ak: _Browser_window.pageYOffset,
+			ai: _Browser_doc.documentElement.clientWidth,
+			Q: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4247,8 +4247,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		ak: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		R: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		ai: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		Q: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4271,15 +4271,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			ae: {
-				ak: node.scrollWidth,
-				R: node.scrollHeight
+			ad: {
+				ai: node.scrollWidth,
+				Q: node.scrollHeight
 			},
-			aj: {
-				al: node.scrollLeft,
-				am: node.scrollTop,
-				ak: node.clientWidth,
-				R: node.clientHeight
+			ah: {
+				aj: node.scrollLeft,
+				ak: node.scrollTop,
+				ai: node.clientWidth,
+				Q: node.clientHeight
 			}
 		};
 	});
@@ -4309,18 +4309,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			ae: _Browser_getScene(),
-			aj: {
-				al: x,
-				am: y,
-				ak: _Browser_doc.documentElement.clientWidth,
-				R: _Browser_doc.documentElement.clientHeight
+			ad: _Browser_getScene(),
+			ah: {
+				aj: x,
+				ak: y,
+				ai: _Browser_doc.documentElement.clientWidth,
+				Q: _Browser_doc.documentElement.clientHeight
 			},
-			as: {
-				al: x + rect.left,
-				am: y + rect.top,
-				ak: rect.width,
-				R: rect.height
+			aq: {
+				aj: x + rect.left,
+				ak: y + rect.top,
+				ai: rect.width,
+				Q: rect.height
 			}
 		};
 	});
@@ -4358,6 +4358,13 @@ function _Browser_load(url)
 var author$project$Main$Name = function (a) {
 	return {$: 1, a: a};
 };
+var author$project$Main$init = author$project$Main$Name('');
+var author$project$Main$update = F2(
+	function (msg, _n0) {
+		var order = msg;
+		return order;
+	});
+var author$project$Main$SortBy = elm$core$Basics$identity;
 var elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var elm$core$Array$foldr = F3(
 	function (func, baseCase, _n0) {
@@ -4438,608 +4445,684 @@ var elm$core$Set$toList = function (_n0) {
 	var dict = _n0;
 	return elm$core$Dict$keys(dict);
 };
+var elm$core$Basics$eq = _Utils_equal;
+var elm$core$Basics$False = 1;
+var elm$core$Basics$True = 0;
+var elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
+var elm$core$Maybe$Just = function (a) {
+	return {$: 0, a: a};
+};
+var elm$core$Maybe$Nothing = {$: 1};
+var elm$core$String$contains = _String_contains;
+var elm$core$String$toLower = _String_toLower;
+var author$project$Main$byOrder = F2(
+	function (order, r) {
+		if (order.$ === 1) {
+			var name = order.a;
+			return A2(
+				elm$core$String$contains,
+				name,
+				elm$core$String$toLower(r.E));
+		} else {
+			var name = order.a;
+			return A2(
+				elm$core$List$any,
+				function (x) {
+					return _Utils_eq(x, name);
+				},
+				r.ag);
+		}
+	});
+var elm$core$Basics$add = _Basics_add;
+var elm$core$Basics$compare = _Utils_compare;
+var elm$core$String$foldl = _String_foldl;
+var elm$core$String$cons = _String_cons;
+var elm$core$String$fromChar = function (_char) {
+	return A2(elm$core$String$cons, _char, '');
+};
+var elm$core$String$indices = _String_indexes;
+var author$project$Main$distance = F3(
+	function (from, left, right) {
+		var index = function (c) {
+			var _n0 = A2(
+				elm$core$String$indices,
+				elm$core$String$fromChar(c),
+				from);
+			if (!_n0.b) {
+				return 0;
+			} else {
+				var x = _n0.a;
+				var xs = _n0.b;
+				return x;
+			}
+		};
+		var score = F2(
+			function (c, acc) {
+				return acc + index(c);
+			});
+		var suml = A3(elm$core$String$foldl, score, 0, left.E);
+		var sumr = A3(elm$core$String$foldl, score, 0, right.E);
+		return A2(elm$core$Basics$compare, sumr, suml);
+	});
 var elm$core$Basics$append = _Utils_append;
 var author$project$Resources$articles = _List_fromArray(
 	[
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic']),
-		ai: 'Interactive Tutorial of the Sequent Calculus',
-		aF: 'http://logitext.mit.edu/tutorial'
+		E: 'Interactive Tutorial of the Sequent Calculus',
+		aD: 'http://logitext.mit.edu/tutorial'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['haskell', 'ann', 'machine learning']),
-		ai: 'Get a Brain',
-		aF: 'https://crypto.stanford.edu/~blynn/haskell/brain.html'
+		E: 'Get a Brain',
+		aD: 'https://crypto.stanford.edu/~blynn/haskell/brain.html'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['machine learning']),
-		ai: 'Multi label Image Classification',
-		aF: 'https://suraj-deshmukh.github.io/Keras-Multi-Label-Image-Classification/'
+		E: 'Multi label Image Classification',
+		aD: 'https://suraj-deshmukh.github.io/Keras-Multi-Label-Image-Classification/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['graphics', 'x11', 'framebuffer']),
-		ai: 'Intro to Low-Level Graphics on Linux',
-		aF: 'http://betteros.org/tut/graphics1.php'
+		E: 'Intro to Low-Level Graphics on Linux',
+		aD: 'http://betteros.org/tut/graphics1.php'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['games']),
-		ai: 'Fix Your Timestep!',
-		aF: 'https://gafferongames.com/post/fix_your_timestep/'
+		E: 'Fix Your Timestep!',
+		aD: 'https://gafferongames.com/post/fix_your_timestep/'
 	},
-		{ah: _List_Nil, ai: 'Integration Basics', aF: 'https://gafferongames.com/post/integration_basics/'},
+		{ag: _List_Nil, E: 'Integration Basics', aD: 'https://gafferongames.com/post/integration_basics/'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['hash', 'fnv']),
-		ai: 'FNV',
-		aF: 'http://www.isthe.com/chongo/tech/comp/fnv/'
+		E: 'FNV',
+		aD: 'http://www.isthe.com/chongo/tech/comp/fnv/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['hash', 'djb2']),
-		ai: 'djb2',
-		aF: 'http://www.cse.yorku.ca/~oz/hash.html'
+		E: 'djb2',
+		aD: 'http://www.cse.yorku.ca/~oz/hash.html'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['hash']),
-		ai: 'Hash functions: An empirical comparison',
-		aF: 'https://www.strchr.com/hash_functions'
+		E: 'Hash functions: An empirical comparison',
+		aD: 'https://www.strchr.com/hash_functions'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['hash']),
-		ai: 'Paul Hsieh Hash',
-		aF: 'http://www.azillionmonkeys.com/qed/hash.html'
+		E: 'Paul Hsieh Hash',
+		aD: 'http://www.azillionmonkeys.com/qed/hash.html'
 	},
-		{ah: _List_Nil, ai: 'Bit Twiddling Hacks', aF: 'https://graphics.stanford.edu/~seander/bithacks.html'},
+		{ag: _List_Nil, E: 'Bit Twiddling Hacks', aD: 'https://graphics.stanford.edu/~seander/bithacks.html'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['game']),
-		ai: 'Othello for Desktop, Mobile and Web: an AI and GUI Exercise',
-		aF: 'https://www.hanshq.net/othello.html'
+		E: 'Othello for Desktop, Mobile and Web: an AI and GUI Exercise',
+		aD: 'https://www.hanshq.net/othello.html'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['fixed-width', 'x86']),
-		ai: 'Fixed Point Arithmetic and Tricks',
-		aF: 'http://x86asm.net/articles/fixed-point-arithmetic-and-tricks/'
+		E: 'Fixed Point Arithmetic and Tricks',
+		aD: 'http://x86asm.net/articles/fixed-point-arithmetic-and-tricks/'
 	},
-		{ah: _List_Nil, ai: 'ipow', aF: 'https://gist.github.com/orlp/3551590'},
+		{ag: _List_Nil, E: 'ipow', aD: 'https://gist.github.com/orlp/3551590'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['compression']),
-		ai: 'Data Compression with Arithmetic Encoding',
-		aF: 'http://www.drdobbs.com/cpp/data-compression-with-arithmetic-encodin/240169251'
+		E: 'Data Compression with Arithmetic Encoding',
+		aD: 'http://www.drdobbs.com/cpp/data-compression-with-arithmetic-encodin/240169251'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['bloom filter']),
-		ai: 'Bloom Filters by Example',
-		aF: 'https://llimllib.github.io/bloomfilter-tutorial/'
+		E: 'Bloom Filters by Example',
+		aD: 'https://llimllib.github.io/bloomfilter-tutorial/'
 	},
-		{ah: _List_Nil, ai: 'Probabilistic Filters By Example', aF: 'https://bdupras.github.io/filter-tutorial/'},
-		{ah: _List_Nil, ai: 'Fenwick Tree', aF: 'https://en.wikipedia.org/wiki/Fenwick_tree'},
+		{ag: _List_Nil, E: 'Probabilistic Filters By Example', aD: 'https://bdupras.github.io/filter-tutorial/'},
+		{ag: _List_Nil, E: 'Fenwick Tree', aD: 'https://en.wikipedia.org/wiki/Fenwick_tree'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['forth']),
-		ai: 'MOVING FORTH',
-		aF: 'http://www.bradrodriguez.com/papers/moving1.htm'
+		E: 'MOVING FORTH',
+		aD: 'http://www.bradrodriguez.com/papers/moving1.htm'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['forth']),
-		ai: 'UltraTechnology',
-		aF: 'http://www.ultratechnology.com/'
+		E: 'UltraTechnology',
+		aD: 'http://www.ultratechnology.com/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['parser']),
-		ai: 'Earley Parsing Explained',
-		aF: 'http://loup-vaillant.fr/tutorials/earley-parsing'
+		E: 'Earley Parsing Explained',
+		aD: 'http://loup-vaillant.fr/tutorials/earley-parsing'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['parser', 'xml']),
-		ai: 'Fast Haskell: Competing with C at parsing XML',
-		aF: 'https://chrisdone.com/posts/fast-haskell-c-parsing-xml/'
+		E: 'Fast Haskell: Competing with C at parsing XML',
+		aD: 'https://chrisdone.com/posts/fast-haskell-c-parsing-xml/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['parser']),
-		ai: 'ENTIRE, A Generic Parser for the Entire Class of Context-free Grammars',
-		aF: 'http://accent.compilertools.net/Entire.html'
+		E: 'ENTIRE, A Generic Parser for the Entire Class of Context-free Grammars',
+		aD: 'http://accent.compilertools.net/Entire.html'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['haskell']),
-		ai: 'The Evolution of a Haskell Programmer',
-		aF: 'https://www.willamette.edu/~fruehr/haskell/evolution.html'
+		E: 'The Evolution of a Haskell Programmer',
+		aD: 'https://www.willamette.edu/~fruehr/haskell/evolution.html'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['haskell']),
-		ai: 'Real World Ocaml',
-		aF: 'https://realworldocaml.org/'
+		E: 'Real World Ocaml',
+		aD: 'https://realworldocaml.org/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['haskell', 'lens']),
-		ai: 'fclabels 2.0',
-		aF: 'http://fvisser.nl/post/2013/okt/1/fclabels-2.0.html'
+		E: 'fclabels 2.0',
+		aD: 'http://fvisser.nl/post/2013/okt/1/fclabels-2.0.html'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['category theory']),
-		ai: 'From Adjunctions to Monads',
-		aF: 'http://www.stephendiehl.com/posts/adjunctions.html'
+		E: 'From Adjunctions to Monads',
+		aD: 'http://www.stephendiehl.com/posts/adjunctions.html'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['cateogry theory', 'profunctors', 'functors']),
-		ai: 'Profunctors, Arrows, & Static Analysis',
-		aF: 'https://elvishjerricco.github.io/2017/03/10/' + 'profunctors-arrows-and-static-analysis.html'
+		E: 'Profunctors, Arrows, & Static Analysis',
+		aD: 'https://elvishjerricco.github.io/2017/03/10/' + 'profunctors-arrows-and-static-analysis.html'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['category theory']),
-		ai: 'Reflecting On Incremental Folds',
-		aF: 'http://comonad.com/reader/2009/incremental-folds/'
+		E: 'Reflecting On Incremental Folds',
+		aD: 'http://comonad.com/reader/2009/incremental-folds/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['category theory']),
-		ai: 'Overloading lambda',
-		aF: 'http://conal.net/blog/posts/overloading-lambda'
+		E: 'Overloading lambda',
+		aD: 'http://conal.net/blog/posts/overloading-lambda'
 	},
-		{ah: _List_Nil, ai: 'Composing Reactive Animations', aF: 'http://conal.net/fran/tutorial.htm'},
-		{ah: _List_Nil, ai: 'Understanding Yoneda', aF: 'https://www.schoolofhaskell.com/user/bartosz/understanding-yoneda'},
-		{ah: _List_Nil, ai: 'Row Polymorphism Isn\'t Subtyping', aF: 'https://brianmckenna.org/blog/row_polymorphism_isnt_subtyping'},
-		{ah: _List_Nil, ai: 'Typing the technical interview', aF: 'https://aphyr.com/posts/342-typing-the-technical-interview'},
-		{ah: _List_Nil, ai: 'Mirrored Lenses', aF: 'http://comonad.com/reader/2012/mirrored-lenses/'},
+		{ag: _List_Nil, E: 'Composing Reactive Animations', aD: 'http://conal.net/fran/tutorial.htm'},
+		{ag: _List_Nil, E: 'Understanding Yoneda', aD: 'https://www.schoolofhaskell.com/user/bartosz/understanding-yoneda'},
+		{ag: _List_Nil, E: 'Row Polymorphism Isn\'t Subtyping', aD: 'https://brianmckenna.org/blog/row_polymorphism_isnt_subtyping'},
+		{ag: _List_Nil, E: 'Typing the technical interview', aD: 'https://aphyr.com/posts/342-typing-the-technical-interview'},
+		{ag: _List_Nil, E: 'Mirrored Lenses', aD: 'http://comonad.com/reader/2012/mirrored-lenses/'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['haskell']),
-		ai: 'Object Oriented Programming in Haskell',
-		aF: 'https://www.well-typed.com/blog/2018/03/oop-in-haskell/'
+		E: 'Object Oriented Programming in Haskell',
+		aD: 'https://www.well-typed.com/blog/2018/03/oop-in-haskell/'
 	},
-		{ah: _List_Nil, ai: 'From walking to zipping, Part 3: Caught in a zipper', aF: 'http://conway.rutgers.edu/~ccshan/wiki/blog/posts/WalkZip3/'},
-		{ah: _List_Nil, ai: 'Monads to Machine Code', aF: 'http://www.stephendiehl.com/posts/monads_machine_code.html'},
-		{ah: _List_Nil, ai: 'Quasi-quoting DSLs for free', aF: 'http://www.well-typed.com/blog/2014/10/quasi-quoting-dsls/'},
-		{ah: _List_Nil, ai: 'Kaleidoscope LLVM tutorial Ocaml', aF: 'https://llvm.org/docs/tutorial/OCamlLangImpl1.html'},
-		{ah: _List_Nil, ai: 'Writing a SAT Solver', aF: 'http://andrew.gibiansky.com/blog/verification/writing-a-sat-solver/'},
-		{ah: _List_Nil, ai: 'Simple SMT solver for use in an optimizing compiler', aF: 'https://www.well-typed.com/blog/2014/12/simple-smt-solver/'},
-		{ah: _List_Nil, ai: 'Quick and Easy DSLs with Writer Endo', aF: 'https://ocharles.org.uk/blog/posts/2013-02-12-quick-dsls-with-endo-writers.html'},
-		{ah: _List_Nil, ai: 'Seemingly impossible functional programs', aF: 'http://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/'},
-		{ah: _List_Nil, ai: 'faster mcpy', aF: 'https://software.intel.com/en-us/articles/performance-optimization-of-memcpy-in-dpdk'},
-		{ah: _List_Nil, ai: 'ring buffers', aF: 'https://www.snellman.net/blog/archive/2016-12-13-ring-buffers/'},
-		{ah: _List_Nil, ai: 'Allocator Designs', aF: 'https://os.phil-opp.com/allocator-designs/'},
-		{ah: _List_Nil, ai: 'Bitsquatting: DNS Hijacking without exploitation', aF: 'http://www.dinaburg.org/bitsquatting.html'},
-		{ah: _List_Nil, ai: 'Golang implementation of PASETO: Platform-Agnostic Security Tokens', aF: 'https://github.com/o1egl/paseto'},
-		{ah: _List_Nil, ai: 'PASETO: Platform-Agnostic Security Tokens in JavaScript', aF: 'https://github.com/sjudson/paseto.js'},
-		{ah: _List_Nil, ai: 'Block ads with OpenWRT dnsmasq', aF: 'https://www.leowkahman.com/2017/07/23/block-ads-with-openwrt-dnsmasq/'},
-		{ah: _List_Nil, ai: 'measuring syscall overhead', aF: 'https://drewdevault.com/2020/01/04/Slow.html'},
-		{ah: _List_Nil, ai: 'Text Rendering Hates You', aF: 'https://gankra.github.io/blah/text-hates-you/'},
-		{ah: _List_Nil, ai: 'oom_pardon, aka don\'t kill my xlock', aF: 'lwn.net/Articles/104185'},
-		{ah: _List_Nil, ai: 'Gathering Intel on Intel AVX-512 Transitions', aF: 'https://travisdowns.github.io/blog/2020/01/17/avxfreq1.html'}
+		{ag: _List_Nil, E: 'From walking to zipping, Part 3: Caught in a zipper', aD: 'http://conway.rutgers.edu/~ccshan/wiki/blog/posts/WalkZip3/'},
+		{ag: _List_Nil, E: 'Monads to Machine Code', aD: 'http://www.stephendiehl.com/posts/monads_machine_code.html'},
+		{ag: _List_Nil, E: 'Quasi-quoting DSLs for free', aD: 'http://www.well-typed.com/blog/2014/10/quasi-quoting-dsls/'},
+		{ag: _List_Nil, E: 'Kaleidoscope LLVM tutorial Ocaml', aD: 'https://llvm.org/docs/tutorial/OCamlLangImpl1.html'},
+		{ag: _List_Nil, E: 'Writing a SAT Solver', aD: 'http://andrew.gibiansky.com/blog/verification/writing-a-sat-solver/'},
+		{ag: _List_Nil, E: 'Simple SMT solver for use in an optimizing compiler', aD: 'https://www.well-typed.com/blog/2014/12/simple-smt-solver/'},
+		{ag: _List_Nil, E: 'Quick and Easy DSLs with Writer Endo', aD: 'https://ocharles.org.uk/blog/posts/2013-02-12-quick-dsls-with-endo-writers.html'},
+		{ag: _List_Nil, E: 'Seemingly impossible functional programs', aD: 'http://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/'},
+		{ag: _List_Nil, E: 'faster mcpy', aD: 'https://software.intel.com/en-us/articles/performance-optimization-of-memcpy-in-dpdk'},
+		{ag: _List_Nil, E: 'ring buffers', aD: 'https://www.snellman.net/blog/archive/2016-12-13-ring-buffers/'},
+		{ag: _List_Nil, E: 'Allocator Designs', aD: 'https://os.phil-opp.com/allocator-designs/'},
+		{ag: _List_Nil, E: 'Bitsquatting: DNS Hijacking without exploitation', aD: 'http://www.dinaburg.org/bitsquatting.html'},
+		{ag: _List_Nil, E: 'Golang implementation of PASETO: Platform-Agnostic Security Tokens', aD: 'https://github.com/o1egl/paseto'},
+		{ag: _List_Nil, E: 'PASETO: Platform-Agnostic Security Tokens in JavaScript', aD: 'https://github.com/sjudson/paseto.js'},
+		{ag: _List_Nil, E: 'Block ads with OpenWRT dnsmasq', aD: 'https://www.leowkahman.com/2017/07/23/block-ads-with-openwrt-dnsmasq/'},
+		{ag: _List_Nil, E: 'measuring syscall overhead', aD: 'https://drewdevault.com/2020/01/04/Slow.html'},
+		{ag: _List_Nil, E: 'Text Rendering Hates You', aD: 'https://gankra.github.io/blah/text-hates-you/'},
+		{ag: _List_Nil, E: 'oom_pardon, aka don\'t kill my xlock', aD: 'lwn.net/Articles/104185'},
+		{ag: _List_Nil, E: 'Gathering Intel on Intel AVX-512 Transitions', aD: 'https://travisdowns.github.io/blog/2020/01/17/avxfreq1.html'}
 	]);
 var author$project$Resources$books = _List_fromArray(
 	[
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['math']),
-		ai: 'A programmer\'s introduction to mathematics',
-		aF: 'https://jeremykun.com/2018/12/01/a-programmers-introduction-to-mathematics/'
+		E: 'A programmer\'s introduction to mathematics',
+		aD: 'https://jeremykun.com/2018/12/01/a-programmers-introduction-to-mathematics/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['math', 'bigraphs']),
-		ai: 'The space and motion of communicating agents',
-		aF: 'http://www.cl.cam.ac.uk/archive/rm135/Bigraphs-draft.pdf'
+		E: 'The space and motion of communicating agents',
+		aD: 'http://www.cl.cam.ac.uk/archive/rm135/Bigraphs-draft.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic', 'probabilistic']),
-		ai: 'WebPPL probabilistic programming for the web',
-		aF: 'http://webppl.org'
+		E: 'WebPPL probabilistic programming for the web',
+		aD: 'http://webppl.org'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic', 'probabilistic']),
-		ai: 'The Design and Implementation of Probabilistic Programming Languages',
-		aF: 'http://dippl.org'
+		E: 'The Design and Implementation of Probabilistic Programming Languages',
+		aD: 'http://dippl.org'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['ann', 'math', 'machine learning']),
-		ai: 'Finite and Infinite Machines by Marvin Minsky',
-		aF: 'https://github.com/media-lib/science_lib/raw/master/books/' + 'Computation_Finite_And_Infinite_Machines_by_Marvin_Minksy.pdf'
+		E: 'Finite and Infinite Machines by Marvin Minsky',
+		aD: 'https://github.com/media-lib/science_lib/raw/master/books/' + 'Computation_Finite_And_Infinite_Machines_by_Marvin_Minksy.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['sicp', 'lisp']),
-		ai: 'Structure and Interpretation of Computer Programs',
-		aF: 'http://xuanji.appspot.com/isicp/'
+		E: 'Structure and Interpretation of Computer Programs',
+		aD: 'http://xuanji.appspot.com/isicp/'
 	},
-		{ah: _List_Nil, ai: 'DESIGN PATTERNS', aF: 'https://refactoring.guru/design-patterns/'},
+		{ag: _List_Nil, E: 'DESIGN PATTERNS', aD: 'https://refactoring.guru/design-patterns/'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['apl']),
-		ai: 'Mastering Dyalog APL',
-		aF: 'https://www.dyalog.com/uploads/documents/MasteringDyalogAPL.pdf'
+		E: 'Mastering Dyalog APL',
+		aD: 'https://www.dyalog.com/uploads/documents/MasteringDyalogAPL.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['erlang']),
-		ai: 'Learn you some Erlang Clients and Servers',
-		aF: 'https://learnyousomeerlang.com/clients-and-servers'
+		E: 'Learn you some Erlang Clients and Servers',
+		aD: 'https://learnyousomeerlang.com/clients-and-servers'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['lex', 'parser', 'yacc']),
-		ai: 'LEX & YACC',
-		aF: 'https://www.epaperpress.com/lexandyacc/download/LexAndYacc.pdf'
+		E: 'LEX & YACC',
+		aD: 'https://www.epaperpress.com/lexandyacc/download/LexAndYacc.pdf'
 	},
-		{ah: _List_Nil, ai: 'Write Yourself a Scheme in 48 Hours', aF: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/' + 'Write_Yourself_a_Scheme_in_48_Hours.pdf'},
+		{ag: _List_Nil, E: 'Write Yourself a Scheme in 48 Hours', aD: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/' + 'Write_Yourself_a_Scheme_in_48_Hours.pdf'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['ssa']),
-		ai: 'Static Single Assignment Book',
-		aF: 'http://ssabook.gforge.inria.fr/latest/book.pdf'
+		E: 'Static Single Assignment Book',
+		aD: 'http://ssabook.gforge.inria.fr/latest/book.pdf'
 	},
-		{ah: _List_Nil, ai: 'An Introduction to Functional Programming Through Lambda Calculus', aF: 'https://www.cs.rochester.edu/~brown/173/readings/LCBook.pdf'},
+		{ag: _List_Nil, E: 'An Introduction to Functional Programming Through Lambda Calculus', aD: 'https://www.cs.rochester.edu/~brown/173/readings/LCBook.pdf'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['category theory']),
-		ai: 'Category Theory for Programmers: The Preface',
-		aF: 'https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/'
+		E: 'Category Theory for Programmers: The Preface',
+		aD: 'https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['erlang']),
-		ai: 'The Beam Book',
-		aF: 'https://happi.github.io/theBeamBook'
+		E: 'The Beam Book',
+		aD: 'https://happi.github.io/theBeamBook'
 	},
-		{ah: _List_Nil, ai: 'Concrete Semantics - Brick', aF: 'http://concrete-semantics.org/concrete-semantics-brick.pdf'},
-		{ah: _List_Nil, ai: 'Write You a Haskell', aF: 'http://dev.stephendiehl.com/fun/'},
-		{ah: _List_Nil, ai: 'Learn you an Agda', aF: 'http://learnyouanagda.liamoc.net/pages/introduction.html'},
-		{ah: _List_Nil, ai: 'Programming Language Foundations in Agda', aF: 'https://plfa.github.io/'},
-		{ah: _List_Nil, ai: '', aF: ''},
-		{ah: _List_Nil, ai: 'Smalltalk-80 The Language And It\'s Implementation', aF: 'http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf'},
-		{ah: _List_Nil, ai: 'Professor Frisby\'s Mostly Adequate Guide to Functional Programming', aF: 'https://drboolean.gitbooks.io/mostly-adequate-guide-old/content/'}
+		{ag: _List_Nil, E: 'Concrete Semantics - Brick', aD: 'http://concrete-semantics.org/concrete-semantics-brick.pdf'},
+		{ag: _List_Nil, E: 'Write You a Haskell', aD: 'http://dev.stephendiehl.com/fun/'},
+		{ag: _List_Nil, E: 'Learn you an Agda', aD: 'http://learnyouanagda.liamoc.net/pages/introduction.html'},
+		{ag: _List_Nil, E: 'Programming Language Foundations in Agda', aD: 'https://plfa.github.io/'},
+		{ag: _List_Nil, E: '', aD: ''},
+		{ag: _List_Nil, E: 'Smalltalk-80 The Language And It\'s Implementation', aD: 'http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf'},
+		{ag: _List_Nil, E: 'Professor Frisby\'s Mostly Adequate Guide to Functional Programming', aD: 'https://drboolean.gitbooks.io/mostly-adequate-guide-old/content/'}
 	]);
 var author$project$Resources$papers = _List_fromArray(
 	[
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['math']),
-		ai: 'The Elements of Euclid',
-		aF: 'https://www.c82.net/euclid/'
+		E: 'The Elements of Euclid',
+		aD: 'https://www.c82.net/euclid/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['math', 'bigraphs']),
-		ai: 'On lions, impala, and bigraphs: modelling interactions in physical/virtual spaces',
-		aF: 'http://eprints.nottingham.ac.uk/39044/1/main_savannah-accepted.pdf'
+		E: 'On lions, impala, and bigraphs: modelling interactions in physical/virtual spaces',
+		aD: 'http://eprints.nottingham.ac.uk/39044/1/main_savannah-accepted.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['bigraphs']),
-		ai: 'Modelling IEEE 802.11 CSMA/CA RTS/CTS with stochastic bigraphs with sharing',
-		aF: 'https://link.springer.com/content/pdf/10.1007%2Fs00165-012-0270-3.pdf'
+		E: 'Modelling IEEE 802.11 CSMA/CA RTS/CTS with stochastic bigraphs with sharing',
+		aD: 'https://link.springer.com/content/pdf/10.1007%2Fs00165-012-0270-3.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['math', 'bigraphs']),
-		ai: 'bigraphs with sharing',
-		aF: 'https://www.sciencedirect.com/science/article/pii/S0304397515001085?via%3Dihub'
+		E: 'bigraphs with sharing',
+		aD: 'https://www.sciencedirect.com/science/article/pii/S0304397515001085?via%3Dihub'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['gnn', 'math']),
-		ai: 'Graph Neural Networks: A Review of Methods and Applications',
-		aF: 'https://arxiv.org/pdf/1812.08434.pdf'
+		E: 'Graph Neural Networks: A Review of Methods and Applications',
+		aD: 'https://arxiv.org/pdf/1812.08434.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['forth', 'machine learning']),
-		ai: 'Programming with a Differentiable Forth Interpreter',
-		aF: 'https://arxiv.org/pdf/1605.06640'
+		E: 'Programming with a Differentiable Forth Interpreter',
+		aD: 'https://arxiv.org/pdf/1605.06640'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['c++', 'ann', 'compiler', 'jit']),
-		ai: 'A JIT Compiler for Neural Network Inference',
-		aF: 'https://arxiv.org/pdf/1906.05737v1.pdf'
+		E: 'A JIT Compiler for Neural Network Inference',
+		aD: 'https://arxiv.org/pdf/1906.05737v1.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['rnn']),
-		ai: 'A Critical Review of Recurrent Neural Networks for Sequence Learning',
-		aF: 'https://arxiv.org/pdf/1506.00019.pdf'
+		E: 'A Critical Review of Recurrent Neural Networks for Sequence Learning',
+		aD: 'https://arxiv.org/pdf/1506.00019.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['intel', 'hardware', 'bugs', 'security']),
-		ai: 'CacheOut: Leaking Data on Intel CPUs via Cache Evictions',
-		aF: 'https://cacheoutattack.com/CacheOut.pdf'
+		E: 'CacheOut: Leaking Data on Intel CPUs via Cache Evictions',
+		aD: 'https://cacheoutattack.com/CacheOut.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['intel', 'hardware', 'bugs', 'security']),
-		ai: 'Meltdown: Reading Kernel Memory from User Space',
-		aF: 'https://meltdownattack.com/meltdown.pdf'
+		E: 'Meltdown: Reading Kernel Memory from User Space',
+		aD: 'https://meltdownattack.com/meltdown.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['intel', 'hardware', 'bugs', 'security']),
-		ai: 'Spectre Attacks: Exploiting Speculative Execution',
-		aF: 'https://spectreattack.com/spectre.pdf'
+		E: 'Spectre Attacks: Exploiting Speculative Execution',
+		aD: 'https://spectreattack.com/spectre.pdf'
 	},
-		{ah: _List_Nil, ai: 'Temporal correlation detection using computational phase-change memory', aF: 'https://www.nature.com/articles/s41467-017-01481-9'},
+		{ag: _List_Nil, E: 'Temporal correlation detection using computational phase-change memory', aD: 'https://www.nature.com/articles/s41467-017-01481-9'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['sha-1', 'hash', 'security']),
-		ai: 'SHA-1 is a Shambles',
-		aF: 'https://eprint.iacr.org/2020/014.pdf'
+		E: 'SHA-1 is a Shambles',
+		aD: 'https://eprint.iacr.org/2020/014.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['hash', 'perfect hash']),
-		ai: 'RecSplit: Minimal Perfect Hashing via Recursive Splitting',
-		aF: 'https://arxiv.org/pdf/1910.06416.pdf'
+		E: 'RecSplit: Minimal Perfect Hashing via Recursive Splitting',
+		aD: 'https://arxiv.org/pdf/1910.06416.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['bloom filter', 'hash']),
-		ai: 'Less hashing, same performance: Building a better bloom filter (2006)',
-		aF: 'http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=' + 'F45130A950930D9DEC1C6454277F4B34?doi=10.1.1.152.579&rep=rep1&type=pdf'
+		E: 'Less hashing, same performance: Building a better bloom filter (2006)',
+		aD: 'http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=' + 'F45130A950930D9DEC1C6454277F4B34?doi=10.1.1.152.579&rep=rep1&type=pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['cuckoo filter', 'hash']),
-		ai: 'Cuckoo Filter: Practically Better Than Bloom',
-		aF: 'https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf'
+		E: 'Cuckoo Filter: Practically Better Than Bloom',
+		aD: 'https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['data structure']),
-		ai: 'Making Data Structures Persistent',
-		aF: 'http://www.cs.cmu.edu/~sleator/papers/another-persistence.pdf'
+		E: 'Making Data Structures Persistent',
+		aD: 'http://www.cs.cmu.edu/~sleator/papers/another-persistence.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['data structure']),
-		ai: 'Persistent Data Structures',
-		aF: 'http://www.math.tau.ac.il/~haimk/papers/persistent-survey.ps'
+		E: 'Persistent Data Structures',
+		aD: 'http://www.math.tau.ac.il/~haimk/papers/persistent-survey.ps'
 	},
-		{ah: _List_Nil, ai: 'Simple High-Level Code For Cryptographic Arithmetic' + ' – With Proofs, Without Compromises', aF: 'http://adam.chlipala.net/papers/FiatCryptoSP19/FiatCryptoSP19.pdf'},
-		{ah: _List_Nil, ai: 'An Efficient Context-Free Parsing Algorithm', aF: 'https://web.archive.org/web/20040708052627/http://www-2.cs.cmu' + ('.edu/afs/cs.cmu.edu/project/cmt-55/lti/Courses/711/Class-notes/' + 'p94-earley.pdf')},
+		{ag: _List_Nil, E: 'Simple High-Level Code For Cryptographic Arithmetic' + ' – With Proofs, Without Compromises', aD: 'http://adam.chlipala.net/papers/FiatCryptoSP19/FiatCryptoSP19.pdf'},
+		{ag: _List_Nil, E: 'An Efficient Context-Free Parsing Algorithm', aD: 'https://web.archive.org/web/20040708052627/http://www-2.cs.cmu' + ('.edu/afs/cs.cmu.edu/project/cmt-55/lti/Courses/711/Class-notes/' + 'p94-earley.pdf')},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic']),
-		ai: 'Probabilistic Inductive Logic Programming',
-		aF: 'http://people.csail.mit.edu/kersting/ecmlpkdd05_pilp/pilp.pdf'
+		E: 'Probabilistic Inductive Logic Programming',
+		aD: 'http://people.csail.mit.edu/kersting/ecmlpkdd05_pilp/pilp.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic', 'linear logic']),
-		ai: 'Ceptre: A Language for Modeling Generative Interactive Systems',
-		aF: 'http://www.cs.cmu.edu/~cmartens/ceptre.pdf'
+		E: 'Ceptre: A Language for Modeling Generative Interactive Systems',
+		aD: 'http://www.cs.cmu.edu/~cmartens/ceptre.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic', 'games']),
-		ai: 'Linear Logic Programming for Narrative Generation',
-		aF: 'https://www.cs.cmu.edu/~cmartens/lpnmr13-short.pdf'
+		E: 'Linear Logic Programming for Narrative Generation',
+		aD: 'https://www.cs.cmu.edu/~cmartens/lpnmr13-short.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic', 'affine logic']),
-		ai: 'Principal typing in elementary affine logic',
-		aF: 'https://www.academia.edu/2622889/Principal_typing_in_elementary_affine_logic'
+		E: 'Principal typing in elementary affine logic',
+		aD: 'https://www.academia.edu/2622889/Principal_typing_in_elementary_affine_logic'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic', 'affine logic']),
-		ai: 'Elementary affine logic and the call-by-value lambda calculus',
-		aF: 'https://www.academia.edu/2622886/Elementary_affine_logic_and_the_' + 'call-by-value_lambda_calculus'
+		E: 'Elementary affine logic and the call-by-value lambda calculus',
+		aD: 'https://www.academia.edu/2622886/Elementary_affine_logic_and_the_' + 'call-by-value_lambda_calculus'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['types']),
-		ai: 'Type Theory & Functional Programming',
-		aF: 'https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf'
+		E: 'Type Theory & Functional Programming',
+		aD: 'https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/ttfp.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic', 'linear logic']),
-		ai: 'The Syntax and Semantics of Quantitative Type Theory',
-		aF: 'https://bentnib.org/quantitative-type-theory.html'
+		E: 'The Syntax and Semantics of Quantitative Type Theory',
+		aD: 'https://bentnib.org/quantitative-type-theory.html'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic', 'modal logic', 'types']),
-		ai: 'Quantitative program reasoning with graded modal types',
-		aF: 'https://granule-project.github.io/papers/granule-paper-draft.pdf'
+		E: 'Quantitative program reasoning with graded modal types',
+		aD: 'https://granule-project.github.io/papers/granule-paper-draft.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['garbage collection']),
-		ai: 'Compile-Time Garbage Collection for the Declarative Language Mercury',
-		aF: 'https://www.mercurylang.org/documentation/papers/CW2004_03_mazur.pdf'
+		E: 'Compile-Time Garbage Collection for the Declarative Language Mercury',
+		aD: 'https://www.mercurylang.org/documentation/papers/CW2004_03_mazur.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['sat', 'logic']),
-		ai: 'Formal Verification of a Modern SAT Solver',
-		aF: 'http://poincare.matf.bg.ac.rs/~filip/phd/sat-verification-shallow.pdf'
+		E: 'Formal Verification of a Modern SAT Solver',
+		aD: 'http://poincare.matf.bg.ac.rs/~filip/phd/sat-verification-shallow.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['category theory']),
-		ai: 'Generalized Convolution and Efficient Language Recognition',
-		aF: 'https://arxiv.org/pdf/1903.10677.pdf'
+		E: 'Generalized Convolution and Efficient Language Recognition',
+		aD: 'https://arxiv.org/pdf/1903.10677.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['category theory']),
-		ai: 'Compiling to Categories',
-		aF: 'http://conal.net/papers/compiling-to-categories/compiling-to-categories.pdf'
+		E: 'Compiling to Categories',
+		aD: 'http://conal.net/papers/compiling-to-categories/compiling-to-categories.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['haskell', 'category theory']),
-		ai: 'Selecitve Applicative Functors',
-		aF: 'https://dl.acm.org/ft_gateway.cfm?id=3341694'
+		E: 'Selecitve Applicative Functors',
+		aD: 'https://dl.acm.org/ft_gateway.cfm?id=3341694'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['category theory']),
-		ai: 'An Introduction to Category Theory for the working computer scientist',
-		aF: 'https://www.researchgate.net/publication/' + '235778993_The_optimal_implementation_of_functional_programming_languages'
+		E: 'An Introduction to Category Theory for the working computer scientist',
+		aD: 'https://www.researchgate.net/publication/' + '235778993_The_optimal_implementation_of_functional_programming_languages'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['category theory']),
-		ai: 'Functional Programming with Bananas, Lenses, Envelopes and Barbed Wire',
-		aF: 'https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functional.pdf'
+		E: 'Functional Programming with Bananas, Lenses, Envelopes and Barbed Wire',
+		aD: 'https://ris.utwente.nl/ws/portalfiles/portal/6142049/meijer91functional.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['lazy', 'interpreters']),
-		ai: 'How to add laziness to a strict language without even being odd',
-		aF: 'http://hh.diva-portal.org/smash/get/diva2:413532/FULLTEXT01.pdf'
+		E: 'How to add laziness to a strict language without even being odd',
+		aD: 'http://hh.diva-portal.org/smash/get/diva2:413532/FULLTEXT01.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['interpreters']),
-		ai: 'Partial Evaluation and Automatic Program Generation',
-		aF: 'http://www.itu.dk/people/sestoft/pebook/jonesgomardsestoft-a4.pdf'
+		E: 'Partial Evaluation and Automatic Program Generation',
+		aD: 'http://www.itu.dk/people/sestoft/pebook/jonesgomardsestoft-a4.pdf'
 	},
-		{ah: _List_Nil, ai: 'Revised7 Report on the Algorithmic Language Scheme', aF: 'http://www.larcenists.org/Documentation/Documentation0.98/r7rs.pdf'},
-		{ah: _List_Nil, ai: 'Composable Memory Transactions', aF: 'https://www.microsoft.com/en-us/research/wp-content/' + 'uploads/2005/01/2005-ppopp-composable.pdf'},
+		{ag: _List_Nil, E: 'Revised7 Report on the Algorithmic Language Scheme', aD: 'http://www.larcenists.org/Documentation/Documentation0.98/r7rs.pdf'},
+		{ag: _List_Nil, E: 'Composable Memory Transactions', aD: 'https://www.microsoft.com/en-us/research/wp-content/' + 'uploads/2005/01/2005-ppopp-composable.pdf'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['logic']),
-		ai: 'Backtracking, Interleaving, and Terminating Monad Transformers',
-		aF: 'http://okmij.org/ftp/Computation/LogicT.pdf'
+		E: 'Backtracking, Interleaving, and Terminating Monad Transformers',
+		aD: 'http://okmij.org/ftp/Computation/LogicT.pdf'
 	},
-		{ah: _List_Nil, ai: 'Arrows, Robots, and Functional Reactive Programming', aF: 'http://www.cs.yale.edu/homes/hudak/CS429F04/AFPLectureNotes.pdf'},
-		{ah: _List_Nil, ai: 'Fault tolerant functional reactive programming', aF: 'https://dl.acm.org/citation.cfm?id=3236791'},
-		{ah: _List_Nil, ai: 'Testing and Debugging Functional Reactive Programming', aF: 'https://dl.acm.org/citation.cfm?id=3110246'},
-		{ah: _List_Nil, ai: 'Functional Reactive Programming, Refactored', aF: 'https://dl.acm.org/authorize?N34896'},
-		{ah: _List_Nil, ai: 'Flask: Staged Functional Programming for Sensor Networks', aF: 'http://www.cl.cam.ac.uk/~ey204/teaching/ACS/R202/papers/' + 'S5_Stream_Query/papers/mainland_icfp_2008.pdf'},
-		{ah: _List_Nil, ai: 'A Pure Language with Default Strict Evaluation and Explicit Laziness', aF: 'http://web.cecs.pdx.edu/~sheard/papers/ExplicitLazy.ps'},
-		{ah: _List_Nil, ai: 'Type variables in patterns', aF: 'https://arxiv.org/pdf/1806.03476.pdf'},
-		{ah: _List_Nil, ai: 'Elaborating Evaluation-Order Polymorphism', aF: 'https://arxiv.org/pdf/1504.07680'},
-		{ah: _List_Nil, ai: 'A Framework for Extended Algebraic Data Types', aF: 'http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.101.9267&rep=rep1&type=pdf'},
-		{ah: _List_Nil, ai: 'Instance Chains: Type Class Programming Without Overlapping Instances', aF: 'https://jgbm.github.io/pubs/morris-icfp2010-instances.pdf'},
-		{ah: _List_Nil, ai: 'Type Classes and Instance Chains: A Relational Approach', aF: 'https://jgbm.github.io/pubs/morris-dissertation.pdf'},
+		{ag: _List_Nil, E: 'Arrows, Robots, and Functional Reactive Programming', aD: 'http://www.cs.yale.edu/homes/hudak/CS429F04/AFPLectureNotes.pdf'},
+		{ag: _List_Nil, E: 'Fault tolerant functional reactive programming', aD: 'https://dl.acm.org/citation.cfm?id=3236791'},
+		{ag: _List_Nil, E: 'Testing and Debugging Functional Reactive Programming', aD: 'https://dl.acm.org/citation.cfm?id=3110246'},
+		{ag: _List_Nil, E: 'Functional Reactive Programming, Refactored', aD: 'https://dl.acm.org/authorize?N34896'},
+		{ag: _List_Nil, E: 'Flask: Staged Functional Programming for Sensor Networks', aD: 'http://www.cl.cam.ac.uk/~ey204/teaching/ACS/R202/papers/' + 'S5_Stream_Query/papers/mainland_icfp_2008.pdf'},
+		{ag: _List_Nil, E: 'A Pure Language with Default Strict Evaluation and Explicit Laziness', aD: 'http://web.cecs.pdx.edu/~sheard/papers/ExplicitLazy.ps'},
+		{ag: _List_Nil, E: 'Type variables in patterns', aD: 'https://arxiv.org/pdf/1806.03476.pdf'},
+		{ag: _List_Nil, E: 'Elaborating Evaluation-Order Polymorphism', aD: 'https://arxiv.org/pdf/1504.07680'},
+		{ag: _List_Nil, E: 'A Framework for Extended Algebraic Data Types', aD: 'http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.101.9267&rep=rep1&type=pdf'},
+		{ag: _List_Nil, E: 'Instance Chains: Type Class Programming Without Overlapping Instances', aD: 'https://jgbm.github.io/pubs/morris-icfp2010-instances.pdf'},
+		{ag: _List_Nil, E: 'Type Classes and Instance Chains: A Relational Approach', aD: 'https://jgbm.github.io/pubs/morris-dissertation.pdf'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['types']),
-		ai: 'Programming and Reasoning with Algebraic Effects and Dependent Types',
-		aF: 'https://eb.host.cs.st-andrews.ac.uk/drafts/effects.pdf'
+		E: 'Programming and Reasoning with Algebraic Effects and Dependent Types',
+		aD: 'https://eb.host.cs.st-andrews.ac.uk/drafts/effects.pdf'
 	},
-		{ah: _List_Nil, ai: 'The Power of Pi', aF: 'https://cs.ru.nl/~wouters/Publications/ThePowerOfPi.pdf'},
-		{ah: _List_Nil, ai: 'Lightweight higher-kinded polymorphism', aF: 'https://ocamllabs.github.io/higher/lightweight-higher-kinded-polymorphism.pdf'},
-		{ah: _List_Nil, ai: 'Improving Haskell Types with SMT', aF: 'http://yav.github.io/publications/improving-smt-types.pdf'},
+		{ag: _List_Nil, E: 'The Power of Pi', aD: 'https://cs.ru.nl/~wouters/Publications/ThePowerOfPi.pdf'},
+		{ag: _List_Nil, E: 'Lightweight higher-kinded polymorphism', aD: 'https://ocamllabs.github.io/higher/lightweight-higher-kinded-polymorphism.pdf'},
+		{ag: _List_Nil, E: 'Improving Haskell Types with SMT', aD: 'http://yav.github.io/publications/improving-smt-types.pdf'},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['graphics']),
-		ai: 'Functional Geometry',
-		aF: 'https://eprints.soton.ac.uk/257577/1/funcgeo2.pdf'
+		E: 'Functional Geometry',
+		aD: 'https://eprints.soton.ac.uk/257577/1/funcgeo2.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['ml', 'types']),
-		ai: '1ML – Core and Modules United (F-ing First-class Modules)',
-		aF: 'https://people.mpi-sws.org/~rossberg/1ml/1ml.pdf'
+		E: '1ML – Core and Modules United (F-ing First-class Modules)',
+		aD: 'https://people.mpi-sws.org/~rossberg/1ml/1ml.pdf'
 	},
-		{ah: _List_Nil, ai: '', aF: ''},
-		{ah: _List_Nil, ai: 'Cross-platform Compilers for Functional Languages', aF: 'https://eb.host.cs.st-andrews.ac.uk/drafts/compile-idris.pdf'},
-		{ah: _List_Nil, ai: 'Compiling with Continuations and LLVM', aF: 'https://arxiv.org/pdf/1805.08842.pdf'},
-		{ah: _List_Nil, ai: 'G2Q: Haskell Constraint Solving', aF: 'http://www.cs.yale.edu/homes/piskac/papers/2019HallahanETALquasiquoter.pdf'},
-		{ah: _List_Nil, ai: 'SMT Solving for Functional Programming over Infinite Structures∗', aF: 'https://arxiv.org/pdf/1604.01185v1.pdf'},
-		{ah: _List_Nil, ai: 'Extensible Type-Directed Editing', aF: 'http://davidchristiansen.dk/pubs/extensible-editing.pdf'},
-		{ah: _List_Nil, ai: 'A prettier printer - Wadler', aF: 'http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf'},
-		{ah: _List_Nil, ai: 'Pretty Printing', aF: 'http://i.stanford.edu/pub/cstr/reports/cs/tr/79/770/CS-TR-79-770.pdf'},
-		{ah: _List_Nil, ai: 'The Final Pretty Printer', aF: 'http://davidchristiansen.dk/drafts/final-pretty-printer-draft.pdf'},
-		{ah: _List_Nil, ai: 'Extensibility for the Masses Practical Extensibility with Object Algebras', aF: 'http://www.cs.utexas.edu/~wcook/Drafts/2012/ecoop2012.pdf'},
-		{ah: _List_Nil, ai: 'Feature-Oriented Programming with Object Algebras', aF: 'https://www.cs.utexas.edu/~wcook/Drafts/2012/FOPwOA.pdf'},
-		{ah: _List_Nil, ai: 'Streams à la carte: Extensible Pipelines with Object Algebras', aF: 'http://drops.dagstuhl.de/opus/volltexte/2015/5239/pdf/29.pdf'},
-		{ah: _List_Nil, ai: 'Scrap Your Boilerplate with Object Algebras', aF: 'https://i.cs.hku.hk/~bruno/papers/oopsla2015.pdf'},
-		{ah: _List_Nil, ai: 'An Analysis and Discussion of Solutions to the Expression Problem Across Programming Languages', aF: 'https://cs242.stanford.edu/f17/assets/projects/2017/kjtian-colinwei.pdf'},
-		{ah: _List_Nil, ai: 'Modular Interpreters with Implicit Context Propagation', aF: 'https://homepages.cwi.nl/~storm/publications/implicit-ctx.pdf'},
-		{ah: _List_Nil, ai: 'Type-Safe Modular Parsing', aF: 'https://i.cs.hku.hk/~bruno/papers/sle17.pdf'}
+		{ag: _List_Nil, E: '', aD: ''},
+		{ag: _List_Nil, E: 'Cross-platform Compilers for Functional Languages', aD: 'https://eb.host.cs.st-andrews.ac.uk/drafts/compile-idris.pdf'},
+		{ag: _List_Nil, E: 'Compiling with Continuations and LLVM', aD: 'https://arxiv.org/pdf/1805.08842.pdf'},
+		{ag: _List_Nil, E: 'G2Q: Haskell Constraint Solving', aD: 'http://www.cs.yale.edu/homes/piskac/papers/2019HallahanETALquasiquoter.pdf'},
+		{ag: _List_Nil, E: 'SMT Solving for Functional Programming over Infinite Structures∗', aD: 'https://arxiv.org/pdf/1604.01185v1.pdf'},
+		{ag: _List_Nil, E: 'Extensible Type-Directed Editing', aD: 'http://davidchristiansen.dk/pubs/extensible-editing.pdf'},
+		{ag: _List_Nil, E: 'A prettier printer - Wadler', aD: 'http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf'},
+		{ag: _List_Nil, E: 'Pretty Printing', aD: 'http://i.stanford.edu/pub/cstr/reports/cs/tr/79/770/CS-TR-79-770.pdf'},
+		{ag: _List_Nil, E: 'The Final Pretty Printer', aD: 'http://davidchristiansen.dk/drafts/final-pretty-printer-draft.pdf'},
+		{ag: _List_Nil, E: 'Extensibility for the Masses Practical Extensibility with Object Algebras', aD: 'http://www.cs.utexas.edu/~wcook/Drafts/2012/ecoop2012.pdf'},
+		{ag: _List_Nil, E: 'Feature-Oriented Programming with Object Algebras', aD: 'https://www.cs.utexas.edu/~wcook/Drafts/2012/FOPwOA.pdf'},
+		{ag: _List_Nil, E: 'Streams à la carte: Extensible Pipelines with Object Algebras', aD: 'http://drops.dagstuhl.de/opus/volltexte/2015/5239/pdf/29.pdf'},
+		{ag: _List_Nil, E: 'Scrap Your Boilerplate with Object Algebras', aD: 'https://i.cs.hku.hk/~bruno/papers/oopsla2015.pdf'},
+		{ag: _List_Nil, E: 'An Analysis and Discussion of Solutions to the Expression Problem Across Programming Languages', aD: 'https://cs242.stanford.edu/f17/assets/projects/2017/kjtian-colinwei.pdf'},
+		{ag: _List_Nil, E: 'Modular Interpreters with Implicit Context Propagation', aD: 'https://homepages.cwi.nl/~storm/publications/implicit-ctx.pdf'},
+		{
+		ag: _List_fromArray(
+			['parsing']),
+		E: 'Type-Safe Modular Parsing',
+		aD: 'https://i.cs.hku.hk/~bruno/papers/sle17.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['haskell', 'data structure', 'lazy', 'tree']),
+		E: 'A purely functional implementation of ROBDDs in Haskell',
+		aD: 'http://www.cs.nott.ac.uk/~psznhn/TFP2006/Papers/09-ChristiansenHuch' + '-APurelyFunctionalImplementationOfROBDDs.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['haskell', 'data structure', 'tree']),
+		E: 'Functional Pearl Trouble Shared is Trouble Halved',
+		aD: 'http://www.cs.ox.ac.uk/ralf.hinze/publications/HW03.pdf'
+	}
 	]);
 var author$project$Resources$projects = _List_fromArray(
 	[
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['latex', 'logic']),
-		ai: 'LATEX for Logicians',
-		aF: 'https://www.logicmatters.net/resources/pdfs/latex/BussGuide2.pdf'
+		E: 'LATEX for Logicians',
+		aD: 'https://www.logicmatters.net/resources/pdfs/latex/BussGuide2.pdf'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['bloom filter', 'hash']),
-		ai: 'Bloom Filter Calculator',
-		aF: 'https://hur.st/bloomfilter/'
+		E: 'Bloom Filter Calculator',
+		aD: 'https://hur.st/bloomfilter/'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['compiler']),
-		ai: 'The new Smol compiler and reference',
-		aF: 'https://github.com/CurtisFenner/zsmol'
+		E: 'The new Smol compiler and reference',
+		aD: 'https://github.com/CurtisFenner/zsmol'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['types', 'type inference']),
-		ai: 'Relational Hindley-Milner type inferencer in miniKanren',
-		aF: 'https://github.com/webyrd/hindley-milner-type-inferencer'
+		E: 'Relational Hindley-Milner type inferencer in miniKanren',
+		aD: 'https://github.com/webyrd/hindley-milner-type-inferencer'
 	},
 		{
-		ah: _List_fromArray(
+		ag: _List_fromArray(
 			['sat']),
-		ai: 'toysolver: Assorted decision procedures for SAT, SMT, Max-SAT, PB, MIP, etc',
-		aF: 'http://hackage.haskell.org/package/toysolver'
+		E: 'toysolver: Assorted decision procedures for SAT, SMT, Max-SAT, PB, MIP, etc',
+		aD: 'http://hackage.haskell.org/package/toysolver'
 	},
-		{ah: _List_Nil, ai: 'Copilot', aF: 'http://leepike.github.io/Copilot/'},
-		{ah: _List_Nil, ai: 'Clash', aF: 'http://www.clash-lang.org/'},
-		{ah: _List_Nil, ai: 'ComonadSheet', aF: 'https://github.com/kwf/ComonadSheet'},
-		{ah: _List_Nil, ai: 'Learn OpenGL in zig', aF: 'https://github.com/cshenton/learnopengl'},
-		{ah: _List_Nil, ai: 'NeHe tutorials in zig', aF: 'https://github.com/mypalmike/zigNeHe'}
+		{ag: _List_Nil, E: 'Copilot', aD: 'http://leepike.github.io/Copilot/'},
+		{ag: _List_Nil, E: 'Clash', aD: 'http://www.clash-lang.org/'},
+		{ag: _List_Nil, E: 'ComonadSheet', aD: 'https://github.com/kwf/ComonadSheet'},
+		{ag: _List_Nil, E: 'Learn OpenGL in zig', aD: 'https://github.com/cshenton/learnopengl'},
+		{ag: _List_Nil, E: 'NeHe tutorials in zig', aD: 'https://github.com/mypalmike/zigNeHe'}
 	]);
-var author$project$Resources$resources = _Utils_ap(
-	author$project$Resources$papers,
-	_Utils_ap(
-		author$project$Resources$articles,
-		_Utils_ap(author$project$Resources$projects, author$project$Resources$books)));
-var author$project$Main$init = {
-	E: author$project$Main$Name(''),
-	I: author$project$Resources$resources
-};
-var author$project$Main$update = F2(
-	function (msg, model) {
-		var order = msg;
-		return _Utils_update(
-			model,
-			{E: order});
+var elm$core$Basics$apR = F2(
+	function (x, f) {
+		return f(x);
 	});
-var author$project$Main$SortBy = elm$core$Basics$identity;
-var author$project$Main$TagName = function (a) {
-	return {$: 0, a: a};
-};
-var elm$core$Basics$identity = function (x) {
-	return x;
-};
-var elm$core$Basics$add = _Basics_add;
 var elm$core$Basics$gt = _Utils_gt;
 var elm$core$List$foldl = F3(
 	function (func, acc, list) {
@@ -5132,8 +5215,63 @@ var elm$core$List$map = F2(
 			_List_Nil,
 			xs);
 	});
-var elm$core$Basics$False = 1;
-var elm$core$Basics$True = 0;
+var elm$core$Basics$identity = function (x) {
+	return x;
+};
+var elm$core$List$sortBy = _List_sortBy;
+var elm$core$List$sort = function (xs) {
+	return A2(elm$core$List$sortBy, elm$core$Basics$identity, xs);
+};
+var author$project$Resources$resources = A2(
+	elm$core$List$map,
+	function (r) {
+		return _Utils_update(
+			r,
+			{
+				ag: elm$core$List$sort(r.ag)
+			});
+	},
+	_Utils_ap(
+		author$project$Resources$papers,
+		_Utils_ap(
+			author$project$Resources$articles,
+			_Utils_ap(author$project$Resources$projects, author$project$Resources$books))));
+var elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2(elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var elm$core$List$sortWith = _List_sortWith;
+var author$project$Main$filterAndSortBy = function (order) {
+	if (order.$ === 1) {
+		if (order.a === '') {
+			return _List_Nil;
+		} else {
+			var name = order.a;
+			return A2(
+				elm$core$List$sortWith,
+				author$project$Main$distance(name),
+				A2(
+					elm$core$List$filter,
+					author$project$Main$byOrder(order),
+					author$project$Resources$resources));
+		}
+	} else {
+		return A2(
+			elm$core$List$filter,
+			author$project$Main$byOrder(order),
+			author$project$Resources$resources);
+	}
+};
+var author$project$Main$TagName = function (a) {
+	return {$: 0, a: a};
+};
 var elm$core$Result$isOk = function (result) {
 	if (!result.$) {
 		return true;
@@ -5186,11 +5324,6 @@ var elm$core$Array$compressNodes = F2(
 			}
 		}
 	});
-var elm$core$Basics$apR = F2(
-	function (x, f) {
-		return f(x);
-	});
-var elm$core$Basics$eq = _Utils_equal;
 var elm$core$Tuple$first = function (_n0) {
 	var x = _n0.a;
 	return x;
@@ -5288,10 +5421,6 @@ var elm$core$Array$initialize = F2(
 			return A5(elm$core$Array$initializeHelp, fn, initialFromIndex, len, _List_Nil, tail);
 		}
 	});
-var elm$core$Maybe$Just = function (a) {
-	return {$: 0, a: a};
-};
-var elm$core$Maybe$Nothing = {$: 1};
 var elm$core$Result$Err = function (a) {
 	return {$: 1, a: a};
 };
@@ -5517,9 +5646,7 @@ var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 			return 3;
 	}
 };
-var elm$html$Html$a = _VirtualDom_node('a');
 var elm$html$Html$button = _VirtualDom_node('button');
-var elm$html$Html$div = _VirtualDom_node('div');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
 var elm$json$Json$Encode$string = _Json_wrap;
@@ -5531,12 +5658,6 @@ var elm$html$Html$Attributes$stringProperty = F2(
 			elm$json$Json$Encode$string(string));
 	});
 var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
-var elm$html$Html$Attributes$href = function (url) {
-	return A2(
-		elm$html$Html$Attributes$stringProperty,
-		'href',
-		_VirtualDom_noJavaScriptUri(url));
-};
 var elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 0, a: a};
 };
@@ -5554,25 +5675,33 @@ var elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		elm$json$Json$Decode$succeed(msg));
 };
+var author$project$Main$tagButton = function (x) {
+	return A2(
+		elm$html$Html$button,
+		_List_fromArray(
+			[
+				elm$html$Html$Events$onClick(
+				author$project$Main$TagName(x)),
+				elm$html$Html$Attributes$class('resource-tag')
+			]),
+		_List_fromArray(
+			[
+				elm$html$Html$text('#' + x)
+			]));
+};
+var elm$html$Html$a = _VirtualDom_node('a');
+var elm$html$Html$div = _VirtualDom_node('div');
+var elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
 var author$project$Main$viewResource = function (_n0) {
-	var title = _n0.ai;
-	var url = _n0.aF;
-	var tags = _n0.ah;
-	var tag = function (x) {
-		return A2(
-			elm$html$Html$button,
-			_List_fromArray(
-				[
-					elm$html$Html$Events$onClick(
-					author$project$Main$TagName(x)),
-					elm$html$Html$Attributes$class('resource-tag')
-				]),
-			_List_fromArray(
-				[
-					elm$html$Html$text('#' + x)
-				]));
-	};
-	var res = A2(elm$core$List$map, tag, tags);
+	var title = _n0.E;
+	var url = _n0.aD;
+	var tags = _n0.ag;
+	var res = A2(elm$core$List$map, author$project$Main$tagButton, tags);
 	return A2(
 		elm$html$Html$div,
 		_List_fromArray(
@@ -5609,47 +5738,157 @@ var author$project$Main$viewResource = function (_n0) {
 				res)
 			]));
 };
+var elm$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3(elm$core$List$foldr, elm$core$List$cons, ys, xs);
+		}
+	});
+var elm$core$List$concat = function (lists) {
+	return A3(elm$core$List$foldr, elm$core$List$append, _List_Nil, lists);
+};
+var elm$core$List$concatMap = F2(
+	function (f, list) {
+		return elm$core$List$concat(
+			A2(elm$core$List$map, f, list));
+	});
+var elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
+var elm$core$Dict$empty = elm$core$Dict$RBEmpty_elm_builtin;
+var elm$core$Set$Set_elm_builtin = elm$core$Basics$identity;
+var elm$core$Set$empty = elm$core$Dict$empty;
+var elm$core$Dict$Black = 1;
+var elm$core$Dict$RBNode_elm_builtin = F5(
+	function (a, b, c, d, e) {
+		return {$: -1, a: a, b: b, c: c, d: d, e: e};
+	});
+var elm$core$Dict$Red = 0;
+var elm$core$Dict$balance = F5(
+	function (color, key, value, left, right) {
+		if ((right.$ === -1) && (!right.a)) {
+			var _n1 = right.a;
+			var rK = right.b;
+			var rV = right.c;
+			var rLeft = right.d;
+			var rRight = right.e;
+			if ((left.$ === -1) && (!left.a)) {
+				var _n3 = left.a;
+				var lK = left.b;
+				var lV = left.c;
+				var lLeft = left.d;
+				var lRight = left.e;
+				return A5(
+					elm$core$Dict$RBNode_elm_builtin,
+					0,
+					key,
+					value,
+					A5(elm$core$Dict$RBNode_elm_builtin, 1, lK, lV, lLeft, lRight),
+					A5(elm$core$Dict$RBNode_elm_builtin, 1, rK, rV, rLeft, rRight));
+			} else {
+				return A5(
+					elm$core$Dict$RBNode_elm_builtin,
+					color,
+					rK,
+					rV,
+					A5(elm$core$Dict$RBNode_elm_builtin, 0, key, value, left, rLeft),
+					rRight);
+			}
+		} else {
+			if ((((left.$ === -1) && (!left.a)) && (left.d.$ === -1)) && (!left.d.a)) {
+				var _n5 = left.a;
+				var lK = left.b;
+				var lV = left.c;
+				var _n6 = left.d;
+				var _n7 = _n6.a;
+				var llK = _n6.b;
+				var llV = _n6.c;
+				var llLeft = _n6.d;
+				var llRight = _n6.e;
+				var lRight = left.e;
+				return A5(
+					elm$core$Dict$RBNode_elm_builtin,
+					0,
+					lK,
+					lV,
+					A5(elm$core$Dict$RBNode_elm_builtin, 1, llK, llV, llLeft, llRight),
+					A5(elm$core$Dict$RBNode_elm_builtin, 1, key, value, lRight, right));
+			} else {
+				return A5(elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
+			}
+		}
+	});
+var elm$core$Dict$insertHelp = F3(
+	function (key, value, dict) {
+		if (dict.$ === -2) {
+			return A5(elm$core$Dict$RBNode_elm_builtin, 0, key, value, elm$core$Dict$RBEmpty_elm_builtin, elm$core$Dict$RBEmpty_elm_builtin);
+		} else {
+			var nColor = dict.a;
+			var nKey = dict.b;
+			var nValue = dict.c;
+			var nLeft = dict.d;
+			var nRight = dict.e;
+			var _n1 = A2(elm$core$Basics$compare, key, nKey);
+			switch (_n1) {
+				case 0:
+					return A5(
+						elm$core$Dict$balance,
+						nColor,
+						nKey,
+						nValue,
+						A3(elm$core$Dict$insertHelp, key, value, nLeft),
+						nRight);
+				case 1:
+					return A5(elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
+				default:
+					return A5(
+						elm$core$Dict$balance,
+						nColor,
+						nKey,
+						nValue,
+						nLeft,
+						A3(elm$core$Dict$insertHelp, key, value, nRight));
+			}
+		}
+	});
+var elm$core$Dict$insert = F3(
+	function (key, value, dict) {
+		var _n0 = A3(elm$core$Dict$insertHelp, key, value, dict);
+		if ((_n0.$ === -1) && (!_n0.a)) {
+			var _n1 = _n0.a;
+			var k = _n0.b;
+			var v = _n0.c;
+			var l = _n0.d;
+			var r = _n0.e;
+			return A5(elm$core$Dict$RBNode_elm_builtin, 1, k, v, l, r);
+		} else {
+			var x = _n0;
+			return x;
+		}
+	});
+var elm$core$Set$insert = F2(
+	function (key, _n0) {
+		var dict = _n0;
+		return A3(elm$core$Dict$insert, key, 0, dict);
+	});
+var elm$core$Set$fromList = function (list) {
+	return A3(elm$core$List$foldl, elm$core$Set$insert, elm$core$Set$empty, list);
+};
+var author$project$Resources$tags = elm$core$Set$toList(
+	elm$core$Set$fromList(
+		A2(
+			elm$core$List$concatMap,
+			function ($) {
+				return $.ag;
+			},
+			author$project$Resources$resources)));
 var elm$core$Basics$composeL = F3(
 	function (g, f, x) {
 		return g(
 			f(x));
 	});
-var elm$core$List$any = F2(
-	function (isOkay, list) {
-		any:
-		while (true) {
-			if (!list.b) {
-				return false;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (isOkay(x)) {
-					return true;
-				} else {
-					var $temp$isOkay = isOkay,
-						$temp$list = xs;
-					isOkay = $temp$isOkay;
-					list = $temp$list;
-					continue any;
-				}
-			}
-		}
-	});
-var elm$core$List$filter = F2(
-	function (isGood, list) {
-		return A3(
-			elm$core$List$foldr,
-			F2(
-				function (x, xs) {
-					return isGood(x) ? A2(elm$core$List$cons, x, xs) : xs;
-				}),
-			_List_Nil,
-			list);
-	});
-var elm$core$String$contains = _String_contains;
-var elm$core$String$toLower = _String_toLower;
 var elm$html$Html$input = _VirtualDom_node('input');
-var elm$html$Html$section = _VirtualDom_node('section');
+var elm$html$Html$span = _VirtualDom_node('span');
 var elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
 };
@@ -5683,36 +5922,9 @@ var elm$html$Html$Events$onInput = function (tagger) {
 			elm$html$Html$Events$alwaysStop,
 			A2(elm$json$Json$Decode$map, tagger, elm$html$Html$Events$targetValue)));
 };
-var author$project$Main$view = function (_n0) {
-	var resources = _n0.I;
-	var order = _n0.E;
-	var hidden = function () {
-		if ((order.$ === 1) && (order.a === '')) {
-			return true;
-		} else {
-			return false;
-		}
-	}();
-	var byOrder = function (r) {
-		if (order.$ === 1) {
-			var name = order.a;
-			return A2(
-				elm$core$String$contains,
-				name,
-				elm$core$String$toLower(r.ai));
-		} else {
-			var name = order.a;
-			return A2(
-				elm$core$List$any,
-				function (x) {
-					return _Utils_eq(x, name);
-				},
-				r.ah);
-		}
-	};
-	var sorted = hidden ? _List_Nil : A2(elm$core$List$filter, byOrder, resources);
+var author$project$Main$view = function (order) {
 	return A2(
-		elm$html$Html$section,
+		elm$html$Html$div,
 		_List_Nil,
 		_List_fromArray(
 			[
@@ -5729,12 +5941,36 @@ var author$project$Main$view = function (_n0) {
 								elm$html$Html$Events$onInput(
 								A2(elm$core$Basics$composeL, elm$core$Basics$identity, author$project$Main$Name))
 							]),
-						_List_Nil)
+						_List_Nil),
+						elm$html$Html$text(' or by '),
+						function (x) {
+						return A2(
+							elm$html$Html$span,
+							_List_fromArray(
+								[
+									elm$html$Html$Attributes$class('resource-tag-container')
+								]),
+							_List_fromArray(
+								[
+									elm$html$Html$text('[tag]'),
+									x
+								]));
+					}(
+						A2(
+							elm$html$Html$div,
+							_List_fromArray(
+								[
+									elm$html$Html$Attributes$class('resource-tag-search')
+								]),
+							A2(elm$core$List$map, author$project$Main$tagButton, author$project$Resources$tags)))
 					])),
 				A2(
 				elm$html$Html$div,
 				_List_Nil,
-				A2(elm$core$List$map, author$project$Main$viewResource, sorted))
+				A2(
+					elm$core$List$map,
+					author$project$Main$viewResource,
+					author$project$Main$filterAndSortBy(order)))
 			]));
 };
 var elm$core$Platform$Cmd$batch = _Platform_batch;
@@ -5856,7 +6092,7 @@ var elm$core$String$left = F2(
 var elm$core$String$toInt = _String_toInt;
 var elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {Q: fragment, S: host, W: path, Y: port_, aa: protocol, ab: query};
+		return {P: fragment, R: host, V: path, X: port_, _: protocol, aa: query};
 	});
 var elm$url$Url$chompBeforePath = F5(
 	function (protocol, path, params, frag, str) {
@@ -5963,22 +6199,22 @@ var elm$url$Url$fromString = function (str) {
 var elm$browser$Browser$sandbox = function (impl) {
 	return _Browser_element(
 		{
-			ax: function (_n0) {
-				return _Utils_Tuple2(impl.ax, elm$core$Platform$Cmd$none);
+			av: function (_n0) {
+				return _Utils_Tuple2(impl.av, elm$core$Platform$Cmd$none);
 			},
-			aD: function (_n1) {
+			aB: function (_n1) {
 				return elm$core$Platform$Sub$none;
 			},
-			aE: F2(
+			aC: F2(
 				function (msg, model) {
 					return _Utils_Tuple2(
-						A2(impl.aE, msg, model),
+						A2(impl.aC, msg, model),
 						elm$core$Platform$Cmd$none);
 				}),
-			aG: impl.aG
+			aE: impl.aE
 		});
 };
 var author$project$Main$main = elm$browser$Browser$sandbox(
-	{ax: author$project$Main$init, aE: author$project$Main$update, aG: author$project$Main$view});
+	{av: author$project$Main$init, aC: author$project$Main$update, aE: author$project$Main$view});
 _Platform_export({'Main':{'init':author$project$Main$main(
 	elm$json$Json$Decode$succeed(0))(0)}});}(this));

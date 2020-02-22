@@ -25,10 +25,12 @@ OPTIONS += --csl ieee.csl
 OPTIONS += --metadata-file=references.yaml
 OPTIONS += --highlight-style monochrome
 
-.PHONY: blog
-blog: resbrowser
+PROJECTS := scripts/resbrowser.js
+
+index.html: ${PROJECTS} article.md
 	@pandoc ${OPTIONS} ${FILTER} article.md -o index.html
 <<resource-browser-makefile>>
+<<projects>>
 ```
 
 There's also custom CSS which is again extended throughout the document.
@@ -38,6 +40,8 @@ There's also custom CSS which is again extended throughout the document.
 ```
 
 # Trying out Elm
+
+Entry level: beginner
 
 There are a lot of programming languages out there with flashy features and meta
 programming capabilities embedding the whole language within itself. This isn't
@@ -57,6 +61,14 @@ project.
 
 ## Building a resource browser
 
+Over the years I've stumbled over a number of interesting articles which I've
+kept links to in various formats. Now it's time to make the list searchable and
+on the web rather than the odd chat history or markdown file.
+
+The "Resource Browser" consists of just four sections of code with not the best
+of code until the intended audience of one can update it with a better data
+structure and algorithm.
+
 ```{.elm file=projects/elm/resbrowser/src/ResourceBrowser.elm}
 <<resbrowser-main>>
 <<resbrowser-model>>
@@ -66,74 +78,109 @@ project.
 
 ### The Model
 
+First we define the model with a given order to sort the results in. This is all
+the state we need for this application as we're only tracking what the user
+wants to find.
+
+```{.elm #resbrowser-model}
+type alias Model = Order
+```
+
+The `Order` is dependent on the search field or the tags depending on which the
+user decides to use and the initial model sets this to empty indicating there's
+no current search.
+
 ```{.elm #resbrowser-model}
 type Order
   = TagName String
   | Name String
 
-type alias Model =
-  { resources: List Resource
-  , order: Order
-  }
-
 init : Model
-init =
-  { resources = Resources.resources
-  , order = Name ""
-  }
+init = Name ""
 ```
 
+This concludes the model definition.
+
 ### Update
+
+Whenever the user types in the input box we'll get a pre-defined event. In this
+case we only care of the order they wish to sort and filter by so the update
+consists of just setting the new order.
 
 ```{.elm #resbrowser-update}
 type Msg
   = SortBy Order
 
 update : Msg -> Model -> Model
-update msg model =
+update msg _ =
   case msg of
-    SortBy order -> { model | order = order }
+    SortBy order -> order
 ```
+
+And that concludes updating... not much to see here.
 
 ### View
 
 ```{.elm #resbrowser-view}
 view : Model -> Html Msg
-view {resources, order} =
-  let
-    byOrder r =
-      case order of
-        Name name -> String.contains name (String.toLower r.title)
-        TagName name -> List.any (\x -> x == name) r.tags
-    hidden =
-      case order of
-        Name "" -> True
-        _       -> False
-    sorted =
-      if hidden
-        then []
-        else List.filter byOrder resources
-  in
-    section []
-      [ div []
-        [ text "search for resources: "
-        , input [ onInput (SortBy << Name) ] []
-        ]
-      , div [] (List.map viewResource sorted)
+view order =
+  div []
+    [ div []
+      [ text "search for resources: "
+      , input [ onInput (SortBy << Name) ] []
+      , text " or by "
+      , List.map tagButton Resources.tags
+        |> div [ class "resource-tag-search" ]
+        |> \x -> span [ class "resource-tag-container" ] [ text "[tag]", x]
       ]
+    , filterAndSortBy order
+      |> List.map viewResource
+      |> div []
+    ]
+```
+
+```{.elm #resbrowser-view}
+filterAndSortBy order =
+  case order of
+    Name "" -> []
+    Name name -> List.filter (byOrder order) Resources.resources
+              |> List.sortWith (distance name)
+    TagName _ -> List.filter (byOrder order) Resources.resources
+```
+
+```{.elm #resbrowser-view}
+byOrder order r =
+  case order of
+    Name name -> String.contains name (String.toLower r.title)
+    TagName name -> List.any (\x -> x == name) r.tags
+```
+
+```{.elm #resbrowser-view}
+distance from left right =
+  let
+    index c =
+      case String.indices (String.fromChar c) from of
+        [] -> 0
+        x :: xs -> x
+    score c acc = acc + index c
+    suml = String.foldl score 0 left.title
+    sumr = String.foldl score 0 right.title
+  in
+    compare sumr suml
+```
+
+```{.elm #resbrowser-view}
+tagButton x =
+  button
+    [ onClick (SortBy (TagName x)), class "resource-tag" ]
+    [text ("#" ++ x)]
 ```
 
 ```{.elm #resbrowser-view}
 viewResource : Resource -> Html Msg
 viewResource {title, url, tags} =
   let
-    tag x =
-      button
-        [ onClick (SortBy (TagName x))
-        , class "resource-tag"
-        ]
-        [text ("#" ++ x)]
-    res = List.map tag tags
+    res = List.map tagButton tags
   in
     div [ class "resource" ]
       [ div [ class "resource-link" ] [ a [ href url ] [ text title ] ]
@@ -145,11 +192,29 @@ But they look a bit plain without a bit of style so lets add some.
 
 ```{.css #custom-css}
 .resource-tag {
+  margin-top: 2px;
+  margin-bottom: 2px;
   margin-left: 2px;
   margin-right: 2px;
   border-style: none;
   box-shadow: 1px 2px 4px #ccccc8;
   background-color: #fffff8;
+}
+
+.resource-tag-container {
+  position: relative;
+}
+
+.resource-tag-search {
+  display: none;
+  position: absolute;
+  width: 600px;
+  background: #fffff8;
+  x: +10%;
+}
+
+.resource-tag-container:hover .resource-tag-search {
+  display: block;
 }
 
 .resource {
@@ -181,9 +246,9 @@ main = Browser.sandbox
 Finally to build the project
 
 ```{.make #resource-browser-makefile}
-.PHONY: resbrowser
-resbrowser:
-	@cd ./projects/elm/resbrowser/ && \
+RESBROWSER := projects/elm/resbrowser/src/ResourceBrowser.elm
+scripts/resbrowser.js: ${RESBROWSER}
+	cd ./projects/elm/resbrowser/ && \
 		elm make src/ResourceBrowser.elm \
 			--optimize --output=../../../scripts/resbrowser.js
 ```
@@ -198,9 +263,3 @@ var resbrowser = Elm.Main.init({
 	node: document.getElementById("resbrowser")
 });
 </script>
-
-# Zig in the browser
-
-```{.zig file=projects/zig/ziginbrowser/src/main.zig}
-const std = @import("std");
-```
