@@ -1,12 +1,12 @@
 -- ------ language="Elm" file="projects/elm/resbrowser/src/ResourceBrowser.elm" project://article.md#73
--- ------ begin <<resbrowser-main>>[0] project://article.md#231
+-- ------ begin <<resbrowser-main>>[0] project://article.md#251
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Browser
 import Resources exposing (Resource)
 -- ------ end
--- ------ begin <<resbrowser-main>>[1] project://article.md#239
+-- ------ begin <<resbrowser-main>>[1] project://article.md#261
 main = Browser.sandbox
   { init = init
   , update = update
@@ -50,7 +50,24 @@ view order =
       |> div []
     ]
 -- ------ end
--- ------ begin <<resbrowser-view>>[1] project://article.md#143
+-- ------ begin <<resbrowser-view>>[1] project://article.md#146
+viewResource : Resource -> Html Msg
+viewResource {title, url, tags} =
+  let
+    res = List.map tagButton tags
+  in
+    div [ class "resource" ]
+      [ div [ class "resource-link" ] [ a [ href url ] [ text title ] ]
+      , div [ class "resource-tags" ] res
+      ]
+-- ------ end
+-- ------ begin <<resbrowser-view>>[2] project://article.md#160
+tagButton x =
+  button
+    [ onClick (SortBy (TagName x)), class "resource-tag" ]
+    [text ("#" ++ x)]
+-- ------ end
+-- ------ begin <<resbrowser-view>>[3] project://article.md#209
 filterAndSortBy order =
   case order of
     Name "" -> []
@@ -58,13 +75,13 @@ filterAndSortBy order =
               |> List.sortWith (distance name)
     TagName _ -> List.filter (byOrder order) Resources.resources
 -- ------ end
--- ------ begin <<resbrowser-view>>[2] project://article.md#152
+-- ------ begin <<resbrowser-view>>[4] project://article.md#221
 byOrder order r =
   case order of
     Name name -> String.contains name (String.toLower r.title)
     TagName name -> List.any (\x -> x == name) r.tags
 -- ------ end
--- ------ begin <<resbrowser-view>>[3] project://article.md#159
+-- ------ begin <<resbrowser-view>>[5] project://article.md#232
 distance from left right =
   let
     index c =
@@ -76,22 +93,5 @@ distance from left right =
     sumr = String.foldl score 0 right.title
   in
     compare sumr suml
--- ------ end
--- ------ begin <<resbrowser-view>>[4] project://article.md#173
-tagButton x =
-  button
-    [ onClick (SortBy (TagName x)), class "resource-tag" ]
-    [text ("#" ++ x)]
--- ------ end
--- ------ begin <<resbrowser-view>>[5] project://article.md#180
-viewResource : Resource -> Html Msg
-viewResource {title, url, tags} =
-  let
-    res = List.map tagButton tags
-  in
-    div [ class "resource" ]
-      [ div [ class "resource-link" ] [ a [ href url ] [ text title ] ]
-      , div [ class "resource-tags" ] res
-      ]
 -- ------ end
 -- ------ end

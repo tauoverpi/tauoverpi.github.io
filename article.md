@@ -139,42 +139,8 @@ view order =
     ]
 ```
 
-```{.elm #resbrowser-view}
-filterAndSortBy order =
-  case order of
-    Name "" -> []
-    Name name -> List.filter (byOrder order) Resources.resources
-              |> List.sortWith (distance name)
-    TagName _ -> List.filter (byOrder order) Resources.resources
-```
-
-```{.elm #resbrowser-view}
-byOrder order r =
-  case order of
-    Name name -> String.contains name (String.toLower r.title)
-    TagName name -> List.any (\x -> x == name) r.tags
-```
-
-```{.elm #resbrowser-view}
-distance from left right =
-  let
-    index c =
-      case String.indices (String.fromChar c) from of
-        [] -> 0
-        x :: xs -> x
-    score c acc = acc + index c
-    suml = String.foldl score 0 left.title
-    sumr = String.foldl score 0 right.title
-  in
-    compare sumr suml
-```
-
-```{.elm #resbrowser-view}
-tagButton x =
-  button
-    [ onClick (SortBy (TagName x)), class "resource-tag" ]
-    [text ("#" ++ x)]
-```
+For each resource the title and tags are drawn on the same line with a custom
+style.
 
 ```{.elm #resbrowser-view}
 viewResource : Resource -> Html Msg
@@ -186,6 +152,15 @@ viewResource {title, url, tags} =
       [ div [ class "resource-link" ] [ a [ href url ] [ text title ] ]
       , div [ class "resource-tags" ] res
       ]
+```
+
+Tags really only send a `SortBy` message when clicked to update the view.
+
+```{.elm #resbrowser-view}
+tagButton x =
+  button
+    [ onClick (SortBy (TagName x)), class "resource-tag" ]
+    [text ("#" ++ x)]
 ```
 
 But they look a bit plain without a bit of style so lets add some.
@@ -225,7 +200,52 @@ But they look a bit plain without a bit of style so lets add some.
 }
 ```
 
+#### Sorting & Filtering
+
+Since there's quite a few articles it's better to both filter and sort them but
+only if the user searches by title.
+
+```{.elm #resbrowser-view}
+filterAndSortBy order =
+  case order of
+    Name "" -> []
+    Name name -> List.filter (byOrder order) Resources.resources
+              |> List.sortWith (distance name)
+    TagName _ -> List.filter (byOrder order) Resources.resources
+```
+
+Filtering out any entries not containing the string brings the focus on a
+smaller set of results at the cost of being sensitive to typos.
+
+```{.elm #resbrowser-view}
+byOrder order r =
+  case order of
+    Name name -> String.contains name (String.toLower r.title)
+    TagName name -> List.any (\x -> x == name) r.tags
+```
+
+After filtering the results it would be good if they were sorted by the closest
+so far but we don't really have enough to know what the search is for. Thus we
+guess by taking the distance between titles and the search string.
+
+```{.elm #resbrowser-view}
+distance from left right =
+  let
+    index c =
+      case String.indices (String.fromChar c) from of
+        [] -> 0
+        x :: xs -> x
+    score c acc = acc + index c
+    suml = String.foldl score 0 left.title
+    sumr = String.foldl score 0 right.title
+  in
+    compare sumr suml
+```
+
 ### Main
+
+Now imports you probably wanted at the start are relatively small except from
+`Resources` which isn't shown in this document.
 
 ```{.elm #resbrowser-main}
 import Html exposing (..)
@@ -235,6 +255,8 @@ import Browser
 import Resources exposing (Resource)
 ```
 
+Main just packages up the three steps in a `Browser.sandbox`.
+
 ```{.elm #resbrowser-main}
 main = Browser.sandbox
   { init = init
@@ -243,7 +265,7 @@ main = Browser.sandbox
   }
 ```
 
-Finally to build the project
+Finally to build the project we add it to the Makefile.
 
 ```{.make #resource-browser-makefile}
 RESBROWSER := projects/elm/resbrowser/src/ResourceBrowser.elm
