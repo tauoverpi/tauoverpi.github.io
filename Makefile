@@ -19,7 +19,7 @@ PROJECTS := scripts/resbrowser.js
 
 index.html: ${PROJECTS} article.md
 	@pandoc ${OPTIONS} ${FILTER} article.md -o index.html
-## ------ begin <<resource-browser-makefile>>[0] project://article.md#271
+## ------ begin <<resource-browser-makefile>>[0] project://article.md#282
 RESBROWSER := projects/elm/resbrowser/src/ResourceBrowser.elm
 scripts/resbrowser.js: ${RESBROWSER}
 	cd ./projects/elm/resbrowser/ && \

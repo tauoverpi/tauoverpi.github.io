@@ -211,12 +211,23 @@ index.html: ${PROJECTS} article.md
 <span id="custom-css-24"><a href="#custom-css-24"></a>  <span class="kw">display</span>: <span class="dv">block</span><span class="op">;</span></span>
 <span id="custom-css-25"><a href="#custom-css-25"></a>}</span>
 <span id="custom-css-26"><a href="#custom-css-26"></a></span>
-<span id="custom-css-27"><a href="#custom-css-27"></a><span class="fu">.resource</span> {</span>
+<span id="custom-css-27"><a href="#custom-css-27"></a><span class="fu">.resource-tags</span> {</span>
 <span id="custom-css-28"><a href="#custom-css-28"></a>  <span class="kw">display</span>: flex<span class="op">;</span></span>
-<span id="custom-css-29"><a href="#custom-css-29"></a>  <span class="kw">width</span>: <span class="dv">55</span><span class="dt">%</span><span class="op">;</span></span>
-<span id="custom-css-30"><a href="#custom-css-30"></a>  <span class="kw">margin-top</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="custom-css-31"><a href="#custom-css-31"></a>  <span class="kw">justify-content</span>: space-between<span class="op">;</span></span>
-<span id="custom-css-32"><a href="#custom-css-32"></a>}</span></code></pre></div>
+<span id="custom-css-29"><a href="#custom-css-29"></a>  <span class="kw">justify-content</span>: flex-end<span class="op">;</span></span>
+<span id="custom-css-30"><a href="#custom-css-30"></a>}</span>
+<span id="custom-css-31"><a href="#custom-css-31"></a></span>
+<span id="custom-css-32"><a href="#custom-css-32"></a><span class="fu">.resource</span> {</span>
+<span id="custom-css-33"><a href="#custom-css-33"></a>  <span class="kw">display</span>: flex<span class="op">;</span></span>
+<span id="custom-css-34"><a href="#custom-css-34"></a>  <span class="kw">margin-top</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="custom-css-35"><a href="#custom-css-35"></a>  <span class="kw">justify-content</span>: space-between<span class="op">;</span></span>
+<span id="custom-css-36"><a href="#custom-css-36"></a>  <span class="kw">width</span>: <span class="dv">44</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="custom-css-37"><a href="#custom-css-37"></a>}</span>
+<span id="custom-css-38"><a href="#custom-css-38"></a></span>
+<span id="custom-css-39"><a href="#custom-css-39"></a><span class="im">@media</span> (<span class="kw">max-width</span>: <span class="dv">800</span><span class="dt">px</span>) {</span>
+<span id="custom-css-40"><a href="#custom-css-40"></a>  <span class="fu">.resource</span> {</span>
+<span id="custom-css-41"><a href="#custom-css-41"></a>    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="custom-css-42"><a href="#custom-css-42"></a>  }</span>
+<span id="custom-css-43"><a href="#custom-css-43"></a>}</span></code></pre></div>
 <section id="sorting-filtering" class="level4">
 <h4><span class="header-section-number">2.1.3.1</span> Sorting &amp; Filtering</h4>
 <p>Since there’s quite a few articles it’s better to both filter and sort them but only if the user searches by title.</p>

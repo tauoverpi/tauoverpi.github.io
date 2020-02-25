@@ -192,11 +192,22 @@ But they look a bit plain without a bit of style so lets add some.
   display: block;
 }
 
+.resource-tags {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .resource {
   display: flex;
-  width: 55%;
   margin-top: 5px;
   justify-content: space-between;
+  width: 44em;
+}
+
+@media (max-width: 800px) {
+  .resource {
+    width: 100%;
+  }
 }
 ```
 

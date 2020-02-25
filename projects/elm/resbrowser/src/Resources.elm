@@ -17,6 +17,7 @@ tags = resources
      |> List.concatMap .tags
      |> Set.fromList
      |> Set.toList
+     |> List.sort
 
 papers : List Resource
 papers =
@@ -176,32 +177,32 @@ papers =
     }
   , { title = "Revised7 Report on the Algorithmic Language Scheme"
     , url = "http://www.larcenists.org/Documentation/Documentation0.98/r7rs.pdf"
-    , tags = []
+    , tags = ["scheme", "lisp"]
     }
   , { title = "Composable Memory Transactions"
     , url = "https://www.microsoft.com/en-us/research/wp-content/"
          ++ "uploads/2005/01/2005-ppopp-composable.pdf"
-    , tags = []
+    , tags = ["haskell", "memory"]
     }
   , { title = "Backtracking, Interleaving, and Terminating Monad Transformers"
     , url = "http://okmij.org/ftp/Computation/LogicT.pdf"
-    , tags = ["logic"]
+    , tags = ["logic", "edsl"]
     }
   , { title = "Arrows, Robots, and Functional Reactive Programming"
     , url = "http://www.cs.yale.edu/homes/hudak/CS429F04/AFPLectureNotes.pdf"
-    , tags = []
+    , tags = ["frp", "haskell"]
     }
   , { title = "Fault tolerant functional reactive programming"
     , url = "https://dl.acm.org/citation.cfm?id=3236791"
-    , tags = []
+    , tags = ["frp", "haskell"]
     }
   , { title = "Testing and Debugging Functional Reactive Programming"
     , url = "https://dl.acm.org/citation.cfm?id=3110246"
-    , tags = []
+    , tags = ["frp", "haskell"]
     }
   , { title = "Functional Reactive Programming, Refactored"
     , url = "https://dl.acm.org/authorize?N34896"
-    , tags = []
+    , tags = ["frp", "haskell"]
     }
   , { title = "Flask: Staged Functional Programming for Sensor Networks"
     , url = "http://www.cl.cam.ac.uk/~ey204/teaching/ACS/R202/papers/"
@@ -210,7 +211,7 @@ papers =
     }
   , { title = "A Pure Language with Default Strict Evaluation and Explicit Laziness"
     , url = "http://web.cecs.pdx.edu/~sheard/papers/ExplicitLazy.ps"
-    , tags = []
+    , tags = ["haskell", "lazy", "compiler"]
     }
   , { title = "Type variables in patterns"
     , url = "https://arxiv.org/pdf/1806.03476.pdf"
@@ -238,7 +239,7 @@ papers =
     }
   , { title = "The Power of Pi"
     , url = "https://cs.ru.nl/~wouters/Publications/ThePowerOfPi.pdf"
-    , tags = []
+    , tags = ["dependent types"]
     }
   , { title = "Lightweight higher-kinded polymorphism"
     , url = "https://ocamllabs.github.io/higher/lightweight-higher-kinded-polymorphism.pdf"
@@ -246,7 +247,7 @@ papers =
     }
   , { title = "Improving Haskell Types with SMT"
     , url = "http://yav.github.io/publications/improving-smt-types.pdf"
-    , tags = []
+    , tags = ["haskell", "smt"]
     }
   , { title = "Functional Geometry"
     , url = "https://eprints.soton.ac.uk/257577/1/funcgeo2.pdf"
@@ -256,13 +257,9 @@ papers =
     , url = "https://people.mpi-sws.org/~rossberg/1ml/1ml.pdf"
     , tags = ["ml", "types"]
     }
-  , { title = ""
-    , url = ""
-    , tags = []
-    }
   , { title = "Cross-platform Compilers for Functional Languages"
     , url = "https://eb.host.cs.st-andrews.ac.uk/drafts/compile-idris.pdf"
-    , tags = []
+    , tags = ["idris"]
     }
   , { title = "Compiling with Continuations and LLVM"
     , url = "https://arxiv.org/pdf/1805.08842.pdf"
@@ -270,7 +267,7 @@ papers =
     }
   , { title = "G2Q: Haskell Constraint Solving"
     , url = "http://www.cs.yale.edu/homes/piskac/papers/2019HallahanETALquasiquoter.pdf"
-    , tags = []
+    , tags = ["haskell"]
     }
   , { title = "SMT Solving for Functional Programming over Infinite Structures∗"
     , url = "https://arxiv.org/pdf/1604.01185v1.pdf"
@@ -278,39 +275,39 @@ papers =
     }
   , { title = "Extensible Type-Directed Editing"
     , url = "http://davidchristiansen.dk/pubs/extensible-editing.pdf"
-    , tags = []
+    , tags = ["idris"]
     }
   , { title = "A prettier printer - Wadler"
     , url = "http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf"
-    , tags = []
+    , tags = ["pretty printing"]
     }
   , { title = "Pretty Printing"
     , url = "http://i.stanford.edu/pub/cstr/reports/cs/tr/79/770/CS-TR-79-770.pdf"
-    , tags = []
+    , tags = ["pretty printing"]
     }
   , { title = "The Final Pretty Printer"
     , url = "http://davidchristiansen.dk/drafts/final-pretty-printer-draft.pdf"
-    , tags = []
+    , tags = ["pretty printing"]
     }
   , { title = "Extensibility for the Masses Practical Extensibility with Object Algebras"
     , url = "http://www.cs.utexas.edu/~wcook/Drafts/2012/ecoop2012.pdf"
-    , tags = []
+    , tags = ["object algebra"]
     }
   , { title = "Feature-Oriented Programming with Object Algebras"
     , url = "https://www.cs.utexas.edu/~wcook/Drafts/2012/FOPwOA.pdf"
-    , tags = []
+    , tags = ["object algebra"]
     }
   , { title = "Streams à la carte: Extensible Pipelines with Object Algebras"
     , url = "http://drops.dagstuhl.de/opus/volltexte/2015/5239/pdf/29.pdf"
-    , tags = []
+    , tags = ["object algebra"]
     }
   , { title = "Scrap Your Boilerplate with Object Algebras"
     , url = "https://i.cs.hku.hk/~bruno/papers/oopsla2015.pdf"
-    , tags = []
+    , tags = ["object algebra"]
     }
   , { title = "An Analysis and Discussion of Solutions to the Expression Problem Across Programming Languages"
     , url = "https://cs242.stanford.edu/f17/assets/projects/2017/kjtian-colinwei.pdf"
-    , tags = []
+    , tags = ["object algebra", "tagless final"]
     }
   , { title = "Modular Interpreters with Implicit Context Propagation"
     , url = "https://homepages.cwi.nl/~storm/publications/implicit-ctx.pdf"
@@ -328,6 +325,10 @@ papers =
   , { title = "Functional Pearl Trouble Shared is Trouble Halved"
     , url = "http://www.cs.ox.ac.uk/ralf.hinze/publications/HW03.pdf"
     , tags = ["haskell", "data structure", "tree"]
+    }
+  , { title = "A LITERATE PROGRAM"
+    , url = "https://www.cs.tufts.edu/~nr/cs257/archive/don-knuth/pearls-2.pdf"
+    , tags = ["lp", "pascal", "knuth"]
     }
   ]
 
@@ -377,7 +378,7 @@ books =
   , { title = "Write Yourself a Scheme in 48 Hours"
     , url = "https://upload.wikimedia.org/wikipedia/commons/a/aa/"
          ++ "Write_Yourself_a_Scheme_in_48_Hours.pdf"
-    , tags = []
+    , tags = ["scheme", "haskell", "interpreter"]
     }
   , { title = "Static Single Assignment Book"
     , url = "http://ssabook.gforge.inria.fr/latest/book.pdf"
@@ -385,7 +386,7 @@ books =
     }
   , { title = "An Introduction to Functional Programming Through Lambda Calculus"
     , url = "https://www.cs.rochester.edu/~brown/173/readings/LCBook.pdf"
-    , tags = []
+    , tags = ["lambda calculus"]
     }
   , { title = "Category Theory for Programmers: The Preface"
     , url = "https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/"
@@ -401,27 +402,23 @@ books =
     }
   , { title = "Write You a Haskell"
     , url = "http://dev.stephendiehl.com/fun/"
-    , tags = []
+    , tags = ["haskell"]
     }
   , { title = "Learn you an Agda"
     , url = "http://learnyouanagda.liamoc.net/pages/introduction.html"
-    , tags = []
+    , tags = ["agda", "dependent types"]
     }
   , { title = "Programming Language Foundations in Agda"
     , url = "https://plfa.github.io/"
-    , tags = []
-    }
-  , { title = ""
-    , url = ""
-    , tags = []
+    , tags = ["agda", "dependent types"]
     }
   , { title = "Smalltalk-80 The Language And It's Implementation"
     , url = "http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf"
-    , tags = []
+    , tags = ["smalltalk"]
     }
   , { title = "Professor Frisby's Mostly Adequate Guide to Functional Programming"
     , url = "https://drboolean.gitbooks.io/mostly-adequate-guide-old/content/"
-    , tags = []
+    , tags = ["javascript"]
     }
   ]
 
@@ -449,7 +446,7 @@ articles =
     }
   , { title = "Integration Basics"
     , url = "https://gafferongames.com/post/integration_basics/"
-    , tags = []
+    , tags = ["math"]
     }
   , { title = "FNV"
     , url = "http://www.isthe.com/chongo/tech/comp/fnv/"
@@ -469,7 +466,7 @@ articles =
     }
   , { title = "Bit Twiddling Hacks"
     , url = "https://graphics.stanford.edu/~seander/bithacks.html"
-    , tags = []
+    , tags = ["math", "bitmath"]
     }
   , { title = "Othello for Desktop, Mobile and Web: an AI and GUI Exercise"
     , url = "https://www.hanshq.net/othello.html"
@@ -481,7 +478,7 @@ articles =
     }
   , { title = "ipow"
     , url = "https://gist.github.com/orlp/3551590"
-    , tags = []
+    , tags = ["optimization"]
     }
   , { title = "Data Compression with Arithmetic Encoding"
     , url = "http://www.drdobbs.com/cpp/data-compression-with-arithmetic-encodin/240169251"
@@ -497,7 +494,7 @@ articles =
     }
   , { title = "Fenwick Tree"
     , url = "https://en.wikipedia.org/wiki/Fenwick_tree"
-    , tags = []
+    , tags = ["data structure"]
     }
   , { title = "MOVING FORTH"
     , url = "http://www.bradrodriguez.com/papers/moving1.htm"
@@ -554,19 +551,19 @@ articles =
     }
   , { title = "Understanding Yoneda"
     , url = "https://www.schoolofhaskell.com/user/bartosz/understanding-yoneda"
-    , tags = []
+    , tags = ["yoenda", "category theory"]
     }
   , { title = "Row Polymorphism Isn't Subtyping"
     , url = "https://brianmckenna.org/blog/row_polymorphism_isnt_subtyping"
-    , tags = []
+    , tags = ["types"]
     }
   , { title = "Typing the technical interview"
     , url = "https://aphyr.com/posts/342-typing-the-technical-interview"
-    , tags = []
+    , tags = ["types", "logic", "haskell"]
     }
   , { title = "Mirrored Lenses"
     , url = "http://comonad.com/reader/2012/mirrored-lenses/"
-    , tags = []
+    , tags = ["haskell"]
     }
   , { title = "Object Oriented Programming in Haskell"
     , url = "https://www.well-typed.com/blog/2018/03/oop-in-haskell/"
@@ -574,11 +571,11 @@ articles =
     }
   , { title = "From walking to zipping, Part 3: Caught in a zipper"
     , url = "http://conway.rutgers.edu/~ccshan/wiki/blog/posts/WalkZip3/"
-    , tags = []
+    , tags = ["haskell"]
     }
     , { title = "Monads to Machine Code"
     , url = "http://www.stephendiehl.com/posts/monads_machine_code.html"
-    , tags = []
+    , tags = ["haskell", "edsl"]
     }
   , { title = "Quasi-quoting DSLs for free"
     , url = "http://www.well-typed.com/blog/2014/10/quasi-quoting-dsls/"
@@ -590,43 +587,43 @@ articles =
     }
   , { title = "Writing a SAT Solver"
     , url = "http://andrew.gibiansky.com/blog/verification/writing-a-sat-solver/"
-    , tags = []
+    , tags = ["haskell", "sat"]
     }
   , { title = "Simple SMT solver for use in an optimizing compiler"
     , url = "https://www.well-typed.com/blog/2014/12/simple-smt-solver/"
-    , tags = []
+    , tags = ["smt"]
     }
   , { title = "Quick and Easy DSLs with Writer Endo"
     , url = "https://ocharles.org.uk/blog/posts/2013-02-12-quick-dsls-with-endo-writers.html"
-    , tags = []
+    , tags = ["haskell", "endo"]
     }
   , { title = "Seemingly impossible functional programs"
     , url = "http://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/"
-    , tags = []
+    , tags = ["haskell"]
     }
   , { title = "faster mcpy"
     , url = "https://software.intel.com/en-us/articles/performance-optimization-of-memcpy-in-dpdk"
-    , tags = []
+    , tags = ["optimization"]
     }
   , { title = "ring buffers"
     , url = "https://www.snellman.net/blog/archive/2016-12-13-ring-buffers/"
-    , tags = []
+    , tags = ["data structure"]
     }
   , { title = "Allocator Designs"
     , url = "https://os.phil-opp.com/allocator-designs/"
-    , tags = []
+    , tags = ["memory"]
     }
   , { title = "Bitsquatting: DNS Hijacking without exploitation"
     , url = "http://www.dinaburg.org/bitsquatting.html"
-    , tags = []
+    , tags = ["security", "exploit"]
     }
   , { title = "Golang implementation of PASETO: Platform-Agnostic Security Tokens"
     , url = "https://github.com/o1egl/paseto"
-    , tags = []
+    , tags = ["security", "paseto"]
     }
   , { title = "PASETO: Platform-Agnostic Security Tokens in JavaScript"
     , url = "https://github.com/sjudson/paseto.js"
-    , tags = []
+    , tags = ["security", "paseto"]
     }
   , { title = "Block ads with OpenWRT dnsmasq"
     , url = "https://www.leowkahman.com/2017/07/23/block-ads-with-openwrt-dnsmasq/"
@@ -634,19 +631,27 @@ articles =
     }
   , { title = "measuring syscall overhead"
     , url = "https://drewdevault.com/2020/01/04/Slow.html"
-    , tags = []
+    , tags = ["optimization"]
     }
   , { title = "Text Rendering Hates You"
     , url = "https://gankra.github.io/blah/text-hates-you/"
-    , tags = []
+    , tags = ["humour"]
     }
   , { title = "oom_pardon, aka don't kill my xlock"
     , url = "lwn.net/Articles/104185"
-    , tags = []
+    , tags = ["memory", "linux"]
     }
   , { title = "Gathering Intel on Intel AVX-512 Transitions"
     , url = "https://travisdowns.github.io/blog/2020/01/17/avxfreq1.html"
-    , tags = []
+    , tags = ["bug"]
+    }
+  , { title = "Pointer Compression in V8"
+    , url = "https://blog.infosectcbr.com.au/2020/02/pointer-compression-in-v8.html"
+    , tags = ["optimization", "compression", "v8", "web"]
+    }
+  , { title = "Jones' FORTH"
+    , url = "https://github.com/nornagon/jonesforth/blob/master/jonesforth.S"
+    , tags = ["forth", "x86", "assembly"]
     }
   ]
 
@@ -674,23 +679,27 @@ projects =
     }
   , { title = "Copilot"
     , url = "http://leepike.github.io/Copilot/"
-    , tags = []
+    , tags = ["haskell", "dsl", "c"]
     }
   , { title = "Clash"
     , url = "http://www.clash-lang.org/"
-    , tags = []
+    , tags = ["haskell", "dsl", "vhdl"]
     }
   , { title = "ComonadSheet"
     , url = "https://github.com/kwf/ComonadSheet"
-    , tags = []
+    , tags = ["haskell", "comonad"]
     }
   , { title = "Learn OpenGL in zig"
     , url = "https://github.com/cshenton/learnopengl"
-    , tags = []
+    , tags = ["zig", "opengl"]
     }
   , { title = "NeHe tutorials in zig"
     , url = "https://github.com/mypalmike/zigNeHe"
-    , tags = []
+    , tags = ["zig", "opengl"]
+    }
+  , { title = "cf2019 colorForth"
+    , url = "http://www.inventio.co.uk/cf2019_colorForth.pdf"
+    , tags = ["forth", "nasm", "assembly", "operating system"]
     }
   ]
 
@@ -710,6 +719,6 @@ misc : List Resource
 misc =
   [ { title = "Programmer books"
     , url = "https://programmer-books.com/wp-content/uploads/"
-    , tags = []
+    , tags = ["misc"]
     }
   ]

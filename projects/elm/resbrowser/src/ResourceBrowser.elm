@@ -1,12 +1,12 @@
 -- ------ language="Elm" file="projects/elm/resbrowser/src/ResourceBrowser.elm" project://article.md#73
--- ------ begin <<resbrowser-main>>[0] project://article.md#251
+-- ------ begin <<resbrowser-main>>[0] project://article.md#262
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Browser
 import Resources exposing (Resource)
 -- ------ end
--- ------ begin <<resbrowser-main>>[1] project://article.md#261
+-- ------ begin <<resbrowser-main>>[1] project://article.md#272
 main = Browser.sandbox
   { init = init
   , update = update
@@ -67,7 +67,7 @@ tagButton x =
     [ onClick (SortBy (TagName x)), class "resource-tag" ]
     [text ("#" ++ x)]
 -- ------ end
--- ------ begin <<resbrowser-view>>[3] project://article.md#209
+-- ------ begin <<resbrowser-view>>[3] project://article.md#220
 filterAndSortBy order =
   case order of
     Name "" -> []
@@ -75,13 +75,13 @@ filterAndSortBy order =
               |> List.sortWith (distance name)
     TagName _ -> List.filter (byOrder order) Resources.resources
 -- ------ end
--- ------ begin <<resbrowser-view>>[4] project://article.md#221
+-- ------ begin <<resbrowser-view>>[4] project://article.md#232
 byOrder order r =
   case order of
     Name name -> String.contains name (String.toLower r.title)
     TagName name -> List.any (\x -> x == name) r.tags
 -- ------ end
--- ------ begin <<resbrowser-view>>[5] project://article.md#232
+-- ------ begin <<resbrowser-view>>[5] project://article.md#243
 distance from left right =
   let
     index c =

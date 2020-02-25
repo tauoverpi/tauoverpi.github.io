@@ -26,11 +26,22 @@
   display: block;
 }
 
+.resource-tags {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .resource {
   display: flex;
-  width: 55%;
   margin-top: 5px;
   justify-content: space-between;
+  width: 44em;
+}
+
+@media (max-width: 800px) {
+  .resource {
+    width: 100%;
+  }
 }
 /* ------ end */
 /* ------ end */

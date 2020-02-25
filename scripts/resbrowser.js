@@ -4557,7 +4557,12 @@ var author$project$Resources$articles = _List_fromArray(
 		E: 'Fix Your Timestep!',
 		aD: 'https://gafferongames.com/post/fix_your_timestep/'
 	},
-		{ag: _List_Nil, E: 'Integration Basics', aD: 'https://gafferongames.com/post/integration_basics/'},
+		{
+		ag: _List_fromArray(
+			['math']),
+		E: 'Integration Basics',
+		aD: 'https://gafferongames.com/post/integration_basics/'
+	},
 		{
 		ag: _List_fromArray(
 			['hash', 'fnv']),
@@ -4582,7 +4587,12 @@ var author$project$Resources$articles = _List_fromArray(
 		E: 'Paul Hsieh Hash',
 		aD: 'http://www.azillionmonkeys.com/qed/hash.html'
 	},
-		{ag: _List_Nil, E: 'Bit Twiddling Hacks', aD: 'https://graphics.stanford.edu/~seander/bithacks.html'},
+		{
+		ag: _List_fromArray(
+			['math', 'bitmath']),
+		E: 'Bit Twiddling Hacks',
+		aD: 'https://graphics.stanford.edu/~seander/bithacks.html'
+	},
 		{
 		ag: _List_fromArray(
 			['game']),
@@ -4595,7 +4605,12 @@ var author$project$Resources$articles = _List_fromArray(
 		E: 'Fixed Point Arithmetic and Tricks',
 		aD: 'http://x86asm.net/articles/fixed-point-arithmetic-and-tricks/'
 	},
-		{ag: _List_Nil, E: 'ipow', aD: 'https://gist.github.com/orlp/3551590'},
+		{
+		ag: _List_fromArray(
+			['optimization']),
+		E: 'ipow',
+		aD: 'https://gist.github.com/orlp/3551590'
+	},
 		{
 		ag: _List_fromArray(
 			['compression']),
@@ -4609,7 +4624,12 @@ var author$project$Resources$articles = _List_fromArray(
 		aD: 'https://llimllib.github.io/bloomfilter-tutorial/'
 	},
 		{ag: _List_Nil, E: 'Probabilistic Filters By Example', aD: 'https://bdupras.github.io/filter-tutorial/'},
-		{ag: _List_Nil, E: 'Fenwick Tree', aD: 'https://en.wikipedia.org/wiki/Fenwick_tree'},
+		{
+		ag: _List_fromArray(
+			['data structure']),
+		E: 'Fenwick Tree',
+		aD: 'https://en.wikipedia.org/wiki/Fenwick_tree'
+	},
 		{
 		ag: _List_fromArray(
 			['forth']),
@@ -4683,35 +4703,147 @@ var author$project$Resources$articles = _List_fromArray(
 		aD: 'http://conal.net/blog/posts/overloading-lambda'
 	},
 		{ag: _List_Nil, E: 'Composing Reactive Animations', aD: 'http://conal.net/fran/tutorial.htm'},
-		{ag: _List_Nil, E: 'Understanding Yoneda', aD: 'https://www.schoolofhaskell.com/user/bartosz/understanding-yoneda'},
-		{ag: _List_Nil, E: 'Row Polymorphism Isn\'t Subtyping', aD: 'https://brianmckenna.org/blog/row_polymorphism_isnt_subtyping'},
-		{ag: _List_Nil, E: 'Typing the technical interview', aD: 'https://aphyr.com/posts/342-typing-the-technical-interview'},
-		{ag: _List_Nil, E: 'Mirrored Lenses', aD: 'http://comonad.com/reader/2012/mirrored-lenses/'},
+		{
+		ag: _List_fromArray(
+			['yoenda', 'category theory']),
+		E: 'Understanding Yoneda',
+		aD: 'https://www.schoolofhaskell.com/user/bartosz/understanding-yoneda'
+	},
+		{
+		ag: _List_fromArray(
+			['types']),
+		E: 'Row Polymorphism Isn\'t Subtyping',
+		aD: 'https://brianmckenna.org/blog/row_polymorphism_isnt_subtyping'
+	},
+		{
+		ag: _List_fromArray(
+			['types', 'logic', 'haskell']),
+		E: 'Typing the technical interview',
+		aD: 'https://aphyr.com/posts/342-typing-the-technical-interview'
+	},
+		{
+		ag: _List_fromArray(
+			['haskell']),
+		E: 'Mirrored Lenses',
+		aD: 'http://comonad.com/reader/2012/mirrored-lenses/'
+	},
 		{
 		ag: _List_fromArray(
 			['haskell']),
 		E: 'Object Oriented Programming in Haskell',
 		aD: 'https://www.well-typed.com/blog/2018/03/oop-in-haskell/'
 	},
-		{ag: _List_Nil, E: 'From walking to zipping, Part 3: Caught in a zipper', aD: 'http://conway.rutgers.edu/~ccshan/wiki/blog/posts/WalkZip3/'},
-		{ag: _List_Nil, E: 'Monads to Machine Code', aD: 'http://www.stephendiehl.com/posts/monads_machine_code.html'},
+		{
+		ag: _List_fromArray(
+			['haskell']),
+		E: 'From walking to zipping, Part 3: Caught in a zipper',
+		aD: 'http://conway.rutgers.edu/~ccshan/wiki/blog/posts/WalkZip3/'
+	},
+		{
+		ag: _List_fromArray(
+			['haskell', 'edsl']),
+		E: 'Monads to Machine Code',
+		aD: 'http://www.stephendiehl.com/posts/monads_machine_code.html'
+	},
 		{ag: _List_Nil, E: 'Quasi-quoting DSLs for free', aD: 'http://www.well-typed.com/blog/2014/10/quasi-quoting-dsls/'},
 		{ag: _List_Nil, E: 'Kaleidoscope LLVM tutorial Ocaml', aD: 'https://llvm.org/docs/tutorial/OCamlLangImpl1.html'},
-		{ag: _List_Nil, E: 'Writing a SAT Solver', aD: 'http://andrew.gibiansky.com/blog/verification/writing-a-sat-solver/'},
-		{ag: _List_Nil, E: 'Simple SMT solver for use in an optimizing compiler', aD: 'https://www.well-typed.com/blog/2014/12/simple-smt-solver/'},
-		{ag: _List_Nil, E: 'Quick and Easy DSLs with Writer Endo', aD: 'https://ocharles.org.uk/blog/posts/2013-02-12-quick-dsls-with-endo-writers.html'},
-		{ag: _List_Nil, E: 'Seemingly impossible functional programs', aD: 'http://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/'},
-		{ag: _List_Nil, E: 'faster mcpy', aD: 'https://software.intel.com/en-us/articles/performance-optimization-of-memcpy-in-dpdk'},
-		{ag: _List_Nil, E: 'ring buffers', aD: 'https://www.snellman.net/blog/archive/2016-12-13-ring-buffers/'},
-		{ag: _List_Nil, E: 'Allocator Designs', aD: 'https://os.phil-opp.com/allocator-designs/'},
-		{ag: _List_Nil, E: 'Bitsquatting: DNS Hijacking without exploitation', aD: 'http://www.dinaburg.org/bitsquatting.html'},
-		{ag: _List_Nil, E: 'Golang implementation of PASETO: Platform-Agnostic Security Tokens', aD: 'https://github.com/o1egl/paseto'},
-		{ag: _List_Nil, E: 'PASETO: Platform-Agnostic Security Tokens in JavaScript', aD: 'https://github.com/sjudson/paseto.js'},
+		{
+		ag: _List_fromArray(
+			['haskell', 'sat']),
+		E: 'Writing a SAT Solver',
+		aD: 'http://andrew.gibiansky.com/blog/verification/writing-a-sat-solver/'
+	},
+		{
+		ag: _List_fromArray(
+			['smt']),
+		E: 'Simple SMT solver for use in an optimizing compiler',
+		aD: 'https://www.well-typed.com/blog/2014/12/simple-smt-solver/'
+	},
+		{
+		ag: _List_fromArray(
+			['haskell', 'endo']),
+		E: 'Quick and Easy DSLs with Writer Endo',
+		aD: 'https://ocharles.org.uk/blog/posts/2013-02-12-quick-dsls-with-endo-writers.html'
+	},
+		{
+		ag: _List_fromArray(
+			['haskell']),
+		E: 'Seemingly impossible functional programs',
+		aD: 'http://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/'
+	},
+		{
+		ag: _List_fromArray(
+			['optimization']),
+		E: 'faster mcpy',
+		aD: 'https://software.intel.com/en-us/articles/performance-optimization-of-memcpy-in-dpdk'
+	},
+		{
+		ag: _List_fromArray(
+			['data structure']),
+		E: 'ring buffers',
+		aD: 'https://www.snellman.net/blog/archive/2016-12-13-ring-buffers/'
+	},
+		{
+		ag: _List_fromArray(
+			['memory']),
+		E: 'Allocator Designs',
+		aD: 'https://os.phil-opp.com/allocator-designs/'
+	},
+		{
+		ag: _List_fromArray(
+			['security', 'exploit']),
+		E: 'Bitsquatting: DNS Hijacking without exploitation',
+		aD: 'http://www.dinaburg.org/bitsquatting.html'
+	},
+		{
+		ag: _List_fromArray(
+			['security', 'paseto']),
+		E: 'Golang implementation of PASETO: Platform-Agnostic Security Tokens',
+		aD: 'https://github.com/o1egl/paseto'
+	},
+		{
+		ag: _List_fromArray(
+			['security', 'paseto']),
+		E: 'PASETO: Platform-Agnostic Security Tokens in JavaScript',
+		aD: 'https://github.com/sjudson/paseto.js'
+	},
 		{ag: _List_Nil, E: 'Block ads with OpenWRT dnsmasq', aD: 'https://www.leowkahman.com/2017/07/23/block-ads-with-openwrt-dnsmasq/'},
-		{ag: _List_Nil, E: 'measuring syscall overhead', aD: 'https://drewdevault.com/2020/01/04/Slow.html'},
-		{ag: _List_Nil, E: 'Text Rendering Hates You', aD: 'https://gankra.github.io/blah/text-hates-you/'},
-		{ag: _List_Nil, E: 'oom_pardon, aka don\'t kill my xlock', aD: 'lwn.net/Articles/104185'},
-		{ag: _List_Nil, E: 'Gathering Intel on Intel AVX-512 Transitions', aD: 'https://travisdowns.github.io/blog/2020/01/17/avxfreq1.html'}
+		{
+		ag: _List_fromArray(
+			['optimization']),
+		E: 'measuring syscall overhead',
+		aD: 'https://drewdevault.com/2020/01/04/Slow.html'
+	},
+		{
+		ag: _List_fromArray(
+			['humour']),
+		E: 'Text Rendering Hates You',
+		aD: 'https://gankra.github.io/blah/text-hates-you/'
+	},
+		{
+		ag: _List_fromArray(
+			['memory', 'linux']),
+		E: 'oom_pardon, aka don\'t kill my xlock',
+		aD: 'lwn.net/Articles/104185'
+	},
+		{
+		ag: _List_fromArray(
+			['bug']),
+		E: 'Gathering Intel on Intel AVX-512 Transitions',
+		aD: 'https://travisdowns.github.io/blog/2020/01/17/avxfreq1.html'
+	},
+		{
+		ag: _List_fromArray(
+			['optimization', 'compression', 'v8', 'web']),
+		E: 'Pointer Compression in V8',
+		aD: 'https://blog.infosectcbr.com.au/2020/02/pointer-compression-in-v8.html'
+	},
+		{
+		ag: _List_fromArray(
+			['forth', 'x86', 'assembly']),
+		E: 'Jones\' FORTH',
+		aD: 'https://github.com/nornagon/jonesforth/blob/master/jonesforth.S'
+	}
 	]);
 var author$project$Resources$books = _List_fromArray(
 	[
@@ -4770,14 +4902,24 @@ var author$project$Resources$books = _List_fromArray(
 		E: 'LEX & YACC',
 		aD: 'https://www.epaperpress.com/lexandyacc/download/LexAndYacc.pdf'
 	},
-		{ag: _List_Nil, E: 'Write Yourself a Scheme in 48 Hours', aD: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/' + 'Write_Yourself_a_Scheme_in_48_Hours.pdf'},
+		{
+		ag: _List_fromArray(
+			['scheme', 'haskell', 'interpreter']),
+		E: 'Write Yourself a Scheme in 48 Hours',
+		aD: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/' + 'Write_Yourself_a_Scheme_in_48_Hours.pdf'
+	},
 		{
 		ag: _List_fromArray(
 			['ssa']),
 		E: 'Static Single Assignment Book',
 		aD: 'http://ssabook.gforge.inria.fr/latest/book.pdf'
 	},
-		{ag: _List_Nil, E: 'An Introduction to Functional Programming Through Lambda Calculus', aD: 'https://www.cs.rochester.edu/~brown/173/readings/LCBook.pdf'},
+		{
+		ag: _List_fromArray(
+			['lambda calculus']),
+		E: 'An Introduction to Functional Programming Through Lambda Calculus',
+		aD: 'https://www.cs.rochester.edu/~brown/173/readings/LCBook.pdf'
+	},
 		{
 		ag: _List_fromArray(
 			['category theory']),
@@ -4791,12 +4933,36 @@ var author$project$Resources$books = _List_fromArray(
 		aD: 'https://happi.github.io/theBeamBook'
 	},
 		{ag: _List_Nil, E: 'Concrete Semantics - Brick', aD: 'http://concrete-semantics.org/concrete-semantics-brick.pdf'},
-		{ag: _List_Nil, E: 'Write You a Haskell', aD: 'http://dev.stephendiehl.com/fun/'},
-		{ag: _List_Nil, E: 'Learn you an Agda', aD: 'http://learnyouanagda.liamoc.net/pages/introduction.html'},
-		{ag: _List_Nil, E: 'Programming Language Foundations in Agda', aD: 'https://plfa.github.io/'},
-		{ag: _List_Nil, E: '', aD: ''},
-		{ag: _List_Nil, E: 'Smalltalk-80 The Language And It\'s Implementation', aD: 'http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf'},
-		{ag: _List_Nil, E: 'Professor Frisby\'s Mostly Adequate Guide to Functional Programming', aD: 'https://drboolean.gitbooks.io/mostly-adequate-guide-old/content/'}
+		{
+		ag: _List_fromArray(
+			['haskell']),
+		E: 'Write You a Haskell',
+		aD: 'http://dev.stephendiehl.com/fun/'
+	},
+		{
+		ag: _List_fromArray(
+			['agda', 'dependent types']),
+		E: 'Learn you an Agda',
+		aD: 'http://learnyouanagda.liamoc.net/pages/introduction.html'
+	},
+		{
+		ag: _List_fromArray(
+			['agda', 'dependent types']),
+		E: 'Programming Language Foundations in Agda',
+		aD: 'https://plfa.github.io/'
+	},
+		{
+		ag: _List_fromArray(
+			['smalltalk']),
+		E: 'Smalltalk-80 The Language And It\'s Implementation',
+		aD: 'http://stephane.ducasse.free.fr/FreeBooks/BlueBook/Bluebook.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['javascript']),
+		E: 'Professor Frisby\'s Mostly Adequate Guide to Functional Programming',
+		aD: 'https://drboolean.gitbooks.io/mostly-adequate-guide-old/content/'
+	}
 	]);
 var author$project$Resources$papers = _List_fromArray(
 	[
@@ -5007,20 +5173,55 @@ var author$project$Resources$papers = _List_fromArray(
 		E: 'Partial Evaluation and Automatic Program Generation',
 		aD: 'http://www.itu.dk/people/sestoft/pebook/jonesgomardsestoft-a4.pdf'
 	},
-		{ag: _List_Nil, E: 'Revised7 Report on the Algorithmic Language Scheme', aD: 'http://www.larcenists.org/Documentation/Documentation0.98/r7rs.pdf'},
-		{ag: _List_Nil, E: 'Composable Memory Transactions', aD: 'https://www.microsoft.com/en-us/research/wp-content/' + 'uploads/2005/01/2005-ppopp-composable.pdf'},
 		{
 		ag: _List_fromArray(
-			['logic']),
+			['scheme', 'lisp']),
+		E: 'Revised7 Report on the Algorithmic Language Scheme',
+		aD: 'http://www.larcenists.org/Documentation/Documentation0.98/r7rs.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['haskell', 'memory']),
+		E: 'Composable Memory Transactions',
+		aD: 'https://www.microsoft.com/en-us/research/wp-content/' + 'uploads/2005/01/2005-ppopp-composable.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['logic', 'edsl']),
 		E: 'Backtracking, Interleaving, and Terminating Monad Transformers',
 		aD: 'http://okmij.org/ftp/Computation/LogicT.pdf'
 	},
-		{ag: _List_Nil, E: 'Arrows, Robots, and Functional Reactive Programming', aD: 'http://www.cs.yale.edu/homes/hudak/CS429F04/AFPLectureNotes.pdf'},
-		{ag: _List_Nil, E: 'Fault tolerant functional reactive programming', aD: 'https://dl.acm.org/citation.cfm?id=3236791'},
-		{ag: _List_Nil, E: 'Testing and Debugging Functional Reactive Programming', aD: 'https://dl.acm.org/citation.cfm?id=3110246'},
-		{ag: _List_Nil, E: 'Functional Reactive Programming, Refactored', aD: 'https://dl.acm.org/authorize?N34896'},
+		{
+		ag: _List_fromArray(
+			['frp', 'haskell']),
+		E: 'Arrows, Robots, and Functional Reactive Programming',
+		aD: 'http://www.cs.yale.edu/homes/hudak/CS429F04/AFPLectureNotes.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['frp', 'haskell']),
+		E: 'Fault tolerant functional reactive programming',
+		aD: 'https://dl.acm.org/citation.cfm?id=3236791'
+	},
+		{
+		ag: _List_fromArray(
+			['frp', 'haskell']),
+		E: 'Testing and Debugging Functional Reactive Programming',
+		aD: 'https://dl.acm.org/citation.cfm?id=3110246'
+	},
+		{
+		ag: _List_fromArray(
+			['frp', 'haskell']),
+		E: 'Functional Reactive Programming, Refactored',
+		aD: 'https://dl.acm.org/authorize?N34896'
+	},
 		{ag: _List_Nil, E: 'Flask: Staged Functional Programming for Sensor Networks', aD: 'http://www.cl.cam.ac.uk/~ey204/teaching/ACS/R202/papers/' + 'S5_Stream_Query/papers/mainland_icfp_2008.pdf'},
-		{ag: _List_Nil, E: 'A Pure Language with Default Strict Evaluation and Explicit Laziness', aD: 'http://web.cecs.pdx.edu/~sheard/papers/ExplicitLazy.ps'},
+		{
+		ag: _List_fromArray(
+			['haskell', 'lazy', 'compiler']),
+		E: 'A Pure Language with Default Strict Evaluation and Explicit Laziness',
+		aD: 'http://web.cecs.pdx.edu/~sheard/papers/ExplicitLazy.ps'
+	},
 		{ag: _List_Nil, E: 'Type variables in patterns', aD: 'https://arxiv.org/pdf/1806.03476.pdf'},
 		{ag: _List_Nil, E: 'Elaborating Evaluation-Order Polymorphism', aD: 'https://arxiv.org/pdf/1504.07680'},
 		{ag: _List_Nil, E: 'A Framework for Extended Algebraic Data Types', aD: 'http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.101.9267&rep=rep1&type=pdf'},
@@ -5032,9 +5233,19 @@ var author$project$Resources$papers = _List_fromArray(
 		E: 'Programming and Reasoning with Algebraic Effects and Dependent Types',
 		aD: 'https://eb.host.cs.st-andrews.ac.uk/drafts/effects.pdf'
 	},
-		{ag: _List_Nil, E: 'The Power of Pi', aD: 'https://cs.ru.nl/~wouters/Publications/ThePowerOfPi.pdf'},
+		{
+		ag: _List_fromArray(
+			['dependent types']),
+		E: 'The Power of Pi',
+		aD: 'https://cs.ru.nl/~wouters/Publications/ThePowerOfPi.pdf'
+	},
 		{ag: _List_Nil, E: 'Lightweight higher-kinded polymorphism', aD: 'https://ocamllabs.github.io/higher/lightweight-higher-kinded-polymorphism.pdf'},
-		{ag: _List_Nil, E: 'Improving Haskell Types with SMT', aD: 'http://yav.github.io/publications/improving-smt-types.pdf'},
+		{
+		ag: _List_fromArray(
+			['haskell', 'smt']),
+		E: 'Improving Haskell Types with SMT',
+		aD: 'http://yav.github.io/publications/improving-smt-types.pdf'
+	},
 		{
 		ag: _List_fromArray(
 			['graphics']),
@@ -5047,20 +5258,74 @@ var author$project$Resources$papers = _List_fromArray(
 		E: '1ML – Core and Modules United (F-ing First-class Modules)',
 		aD: 'https://people.mpi-sws.org/~rossberg/1ml/1ml.pdf'
 	},
-		{ag: _List_Nil, E: '', aD: ''},
-		{ag: _List_Nil, E: 'Cross-platform Compilers for Functional Languages', aD: 'https://eb.host.cs.st-andrews.ac.uk/drafts/compile-idris.pdf'},
+		{
+		ag: _List_fromArray(
+			['idris']),
+		E: 'Cross-platform Compilers for Functional Languages',
+		aD: 'https://eb.host.cs.st-andrews.ac.uk/drafts/compile-idris.pdf'
+	},
 		{ag: _List_Nil, E: 'Compiling with Continuations and LLVM', aD: 'https://arxiv.org/pdf/1805.08842.pdf'},
-		{ag: _List_Nil, E: 'G2Q: Haskell Constraint Solving', aD: 'http://www.cs.yale.edu/homes/piskac/papers/2019HallahanETALquasiquoter.pdf'},
+		{
+		ag: _List_fromArray(
+			['haskell']),
+		E: 'G2Q: Haskell Constraint Solving',
+		aD: 'http://www.cs.yale.edu/homes/piskac/papers/2019HallahanETALquasiquoter.pdf'
+	},
 		{ag: _List_Nil, E: 'SMT Solving for Functional Programming over Infinite Structures∗', aD: 'https://arxiv.org/pdf/1604.01185v1.pdf'},
-		{ag: _List_Nil, E: 'Extensible Type-Directed Editing', aD: 'http://davidchristiansen.dk/pubs/extensible-editing.pdf'},
-		{ag: _List_Nil, E: 'A prettier printer - Wadler', aD: 'http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf'},
-		{ag: _List_Nil, E: 'Pretty Printing', aD: 'http://i.stanford.edu/pub/cstr/reports/cs/tr/79/770/CS-TR-79-770.pdf'},
-		{ag: _List_Nil, E: 'The Final Pretty Printer', aD: 'http://davidchristiansen.dk/drafts/final-pretty-printer-draft.pdf'},
-		{ag: _List_Nil, E: 'Extensibility for the Masses Practical Extensibility with Object Algebras', aD: 'http://www.cs.utexas.edu/~wcook/Drafts/2012/ecoop2012.pdf'},
-		{ag: _List_Nil, E: 'Feature-Oriented Programming with Object Algebras', aD: 'https://www.cs.utexas.edu/~wcook/Drafts/2012/FOPwOA.pdf'},
-		{ag: _List_Nil, E: 'Streams à la carte: Extensible Pipelines with Object Algebras', aD: 'http://drops.dagstuhl.de/opus/volltexte/2015/5239/pdf/29.pdf'},
-		{ag: _List_Nil, E: 'Scrap Your Boilerplate with Object Algebras', aD: 'https://i.cs.hku.hk/~bruno/papers/oopsla2015.pdf'},
-		{ag: _List_Nil, E: 'An Analysis and Discussion of Solutions to the Expression Problem Across Programming Languages', aD: 'https://cs242.stanford.edu/f17/assets/projects/2017/kjtian-colinwei.pdf'},
+		{
+		ag: _List_fromArray(
+			['idris']),
+		E: 'Extensible Type-Directed Editing',
+		aD: 'http://davidchristiansen.dk/pubs/extensible-editing.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['pretty printing']),
+		E: 'A prettier printer - Wadler',
+		aD: 'http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['pretty printing']),
+		E: 'Pretty Printing',
+		aD: 'http://i.stanford.edu/pub/cstr/reports/cs/tr/79/770/CS-TR-79-770.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['pretty printing']),
+		E: 'The Final Pretty Printer',
+		aD: 'http://davidchristiansen.dk/drafts/final-pretty-printer-draft.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['object algebra']),
+		E: 'Extensibility for the Masses Practical Extensibility with Object Algebras',
+		aD: 'http://www.cs.utexas.edu/~wcook/Drafts/2012/ecoop2012.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['object algebra']),
+		E: 'Feature-Oriented Programming with Object Algebras',
+		aD: 'https://www.cs.utexas.edu/~wcook/Drafts/2012/FOPwOA.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['object algebra']),
+		E: 'Streams à la carte: Extensible Pipelines with Object Algebras',
+		aD: 'http://drops.dagstuhl.de/opus/volltexte/2015/5239/pdf/29.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['object algebra']),
+		E: 'Scrap Your Boilerplate with Object Algebras',
+		aD: 'https://i.cs.hku.hk/~bruno/papers/oopsla2015.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['object algebra', 'tagless final']),
+		E: 'An Analysis and Discussion of Solutions to the Expression Problem Across Programming Languages',
+		aD: 'https://cs242.stanford.edu/f17/assets/projects/2017/kjtian-colinwei.pdf'
+	},
 		{ag: _List_Nil, E: 'Modular Interpreters with Implicit Context Propagation', aD: 'https://homepages.cwi.nl/~storm/publications/implicit-ctx.pdf'},
 		{
 		ag: _List_fromArray(
@@ -5079,6 +5344,12 @@ var author$project$Resources$papers = _List_fromArray(
 			['haskell', 'data structure', 'tree']),
 		E: 'Functional Pearl Trouble Shared is Trouble Halved',
 		aD: 'http://www.cs.ox.ac.uk/ralf.hinze/publications/HW03.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['lp', 'pascal', 'knuth']),
+		E: 'A LITERATE PROGRAM',
+		aD: 'https://www.cs.tufts.edu/~nr/cs257/archive/don-knuth/pearls-2.pdf'
 	}
 	]);
 var author$project$Resources$projects = _List_fromArray(
@@ -5113,11 +5384,42 @@ var author$project$Resources$projects = _List_fromArray(
 		E: 'toysolver: Assorted decision procedures for SAT, SMT, Max-SAT, PB, MIP, etc',
 		aD: 'http://hackage.haskell.org/package/toysolver'
 	},
-		{ag: _List_Nil, E: 'Copilot', aD: 'http://leepike.github.io/Copilot/'},
-		{ag: _List_Nil, E: 'Clash', aD: 'http://www.clash-lang.org/'},
-		{ag: _List_Nil, E: 'ComonadSheet', aD: 'https://github.com/kwf/ComonadSheet'},
-		{ag: _List_Nil, E: 'Learn OpenGL in zig', aD: 'https://github.com/cshenton/learnopengl'},
-		{ag: _List_Nil, E: 'NeHe tutorials in zig', aD: 'https://github.com/mypalmike/zigNeHe'}
+		{
+		ag: _List_fromArray(
+			['haskell', 'dsl', 'c']),
+		E: 'Copilot',
+		aD: 'http://leepike.github.io/Copilot/'
+	},
+		{
+		ag: _List_fromArray(
+			['haskell', 'dsl', 'vhdl']),
+		E: 'Clash',
+		aD: 'http://www.clash-lang.org/'
+	},
+		{
+		ag: _List_fromArray(
+			['haskell', 'comonad']),
+		E: 'ComonadSheet',
+		aD: 'https://github.com/kwf/ComonadSheet'
+	},
+		{
+		ag: _List_fromArray(
+			['zig', 'opengl']),
+		E: 'Learn OpenGL in zig',
+		aD: 'https://github.com/cshenton/learnopengl'
+	},
+		{
+		ag: _List_fromArray(
+			['zig', 'opengl']),
+		E: 'NeHe tutorials in zig',
+		aD: 'https://github.com/mypalmike/zigNeHe'
+	},
+		{
+		ag: _List_fromArray(
+			['forth', 'nasm', 'assembly', 'operating system']),
+		E: 'cf2019 colorForth',
+		aD: 'http://www.inventio.co.uk/cf2019_colorForth.pdf'
+	}
 	]);
 var elm$core$Basics$apR = F2(
 	function (x, f) {
@@ -5874,14 +6176,15 @@ var elm$core$Set$insert = F2(
 var elm$core$Set$fromList = function (list) {
 	return A3(elm$core$List$foldl, elm$core$Set$insert, elm$core$Set$empty, list);
 };
-var author$project$Resources$tags = elm$core$Set$toList(
-	elm$core$Set$fromList(
-		A2(
-			elm$core$List$concatMap,
-			function ($) {
-				return $.ag;
-			},
-			author$project$Resources$resources)));
+var author$project$Resources$tags = elm$core$List$sort(
+	elm$core$Set$toList(
+		elm$core$Set$fromList(
+			A2(
+				elm$core$List$concatMap,
+				function ($) {
+					return $.ag;
+				},
+				author$project$Resources$resources))));
 var elm$core$Basics$composeL = F3(
 	function (g, f, x) {
 		return g(
