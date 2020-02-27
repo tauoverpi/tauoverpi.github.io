@@ -78,6 +78,10 @@ code span.wa { font-style: italic; } /* Warning */
 <li><a href="#main"><span class="toc-section-number">2.1.4</span> Main</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#zig-on-the-web"><span class="toc-section-number">3</span> Zig on the web</a><ul>
+<li><a href="#build-script-for-webassembly"><span class="toc-section-number">3.1</span> Build script for WebAssembly</a></li>
+<li><a href="#no-really-on-the-web"><span class="toc-section-number">3.2</span> No really, on the web</a></li>
+</ul></li>
 </ul>
 </nav>
 <section id="the-setup" class="level1">
@@ -286,12 +290,63 @@ var resbrowser = Elm.Main.init({
     node: document.getElementById("resbrowser")
 });
 </script>
+</section>
+</section>
+</section>
+<section id="zig-on-the-web" class="level1">
+<h1><span class="header-section-number">3</span> Zig on the web</h1>
+<p>Writing web applications is rather comfortable in elm but sometimes it’s nice to try something new and different. Zig is one language I’ve been interested in for a while and would like to get to know better as it supports<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="sidenote">LLVM provides most of the work currently for cross-compilation of zig.<br />
+<br />
+</span></span> multiple platforms including freestanding which I’ve taken more of an interest in within the context of <a href="unikernel.org/projects">unikernels</a>. Back to the point, I like zig.</p>
+<p>So why not try a web application? One of the targets is WebAssembly after all… and that is how this section came to be.</p>
+<section id="build-script-for-webassembly" class="level2">
+<h2><span class="header-section-number">3.1</span> Build script for WebAssembly</h2>
+<p>First, the general structure of zig build scripts involves importing the <code>Builder</code> module which gives access to the various configuration objects used for setting compiler flags, dependencies, and so on.</p>
+<pre id="zotw-imports" class="zig"><code>const Builder = @import(&quot;std&quot;).build.Builder;</code></pre>
+<p>We’ll also need the <code>builtin</code> module since we’ll need to refer to WebAssembly directly as a compilation target rather than the default which is the current platform zig is compiling on.</p>
+<pre id="zotw-imports" class="zig"><code>const builtin = @import(&quot;builtin&quot;);</code></pre>
+<p>The structure of the build script itself is just the one function with the imports at the top<span><label for="sn-2" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="margin-toggle"/><span class="sidenote">Imports can be anywhere within a scope and need not be declared at the top of the file, however, it’s cleaner to declare them before use.<br />
+<br />
+</span></span> and <code>build</code> which takes a build context, configures it, then passes control back to zig’s build system.</p>
+<pre class="zig" data-file="projects/zig/zig-on-the-web/build.zig"><code>&lt;&lt;zotw-imports&gt;&gt;
+pub fn build(b: *Builder) void {
+    &lt;&lt;zotw-configure-library-and-abi&gt;&gt;
+    &lt;&lt;zotw-add-test-hook&gt;&gt;
+}</code></pre>
+<p>From the reference we get default mode as this application doesn’t have any fancy options and register it as a static library. This is important, registering this as an application won’t yield valid WebAssembly for use in the example as there’s no runtime and thus no logical entry-point.</p>
+<pre id="zotw-configure-library" class="zig"><code>const mode = b.standardReleaseOptions();
+const lib = b.addStaticLibrary(&quot;gamesvonkoch.github.io&quot;, &quot;src/web.zig&quot;);</code></pre>
+<p>Then on to setting the configuration where the build mode is left to the default.</p>
+<pre id="zotw-configure-library" class="zig"><code>lib.setBuildMode(mode);</code></pre>
+<p>Then we declare the target to be <code>wasm32</code><span><label for="sn-3" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="margin-toggle"/><span class="sidenote">At the time of writing, most modern browsers only support wasm32 where wasm64 is experimental and thus needs to be enabled by the user in their browser configuration. This may be fine for playing with larger address ranges but in the case of building applications we can use now this is a bit impractical.<br />
+<br />
+</span></span> on a <code>freestanding</code> platform (no operating system) and with and ABI of <code>none</code> since we don’t need to conform to any call standard outside of our own.</p>
+<pre id="zotw-configure-library" class="zig"><code>lib.setTarget(builtin.Arch.wasm32, builtin.Os.freestanding, builtin.Abi.none);
+lib.install();</code></pre>
+<p>Now building an application larger than a file or two without tests ends up being rather tedious so lets declare some.</p>
+<p>Adding tests is pretty similar to registering the shared library with the exception of allowing us to run the code within test blocks directly.</p>
+<pre id="zotw-add-test-hook" class="zig"><code>var main_tests = b.addTest(&quot;src/main.zig&quot;);
+main_tests.setBuildMode(mode);</code></pre>
+<p>Since <code>test</code> isn’t a command available to the builder by default we must add it ourselves by extending the builder with out own test depending on the step above. Of course tests are rather common in zig and thus we haven’t needed to write our own function for it as it’s taken care of above.</p>
+<pre id="zotw-add-test-hook" class="zig"><code>const test_step = b.step(&quot;test&quot;, &quot;Run library tests&quot;);
+test_step.dependOn(&amp;main_tests.step);</code></pre>
+<p>And that concludes the build script for zig and WebAssembly.</p>
+</section>
+<section id="no-really-on-the-web" class="level2">
+<h2><span class="header-section-number">3.2</span> No really, on the web</h2>
+<p>So far we’ve only seen a build script with relatively little code and there isn’t so much here either.</p>
+<p>Starting with the <code>web</code> module which only exports the other modules but gives a good overview of the parts to be implemented in this article.</p>
+<pre class="zig" data-file="projects/zig/zig-on-the-web/src/web.zig"><code>const window = @import(&quot;window.zig&quot;);</code></pre>
+<pre class="zig" data-file="projects/zig/zig-on-the-web/src/window.zig"><code>extern fn _alert(msg: [*]const u8, len: usize) void;
+
+pub fn alert(msg: []u8) void {
+  _alert(msg, msg.len);
+}</code></pre>
 <div id="refs" class="references" role="doc-bibliography">
 <div id="ref-catvh">
 <p>[1] “All software sucks.”.</p>
 </div>
 </div>
-</section>
 </section>
 </section>
 </body>
