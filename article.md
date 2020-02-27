@@ -296,3 +296,122 @@ var resbrowser = Elm.Main.init({
 	node: document.getElementById("resbrowser")
 });
 </script>
+
+# Zig on the web
+
+Writing web applications is rather comfortable in elm but sometimes it's nice to
+try something new and different. Zig is one language I've been interested in for
+a while and would like to get to know better as it supports^[LLVM provides most
+of the work currently for cross-compilation of zig.] multiple platforms
+including freestanding which I've taken more of an interest in within the
+context of [unikernels](unikernel.org/projects). Back to the point, I like zig.
+
+So why not try a web application? One of the targets is WebAssembly after all...
+and that is how this section came to be.
+
+## Build script for WebAssembly
+
+First, the general structure of zig build scripts involves importing the
+`Builder` module which gives access to the various configuration objects used
+for setting compiler flags, dependencies, and so on.
+
+```{.zig #zotw-imports}
+const Builder = @import("std").build.Builder;
+```
+
+We'll also need the `builtin` module since we'll need to refer to WebAssembly
+directly as a compilation target rather than the default which is the current
+platform zig is compiling on.
+
+```{.zig #zotw-imports}
+const builtin = @import("builtin");
+```
+
+The structure of the build script itself is just the one function with the
+imports at the top^[Imports can be anywhere within a scope and need not be
+declared at the top of the file, however, it's cleaner to declare them before
+use.] and `build` which takes a build context, configures it, then passes
+control back to zig's build system.
+
+```{.zig file=projects/zig/zig-on-the-web/build.zig}
+<<zotw-imports>>
+pub fn build(b: *Builder) void {
+    <<zotw-configure-library-and-abi>>
+    <<zotw-add-test-hook>>
+}
+```
+
+From the reference we get default mode as this application doesn't have any
+fancy options and register it as a static library. This is important,
+registering this as an application won't yield valid WebAssembly for use in the
+example as there's no runtime and thus no logical entry-point.
+
+```{.zig #zotw-configure-library}
+const mode = b.standardReleaseOptions();
+const lib = b.addStaticLibrary("gamesvonkoch.github.io", "src/web.zig");
+```
+
+Then on to setting the configuration where the build mode is left to the
+default.
+
+```{.zig #zotw-configure-library}
+lib.setBuildMode(mode);
+```
+
+Then we declare the target to be `wasm32`^[At the time of writing, most modern
+browsers only support wasm32 where wasm64 is experimental and thus needs to be
+enabled by the user in their browser configuration. This may be fine for playing
+with larger address ranges but in the case of building applications we can use
+now this is a bit impractical.] on a `freestanding` platform (no operating
+system) and with and ABI of `none` since we don't need to conform to any call
+standard outside of our own.
+
+```{.zig #zotw-configure-library}
+lib.setTarget(builtin.Arch.wasm32, builtin.Os.freestanding, builtin.Abi.none);
+lib.install();
+```
+
+Now building an application larger than a file or two without tests ends up
+being rather tedious so lets declare some.
+
+Adding tests is pretty similar to registering the shared library with the
+exception of allowing us to run the code within test blocks directly.
+
+```{.zig #zotw-add-test-hook}
+var main_tests = b.addTest("src/main.zig");
+main_tests.setBuildMode(mode);
+```
+
+Since `test` isn't a command available to the builder by default we must add it
+ourselves by extending the builder with out own test depending on the step
+above. Of course tests are rather common in zig and thus we haven't needed to
+write our own function for it as it's taken care of above.
+
+```{.zig #zotw-add-test-hook}
+const test_step = b.step("test", "Run library tests");
+test_step.dependOn(&main_tests.step);
+```
+
+And that concludes the build script for zig and WebAssembly.
+
+## No really, on the web
+
+So far we've only seen a build script with relatively little code and there
+isn't so much here either.
+
+Starting with the `web` module which only exports the other modules but gives a
+good overview of the parts to be implemented in this article.
+
+```{.zig file=projects/zig/zig-on-the-web/src/web.zig}
+const window = @import("window.zig");
+```
+
+
+
+```{.zig file=projects/zig/zig-on-the-web/src/window.zig}
+extern fn _alert(msg: [*]const u8, len: usize) void;
+
+pub fn alert(msg: []u8) void {
+  _alert(msg, msg.len);
+}
+```
