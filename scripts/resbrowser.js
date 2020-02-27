@@ -4843,6 +4843,24 @@ var author$project$Resources$articles = _List_fromArray(
 			['forth', 'x86', 'assembly']),
 		E: 'Jones\' FORTH',
 		aD: 'https://github.com/nornagon/jonesforth/blob/master/jonesforth.S'
+	},
+		{
+		ag: _List_fromArray(
+			['elf', 'x86', 'compression']),
+		E: 'A Whirlwind Tutorial on Creating Really Teensy ELF Executables for Linux',
+		aD: 'http://www.muppetlabs.com/~breadbox/software/tiny/teensy.html'
+	},
+		{
+		ag: _List_fromArray(
+			['data structure', 'memory']),
+		E: 'Intrusive linked lists',
+		aD: 'https://www.data-structures-in-practice.com/intrusive-linked-lists/'
+	},
+		{
+		ag: _List_fromArray(
+			['data structure']),
+		E: 'Page Tables',
+		aD: 'https://wiki.osdev.org/Page_Tables'
 	}
 	]);
 var author$project$Resources$books = _List_fromArray(
@@ -4988,7 +5006,7 @@ var author$project$Resources$papers = _List_fromArray(
 		ag: _List_fromArray(
 			['math', 'bigraphs']),
 		E: 'bigraphs with sharing',
-		aD: 'https://www.sciencedirect.com/science/article/pii/S0304397515001085?via%3Dihub'
+		aD: 'https://www.sciencedirect.com/science/article/pii/S0304397515001085'
 	},
 		{
 		ag: _List_fromArray(
@@ -5350,6 +5368,18 @@ var author$project$Resources$papers = _List_fromArray(
 			['lp', 'pascal', 'knuth']),
 		E: 'A LITERATE PROGRAM',
 		aD: 'https://www.cs.tufts.edu/~nr/cs257/archive/don-knuth/pearls-2.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['data structure', 'tree']),
+		E: 'Finger trees: a simple general-purpose data structure',
+		aD: 'http://www.staff.city.ac.uk/~ross/papers/FingerTree.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['parallel', 'scheduling']),
+		E: 'Oracle Scheduling: Controlling Granularity in Implicitly Parallel Languages',
+		aD: 'http://deepsea.inria.fr/pasl/oracle_scheduling.pdf'
 	}
 	]);
 var author$project$Resources$projects = _List_fromArray(
@@ -5419,6 +5449,24 @@ var author$project$Resources$projects = _List_fromArray(
 			['forth', 'nasm', 'assembly', 'operating system']),
 		E: 'cf2019 colorForth',
 		aD: 'http://www.inventio.co.uk/cf2019_colorForth.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['data structure', 'tree']),
+		E: 'chunkedseq',
+		aD: 'http://deepsea.inria.fr/chunkedseq/'
+	},
+		{
+		ag: _List_fromArray(
+			['project', 'inria']),
+		E: 'ERC Deepsea Project',
+		aD: 'http://deepsea.inria.fr/'
+	},
+		{
+		ag: _List_fromArray(
+			['data structure', 'concurrency', 'queue']),
+		E: 'A fast multi-producer, multi-consumer lock-free concurrent queue for C++11',
+		aD: 'https://github.com/cameron314/concurrentqueue'
 	}
 	]);
 var elm$core$Basics$apR = F2(

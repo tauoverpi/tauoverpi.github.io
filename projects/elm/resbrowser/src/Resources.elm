@@ -34,7 +34,7 @@ papers =
     , tags = ["bigraphs"]
     }
   , { title = "bigraphs with sharing"
-    , url = "https://www.sciencedirect.com/science/article/pii/S0304397515001085?via%3Dihub"
+    , url = "https://www.sciencedirect.com/science/article/pii/S0304397515001085"
     , tags = ["math", "bigraphs"]
     }
   , { title = "Graph Neural Networks: A Review of Methods and Applications"
@@ -329,6 +329,14 @@ papers =
   , { title = "A LITERATE PROGRAM"
     , url = "https://www.cs.tufts.edu/~nr/cs257/archive/don-knuth/pearls-2.pdf"
     , tags = ["lp", "pascal", "knuth"]
+    }
+  , { title = "Finger trees: a simple general-purpose data structure"
+    , url = "http://www.staff.city.ac.uk/~ross/papers/FingerTree.pdf"
+    , tags = ["data structure", "tree"]
+    }
+  , { title = "Oracle Scheduling: Controlling Granularity in Implicitly Parallel Languages"
+    , url = "http://deepsea.inria.fr/pasl/oracle_scheduling.pdf"
+    , tags = ["parallel", "scheduling"]
     }
   ]
 
@@ -653,6 +661,18 @@ articles =
     , url = "https://github.com/nornagon/jonesforth/blob/master/jonesforth.S"
     , tags = ["forth", "x86", "assembly"]
     }
+  , { title = "A Whirlwind Tutorial on Creating Really Teensy ELF Executables for Linux"
+    , url = "http://www.muppetlabs.com/~breadbox/software/tiny/teensy.html"
+    , tags = ["elf", "x86", "compression"]
+    }
+  , { title = "Intrusive linked lists"
+    , url = "https://www.data-structures-in-practice.com/intrusive-linked-lists/"
+    , tags = ["data structure", "memory"]
+    }
+  , { title = "Page Tables"
+    , url = "https://wiki.osdev.org/Page_Tables"
+    , tags = ["data structure"]
+    }
   ]
 
 projects : List Resource
@@ -700,6 +720,18 @@ projects =
   , { title = "cf2019 colorForth"
     , url = "http://www.inventio.co.uk/cf2019_colorForth.pdf"
     , tags = ["forth", "nasm", "assembly", "operating system"]
+    }
+  , { title = "chunkedseq"
+    , url = "http://deepsea.inria.fr/chunkedseq/"
+    , tags = ["data structure", "tree"]
+    }
+  , { title = "ERC Deepsea Project"
+    , url = "http://deepsea.inria.fr/"
+    , tags = ["project", "inria"]
+    }
+  , { title = "A fast multi-producer, multi-consumer lock-free concurrent queue for C++11"
+    , url = "https://github.com/cameron314/concurrentqueue"
+    , tags = ["data structure", "concurrency", "queue"]
     }
   ]
 
