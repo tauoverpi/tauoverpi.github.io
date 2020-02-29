@@ -4861,6 +4861,30 @@ var author$project$Resources$articles = _List_fromArray(
 			['data structure']),
 		E: 'Page Tables',
 		aD: 'https://wiki.osdev.org/Page_Tables'
+	},
+		{
+		ag: _List_fromArray(
+			['x11', 'graphics', 'protocol']),
+		E: 'Xplain',
+		aD: 'https://magcius.github.io/xplain/article/'
+	},
+		{
+		ag: _List_fromArray(
+			['graphics', 'font', 'sdf']),
+		E: 'Signed distance fields',
+		aD: 'https://bytewrangler.blogspot.com/2011/10/signed-distance-fields.html'
+	},
+		{
+		ag: _List_fromArray(
+			['graphics', 'sdf']),
+		E: 'Distance Fields',
+		aD: 'https://prideout.net/blog/distance_fields/'
+	},
+		{
+		ag: _List_fromArray(
+			['graphics', 'sdf']),
+		E: 'Distance Functions',
+		aD: 'http://iquilezles.org/www/articles/distfunctions/distfunctions.htm'
 	}
 	]);
 var author$project$Resources$books = _List_fromArray(
@@ -5380,6 +5404,30 @@ var author$project$Resources$papers = _List_fromArray(
 			['parallel', 'scheduling']),
 		E: 'Oracle Scheduling: Controlling Granularity in Implicitly Parallel Languages',
 		aD: 'http://deepsea.inria.fr/pasl/oracle_scheduling.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['spreadsheet', 'web']),
+		E: 'Wildcard: Spreadsheet-Driven Customization of Web Applications',
+		aD: 'https://www.geoffreylitt.com/wildcard/salon2020/'
+	},
+		{
+		ag: _List_fromArray(
+			['text', 'graphics']),
+		E: 'Improved Alpha-Tested Magnification for Vector Textures and Special Effects',
+		aD: 'https://steamcdn-a.akamaihd.net/apps/valve/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['sdf', 'graphics']),
+		E: 'An hp-Adaptive Discretization Algorithm for Signed Distance Field Generation',
+		aD: 'https://animation.rwth-aachen.de/media/papers/2017-TVCG-HPDistanceFields.pdf'
+	},
+		{
+		ag: _List_fromArray(
+			['physics', 'simulation']),
+		E: '',
+		aD: 'https://www.cs.ubc.ca/~rbridson/docs/cloth2003.pdf'
 	}
 	]);
 var author$project$Resources$projects = _List_fromArray(
@@ -5467,6 +5515,18 @@ var author$project$Resources$projects = _List_fromArray(
 			['data structure', 'concurrency', 'queue']),
 		E: 'A fast multi-producer, multi-consumer lock-free concurrent queue for C++11',
 		aD: 'https://github.com/cameron314/concurrentqueue'
+	},
+		{
+		ag: _List_fromArray(
+			['humour', 'windows']),
+		E: 'Sketches done with Three.js Editor and uploaded to Neocities. (windows)',
+		aD: 'https://mrdoob.com/lab/javascript/effects/ie6/'
+	},
+		{
+		ag: _List_fromArray(
+			['graphics']),
+		E: 'Sketches done with Three.js Editor and uploaded to Neocities.',
+		aD: 'https://mrdoob.com/'
 	}
 	]);
 var elm$core$Basics$apR = F2(

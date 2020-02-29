@@ -338,6 +338,22 @@ papers =
     , url = "http://deepsea.inria.fr/pasl/oracle_scheduling.pdf"
     , tags = ["parallel", "scheduling"]
     }
+  , { title = "Wildcard: Spreadsheet-Driven Customization of Web Applications"
+    , url = "https://www.geoffreylitt.com/wildcard/salon2020/"
+    , tags = ["spreadsheet", "web"]
+    }
+  , { title = "Improved Alpha-Tested Magnification for Vector Textures and Special Effects"
+    , url = "https://steamcdn-a.akamaihd.net/apps/valve/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf"
+    , tags = ["text", "graphics"]
+    }
+  , { title = "An hp-Adaptive Discretization Algorithm for Signed Distance Field Generation"
+    , url = "https://animation.rwth-aachen.de/media/papers/2017-TVCG-HPDistanceFields.pdf"
+    , tags = ["sdf", "graphics"]
+    }
+  , { title = ""
+    , url = "https://www.cs.ubc.ca/~rbridson/docs/cloth2003.pdf"
+    , tags = ["physics", "simulation"]
+    }
   ]
 
 books : List Resource
@@ -673,6 +689,22 @@ articles =
     , url = "https://wiki.osdev.org/Page_Tables"
     , tags = ["data structure"]
     }
+  , { title = "Xplain"
+    , url = "https://magcius.github.io/xplain/article/"
+    , tags = ["x11", "graphics", "protocol"]
+    }
+  , { title = "Signed distance fields"
+    , url = "https://bytewrangler.blogspot.com/2011/10/signed-distance-fields.html"
+    , tags = ["graphics", "font", "sdf"]
+    }
+  , { title = "Distance Fields"
+    , url = "https://prideout.net/blog/distance_fields/"
+    , tags = ["graphics", "sdf"]
+    }
+  , { title = "Distance Functions"
+    , url = "http://iquilezles.org/www/articles/distfunctions/distfunctions.htm"
+    , tags = ["graphics", "sdf"]
+    }
   ]
 
 projects : List Resource
@@ -732,6 +764,14 @@ projects =
   , { title = "A fast multi-producer, multi-consumer lock-free concurrent queue for C++11"
     , url = "https://github.com/cameron314/concurrentqueue"
     , tags = ["data structure", "concurrency", "queue"]
+    }
+  , { title = "Sketches done with Three.js Editor and uploaded to Neocities. (windows)"
+    , url = "https://mrdoob.com/lab/javascript/effects/ie6/"
+    , tags = ["humour", "windows"]
+    }
+  , { title = "Sketches done with Three.js Editor and uploaded to Neocities."
+    , url = "https://mrdoob.com/"
+    , tags = ["graphics"]
     }
   ]
 

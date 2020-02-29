@@ -9,28 +9,51 @@ build-systems. The file is extended throughout the document with instructions
 for each listed project in their respective section.
 
 ```{.make file=Makefile}
+<<makefile-pandoc-filters>>
+<<makefile-pandoc-options>>
+<<makefile-projects>>
+<<makefile-html>>
+```
+
+Filters are the heart of building the article with increasing support for
+citation, side notes, and even embedded graphs!
+
+```{.make #makefile-pandoc-filters}
 FILTER := --filter pandoc-crossref
 FILTER += --filter pandoc-sidenote
 FILTER += --filter pandoc-filter-graphviz
 FILTER += --filter pandoc-citeproc
+```
 
+```{.make #makefile-pandoc-options}
 OPTIONS := --standalone
 OPTIONS += --table-of-contents
 OPTIONS += --number-sections
-OPTIONS += --section-divs
 OPTIONS += --reference-links
-OPTIONS += --css tufte.css
-OPTIONS += --css custom.css
 OPTIONS += --csl ieee.csl
-OPTIONS += --metadata-file=references.yaml
+OPTIONS += --metadata-file=metadata.yaml
 OPTIONS += --highlight-style monochrome
 
-PROJECTS := scripts/resbrowser.js
+HTMLOPTIONS := --section-divs
+HTMLOPTIONS += --css tufte.css
+HTMLOPTIONS += --css custom.css
 
-index.html: ${PROJECTS} article.md
-	@pandoc ${OPTIONS} ${FILTER} article.md -o index.html
+PDFOPTIONS := --template=handout.tex
+```
+
+```{.make #makefile-projects}
+PROJECTS := scripts/resbrowser.js
+```
+
+```{.make #makefile-html}
+.PHONY: all
+all:: index.html
+index.html: ${PROJECTS} article.md Makefile metadata.yaml
+	pandoc ${OPTIONS} ${HTMLOPTIONS} ${FILTER} article.md -o index.html
+
+#index.pdf: article.md Makefile metadata.yaml
+#	pandoc ${OPTIONS} ${PDFOPTIONS} ${FILTER} article.md -o index.pdf
 <<resource-browser-makefile>>
-<<projects>>
 ```
 
 There's also custom CSS which is again extended throughout the document.
@@ -302,7 +325,9 @@ var resbrowser = Elm.Main.init({
 Writing web applications is rather comfortable in elm but sometimes it's nice to
 try something new and different. Zig is one language I've been interested in for
 a while and would like to get to know better as it supports^[LLVM provides most
-of the work currently for cross-compilation of zig.] multiple platforms
+of the work currently for cross-compilation of zig apart from the well designed
+standard library with it's pass-the-allocator style allowing most of the
+library functions to work seamlessly other targets.] multiple platforms
 including freestanding which I've taken more of an interest in within the
 context of [unikernels](unikernel.org/projects). Back to the point, I like zig.
 
@@ -397,15 +422,13 @@ And that concludes the build script for zig and WebAssembly.
 ## No really, on the web
 
 So far we've only seen a build script with relatively little code and there
-isn't so much here either.
+isn't so much here either. Now there's a little more code involved in dealing
+with the browser. Some sadly has to be in javascript to interact with the
+outside world but the rest is all pure zig code.
 
-Starting with the `web` module which only exports the other modules but gives a
-good overview of the parts to be implemented in this article.
-
-```{.zig file=projects/zig/zig-on-the-web/src/web.zig}
+```{.zig file=projects/zig/zig-on-the-web/src/app.zig}
 const window = @import("window.zig");
 ```
-
 
 
 ```{.zig file=projects/zig/zig-on-the-web/src/window.zig}
@@ -415,3 +438,38 @@ pub fn alert(msg: []u8) void {
   _alert(msg, msg.len);
 }
 ```
+
+Boilerplate on the JavaScript side is minimal and consists of an entry-point to
+the application and text conversion. As we'll see later on, this isn't enough
+for
+
+```{.js file=projects/zig/zig-on-the-web/src/window.js}
+const getString = (p, len) =>
+  (new TextDecoder()).decode(app.exports.memory.buffer.slice(p, p + len));
+
+var app = {
+  imports: {
+    window: {
+      alert: (p, len) => alert(getString(p, len)),
+    },
+  },
+  launch: r => {
+    app.exports = r.instance.exports;
+    if (!app.exports.launch()) throw "Launch Error";
+  },
+  exports: undefined,
+};
+```
+
+Finally getting something on the screen!
+
+<script>
+</script>
+<button onclick="zotw.exports.alert()">Alert Zig</button>
+
+<!--
+TODO:
+- simple game (cat following a man over the elements of the page platformer)
+- elara paper which bleeds into elara
+- blend-in night section
+-->

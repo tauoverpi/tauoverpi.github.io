@@ -1,22 +1,22 @@
--- ------ language="Elm" file="projects/elm/resbrowser/src/ResourceBrowser.elm" project://article.md#73
--- ------ begin <<resbrowser-main>>[0] project://article.md#262
+-- ------ language="Elm" file="projects/elm/resbrowser/src/ResourceBrowser.elm" project://article.md#96
+-- ------ begin <<resbrowser-main>>[0] project://article.md#285
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Browser
 import Resources exposing (Resource)
 -- ------ end
--- ------ begin <<resbrowser-main>>[1] project://article.md#272
+-- ------ begin <<resbrowser-main>>[1] project://article.md#295
 main = Browser.sandbox
   { init = init
   , update = update
   , view = view
   }
 -- ------ end
--- ------ begin <<resbrowser-model>>[0] project://article.md#86
+-- ------ begin <<resbrowser-model>>[0] project://article.md#109
 type alias Model = Order
 -- ------ end
--- ------ begin <<resbrowser-model>>[1] project://article.md#94
+-- ------ begin <<resbrowser-model>>[1] project://article.md#117
 type Order
   = TagName String
   | Name String
@@ -24,7 +24,7 @@ type Order
 init : Model
 init = Name ""
 -- ------ end
--- ------ begin <<resbrowser-update>>[0] project://article.md#111
+-- ------ begin <<resbrowser-update>>[0] project://article.md#134
 type Msg
   = SortBy Order
 
@@ -33,7 +33,7 @@ update msg _ =
   case msg of
     SortBy order -> order
 -- ------ end
--- ------ begin <<resbrowser-view>>[0] project://article.md#125
+-- ------ begin <<resbrowser-view>>[0] project://article.md#148
 view : Model -> Html Msg
 view order =
   div []
@@ -50,7 +50,7 @@ view order =
       |> div []
     ]
 -- ------ end
--- ------ begin <<resbrowser-view>>[1] project://article.md#146
+-- ------ begin <<resbrowser-view>>[1] project://article.md#169
 viewResource : Resource -> Html Msg
 viewResource {title, url, tags} =
   let
@@ -61,13 +61,13 @@ viewResource {title, url, tags} =
       , div [ class "resource-tags" ] res
       ]
 -- ------ end
--- ------ begin <<resbrowser-view>>[2] project://article.md#160
+-- ------ begin <<resbrowser-view>>[2] project://article.md#183
 tagButton x =
   button
     [ onClick (SortBy (TagName x)), class "resource-tag" ]
     [text ("#" ++ x)]
 -- ------ end
--- ------ begin <<resbrowser-view>>[3] project://article.md#220
+-- ------ begin <<resbrowser-view>>[3] project://article.md#243
 filterAndSortBy order =
   case order of
     Name "" -> []
@@ -75,13 +75,13 @@ filterAndSortBy order =
               |> List.sortWith (distance name)
     TagName _ -> List.filter (byOrder order) Resources.resources
 -- ------ end
--- ------ begin <<resbrowser-view>>[4] project://article.md#232
+-- ------ begin <<resbrowser-view>>[4] project://article.md#255
 byOrder order r =
   case order of
     Name name -> String.contains name (String.toLower r.title)
     TagName name -> List.any (\x -> x == name) r.tags
 -- ------ end
--- ------ begin <<resbrowser-view>>[5] project://article.md#243
+-- ------ begin <<resbrowser-view>>[5] project://article.md#266
 distance from left right =
   let
     index c =

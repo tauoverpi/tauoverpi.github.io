@@ -87,28 +87,37 @@ code span.wa { font-style: italic; } /* Warning */
 <section id="the-setup" class="level1">
 <h1><span class="header-section-number">1</span> The setup</h1>
 <p>Everything is built by a single Makefile invoking language specific build-systems. The file is extended throughout the document with instructions for each listed project in their respective section.</p>
-<pre class="make" data-file="Makefile"><code>FILTER := --filter pandoc-crossref
+<pre class="make" data-file="Makefile"><code>&lt;&lt;makefile-pandoc-filters&gt;&gt;
+&lt;&lt;makefile-pandoc-options&gt;&gt;
+&lt;&lt;makefile-projects&gt;&gt;
+&lt;&lt;makefile-html&gt;&gt;</code></pre>
+<p>Filters are the heart of building the article with increasing support for citation, side notes, and even embedded graphs!</p>
+<pre id="makefile-pandoc-filters" class="make"><code>FILTER := --filter pandoc-crossref
 FILTER += --filter pandoc-sidenote
 FILTER += --filter pandoc-filter-graphviz
-FILTER += --filter pandoc-citeproc
-
-OPTIONS := --standalone
+FILTER += --filter pandoc-citeproc</code></pre>
+<pre id="makefile-pandoc-options" class="make"><code>OPTIONS := --standalone
 OPTIONS += --table-of-contents
 OPTIONS += --number-sections
-OPTIONS += --section-divs
 OPTIONS += --reference-links
-OPTIONS += --css tufte.css
-OPTIONS += --css custom.css
 OPTIONS += --csl ieee.csl
-OPTIONS += --metadata-file=references.yaml
+OPTIONS += --metadata-file=metadata.yaml
 OPTIONS += --highlight-style monochrome
 
-PROJECTS := scripts/resbrowser.js
+HTMLOPTIONS := --section-divs
+HTMLOPTIONS += --css tufte.css
+HTMLOPTIONS += --css custom.css
 
-index.html: ${PROJECTS} article.md
-    @pandoc ${OPTIONS} ${FILTER} article.md -o index.html
-&lt;&lt;resource-browser-makefile&gt;&gt;
-&lt;&lt;projects&gt;&gt;</code></pre>
+PDFOPTIONS := --template=handout.tex</code></pre>
+<pre id="makefile-projects" class="make"><code>PROJECTS := scripts/resbrowser.js</code></pre>
+<pre id="makefile-html" class="make"><code>.PHONY: all
+all:: index.html
+index.html: ${PROJECTS} article.md Makefile metadata.yaml
+    pandoc ${OPTIONS} ${HTMLOPTIONS} ${FILTER} article.md -o index.html
+
+#index.pdf: article.md Makefile metadata.yaml
+#   pandoc ${OPTIONS} ${PDFOPTIONS} ${FILTER} article.md -o index.pdf
+&lt;&lt;resource-browser-makefile&gt;&gt;</code></pre>
 <p>There’s also custom CSS which is again extended throughout the document.</p>
 <div class="sourceCode" id="cb2" data-file="custom.css"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1"></a>&lt;&lt;custom-css<span class="op">&gt;&gt;</span></span></code></pre></div>
 </section>
@@ -295,7 +304,7 @@ var resbrowser = Elm.Main.init({
 </section>
 <section id="zig-on-the-web" class="level1">
 <h1><span class="header-section-number">3</span> Zig on the web</h1>
-<p>Writing web applications is rather comfortable in elm but sometimes it’s nice to try something new and different. Zig is one language I’ve been interested in for a while and would like to get to know better as it supports<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="sidenote">LLVM provides most of the work currently for cross-compilation of zig.<br />
+<p>Writing web applications is rather comfortable in elm but sometimes it’s nice to try something new and different. Zig is one language I’ve been interested in for a while and would like to get to know better as it supports<span><label for="sn-1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="margin-toggle"/><span class="sidenote">LLVM provides most of the work currently for cross-compilation of zig apart from the well designed standard library with it’s pass-the-allocator style allowing most of the library functions to work seamlessly other targets.<br />
 <br />
 </span></span> multiple platforms including freestanding which I’ve taken more of an interest in within the context of <a href="unikernel.org/projects">unikernels</a>. Back to the point, I like zig.</p>
 <p>So why not try a web application? One of the targets is WebAssembly after all… and that is how this section came to be.</p>
@@ -334,14 +343,41 @@ test_step.dependOn(&amp;main_tests.step);</code></pre>
 </section>
 <section id="no-really-on-the-web" class="level2">
 <h2><span class="header-section-number">3.2</span> No really, on the web</h2>
-<p>So far we’ve only seen a build script with relatively little code and there isn’t so much here either.</p>
-<p>Starting with the <code>web</code> module which only exports the other modules but gives a good overview of the parts to be implemented in this article.</p>
-<pre class="zig" data-file="projects/zig/zig-on-the-web/src/web.zig"><code>const window = @import(&quot;window.zig&quot;);</code></pre>
+<p>So far we’ve only seen a build script with relatively little code and there isn’t so much here either. Now there’s a little more code involved in dealing with the browser. Some sadly has to be in javascript to interact with the outside world but the rest is all pure zig code.</p>
+<pre class="zig" data-file="projects/zig/zig-on-the-web/src/app.zig"><code>const window = @import(&quot;window.zig&quot;);</code></pre>
 <pre class="zig" data-file="projects/zig/zig-on-the-web/src/window.zig"><code>extern fn _alert(msg: [*]const u8, len: usize) void;
 
 pub fn alert(msg: []u8) void {
   _alert(msg, msg.len);
 }</code></pre>
+<p>Boilerplate on the JavaScript side is minimal and consists of an entry-point to the application and text conversion. As we’ll see later on, this isn’t enough for</p>
+<div class="sourceCode" id="cb7" data-file="projects/zig/zig-on-the-web/src/window.js"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">const</span> getString <span class="op">=</span> (p<span class="op">,</span> len) <span class="kw">=&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  (<span class="kw">new</span> <span class="at">TextDecoder</span>()).<span class="at">decode</span>(<span class="va">app</span>.<span class="va">exports</span>.<span class="va">memory</span>.<span class="va">buffer</span>.<span class="at">slice</span>(p<span class="op">,</span> p <span class="op">+</span> len))<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">var</span> app <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="dt">imports</span><span class="op">:</span> <span class="op">{</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="dt">window</span><span class="op">:</span> <span class="op">{</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>      <span class="dt">alert</span><span class="op">:</span> (p<span class="op">,</span> len) <span class="kw">=&gt;</span> <span class="at">alert</span>(<span class="at">getString</span>(p<span class="op">,</span> len))<span class="op">,</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>    <span class="op">},</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="op">},</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>  <span class="dt">launch</span><span class="op">:</span> r <span class="kw">=&gt;</span> <span class="op">{</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>    <span class="va">app</span>.<span class="at">exports</span> <span class="op">=</span> <span class="va">r</span>.<span class="va">instance</span>.<span class="at">exports</span><span class="op">;</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>    <span class="cf">if</span> (<span class="op">!</span><span class="va">app</span>.<span class="va">exports</span>.<span class="at">launch</span>()) <span class="cf">throw</span> <span class="st">&quot;Launch Error&quot;</span><span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>  <span class="op">},</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a>  <span class="dt">exports</span><span class="op">:</span> <span class="kw">undefined</span><span class="op">,</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="op">};</span></span></code></pre></div>
+<p>Finally getting something on the screen!</p>
+<script>
+</script>
+<button onclick="zotw.exports.alert()">
+Alert Zig
+</button>
+<!--
+TODO:
+- simple game (cat following a man over the elements of the page platformer)
+- elara paper which bleeds into elara
+- blend-in night section
+-->
 <div id="refs" class="references" role="doc-bibliography">
 <div id="ref-catvh">
 <p>[1] “All software sucks.”.</p>
