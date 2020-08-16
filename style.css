@@ -1,0 +1,19 @@
+.con-one{
+  width:100%;
+  height:20%; //your desired height
+  position:absolute;
+  bottom:0;
+  left:0;
+  background-color:blue; }
+
+/* For devices larger than 400px */
+@media (min-width: 400px) {
+  .con-one {
+    width: 100%;
+    padding: 0; }
+}
+
+/* For devices larger than 550px */
+@media (min-width: 550px) {
+  .con-one {
+    width: 100%; }
