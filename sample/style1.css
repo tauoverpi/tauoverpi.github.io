@@ -1,0 +1,77 @@
+/*.my-container{
+  width:20%;
+  height:100%; //your desired height
+  position:absolute;
+  bottom:0;
+  left:0;
+  background-color:blue; 
+  }
+
+/* For devices larger than 400px 
+@media (min-width: 400px) {
+  .my-container{
+    width: 80%;
+    padding: 0; }
+}
+
+/* For devices larger than 550px 
+@media (min-width: 550px) {
+  .my-container {
+    width: 80%; } */
+	
+	
+	
+	
+.my-container {
+  position: absolute;
+  width: 100%;
+
+  margin: 0 auto;
+  padding: 0 20px;
+  }
+.column,
+.columns {
+  width: 100%;
+  float: left;
+ }
+
+/* For devices larger than 400px */
+@media (min-width: 400px) {
+  .my-container {
+    width: 85%;
+	height: 100%;
+    padding: 0; }
+}
+
+/* For devices larger than 550px */
+@media (min-width: 550px) {
+  .my-container {
+    width: 80%; 
+	height: 100%;
+	}
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
+	
+/*-------*/
+
+.sidebar {
+  width: 60em;
+  height: 100%;
+  min-height: 100%;
+  top: 0;
+  left: 0;
+ 
+}
+
+.main {
+  width: calc(100% - 60em);
+  heigth: 100%;
+  overflow-y: true;
+  top: 0;
+  left: 60em;
+  position: relative;
+}

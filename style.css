@@ -1,19 +1,49 @@
-.con-one{
-  width:100%;
-  height:20%; //your desired height
-  position:absolute;
-  bottom:0;
-  left:0;
-  background-color:blue; }
+.my-container {
+  position: relative;
+  width: 100%;
+  
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box; 
+  background-color: blue;}
+.column,
+.columns {
+  width: 100%;
+	float:left;
+  box-sizing: border-box; }
 
 /* For devices larger than 400px */
 @media (min-width: 400px) {
-  .con-one {
-    width: 100%;
+  .my-container {
+    width: 85%;
     padding: 0; }
+	
+.sidebar {
+  width: 0%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color:blue;
+   padding: 20px 10px;
 }
 
-/* For devices larger than 550px */
-@media (min-width: 550px) {
-  .con-one {
-    width: 100%; }
+.main {
+	background-color:red;
+  width: 80%;
+  height: 100%;
+  overflow-y: auto;
+  top: 0;
+  left: 20%;
+  position: relative;
+  padding: 20px 40px;
+}
+
+.profile{
+	width: 150px;
+	height:150px;
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+ 
+}

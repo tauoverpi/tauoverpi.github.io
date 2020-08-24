@@ -1,5 +1,12 @@
+
 .vertical-menu {
-  width: 200px;
+	  top: 0;
+  left: 0;
+
+ height:100%;
+  overflow-y: auto;
+  position:fixed;
+
 }
 
 .vertical-menu a {
