@@ -24,12 +24,12 @@
   top: 0;
   left: 0;
   position: fixed;
-  background-color:blue;
+  background-color:powderblue;
    padding: 20px 10px;
 }
 
 .main {
-	background-color:red;
+	background-color:pink;
   width: 80%;
   height: 100%;
   overflow-y: auto;
@@ -40,10 +40,38 @@
 }
 
 .profile{
-	width: 150px;
-	height:150px;
+	width: 100%;
+	height:100%;
 	display: block;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 50%;
  
+}
+
+.owner{
+	margin: 10px 0px 5px 0px;
+	padding: 0;
+	line-height:1;
+	text-align: center;
+	font-size: 20px;
+	
+	
+}
+
+.title{
+	margin: 5px 0px;
+	padding:0;
+	line-height:1;
+	text-align: center;
+	font-size: 15px;
+	
+}
+
+.line{
+	line-height:1;
+	margin: auto;
+	padding:0;
+	border-top: 1px solid black;
+	width:80%;
 }

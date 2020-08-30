@@ -1,0 +1,268 @@
+34:BE:00:A8:E9:82
+3C:BB:FD:D6:DD:31
+
+
+https://tauoverpi.github.io
+https://github.com/tauoverpi/tauoverpi.github.io
+
+
+=============================================================================================
+
+then git add . and git commit -m "clean slate" and git push
+add just adds it to the next commit
+
+commit is where you finalize a change
+
+if you mess up you can git reset
+
+worst case, git reset --hard HEAD
+
+also you need to git push to put up your changes
+push is where you share it
+think of push as submit on a form
+don't forget git commit -m "message"
+if you do by accident then :q! to quit vim and try again but with -m this time
+
+=============================================================================================
+
+
+https://sass-lang.com/
+
+http://dev.stephendiehl.com/hask/
+
+https://www.stephendiehl.com/
+
+
+=============================================================================================
+
+Baggo, [17.08.20 22:10]
+produce a mock page that looks like a final with a light colour scheme that would work for programming articles
+
+Baggo, [17.08.20 22:10]
+this is where you get to pick fonts and stuff though I want JetBrains Mono for the code
+
+Baggo, [17.08.20 22:11]
+would be nice if the page feels separate from the background (background outside the container is slightly darker than the page content background)
+
+
+=============================================================================================
+
+the nav is generated like this
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#level-1-header">level 1 header</a><ul>
+<li><a href="#level-2-header">level 2 header</a><ul>
+<li><a href="#level-3-header">level 3 header</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#level-1-header-1">level 1 header</a></li>
+</ul>
+so you need to work out how to get that to toggle
+
+
+=============================================================================================
+
+https://mushiyo.github.io/pandoc-toc-sidebar/outWithTOC.html
+
+=============================================================================================
+
+Baggo, [17.08.20 22:40]
+this colourscheme is niceish https://vimawesome.com/
+
+Baggo, [17.08.20 22:41]
+example of what I meant with white https://vimawesome.com/plugin/rails-vim
+
+=============================================================================================
+
+also need a CV page with the following:
+
+Simon A. Nielsen Knights
+Embedded software engineer
+
+tauoverpi@member.fsf.org
++46 72 20 03  770
+https://github.com/tauoverpi
+@tauoverpi:feneas.org
+
+
+Work history:
+PiiGAB 2020 - present
+Trementa AB 2018 - 2019
+
+Interests:
+math: Category Theory, Type Theory (dependent types), Inference
+prog: Zig, Haskell, Forth, LISP, Distributed Systems, Fault Recovery, Compiler Development (JIT/AoT)
+misc: Computer generated Art/Music, Unicycling, Skateboarding, Teaching
+
+=============================================================================================
+
+work with this for now
+<div class="you can set the classes you need here but not on the inside elements">
+  <ul>
+    <li><a href="#level-1-header">level 1 header</a><ul>
+        <li><a href="#level-2-header">level 2 header</a><ul>
+            <li><a href="#level-3-header">level 3 header</a></li>
+          </ul></li>
+      </ul></li>
+      <li><a href="#level-1-header-1">level 1 header</a></li>
+  </ul>
+</div>
+
+=============================================================================================
+
+Baggo, [17.08.20 23:32]
+would be better
+
+Baggo, [17.08.20 23:32]
+I won't change it anymore after this one
+
+Baggo, [17.08.20 23:32]
+lines are text
+
+Baggo, [17.08.20 23:34]
+you can actually make the side bar fixed in size and position
+
+Baggo, [17.08.20 23:34]
+you're in charge of the fonts though but the code blocks must have a ligature font
+
+Baggo, [17.08.20 23:34]
+like jetbrains or fira code
+
+Baggo, [17.08.20 23:35]
+I'll add my phone number there later
+
+Baggo, [17.08.20 23:35]
+(yes yes, I know what I said about phone numbers)
+
+Baggo, [17.08.20 23:36]
+that should be more fun to build and it looks much better
+
+Baggo, [17.08.20 23:38]
+I'll supply a photo when I go to a photographer which will be grayscale with a slight sepia tint
+
+Baggo, [17.08.20 23:40]
+that should be enough to do for a few days
+
+Baggo, [17.08.20 23:47]
+CV will be on display the white part with work experience, "education", projects, interests, etc
+
+Baggo, [17.08.20 23:48]
+that said, I need a new DSLR
+
+=============================================================================================
+
+.sidebar {
+  width: 60em;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+.main {
+  width: calc(100% - 60em);
+  heigth: 100%;
+  overflow-y: true;
+  top: 0;
+  left: 60em;
+  position: fixed;
+}
+
+=============================================================================================
+
+Baggo, [20.08.20 23:15]
+<!Doctype html>
+<html>
+  <head>
+    <title>this is an example</title>
+  </head>
+  <body>
+    <nav class="my-sidebar">
+      <div class="container my-sidebar-container">
+        this is where the sidebar is with my pic and contact info
+      </div>
+      <div class="container my-sidebar-container my-toc">
+        this is the table of contents and all the stuff that goes there
+      </div>
+    </nav>
+    <main class="container my-main">
+      <h1>thing</h1>
+      this is where all the content will go
+    </main>
+  </body>
+</html>
+
+Baggo, [20.08.20 23:15]
+like that
+
+Baggo, [20.08.20 23:15]
+but with css
+
+Baggo, [20.08.20 23:15]
+linked
+
+Baggo, [20.08.20 23:16]
+the TOC should take the remaining space left over from the contact info div
+
+Baggo, [20.08.20 23:16]
+so you're still using skeleton
+
+Baggo, [20.08.20 23:16]
+just in different places
+
+Baggo, [20.08.20 23:17]
+you can judge if you need it for the TOC (I'm not sure you do)
+
+=============================================================================================
+
+Baggo, [20.08.20 23:30]
+btw, you can read division as how many times the n does into d like n/d
+
+Baggo, [20.08.20 23:30]
+so 2n/n is twice the number of n thus 2
+
+Baggo, [20.08.20 23:30]
+because you can fit two n in 2n
+
+Baggo, [20.08.20 23:35]
+so no need to touch decimals or even know what it is
+
+Baggo, [20.08.20 23:37]
+so, on the 25th you'll get to buy more stuff
+
+=============================================================================================
+
+<style>
+.my-side-theme { background: #883322; color: #eee; }
+.my-side {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60em;
+  height: 100%;
+}
+
+.my-main-theme { background: #eee; color: #666; /* oh my */ }
+.my-main {
+  position: fixed;
+  top: 0;
+  left: 30em;
+  width: calc(100% - 30em);
+  height: 100%;
+  overflow-y: auto;
+}
+</style>
+<body>
+  <nav class="my-side my-side-theme">
+    this is the nav
+  </nav>
+  <main class="my-main my-main-theme">
+    int main(void) { puts("do it"); }
+  </main>
+</body>
+
+==============================================================
+
+email, phone number, git, matrix
+
